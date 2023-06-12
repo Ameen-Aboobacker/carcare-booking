@@ -3,7 +3,6 @@ import 'package:carcareuser/utils/routes/navigations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:carcareuser/user_registration/model/error_response_model.dart';
 
 import '../../utils/keys.dart';
 import '../components/snackbar.dart';

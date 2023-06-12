@@ -60,11 +60,11 @@ class SettingsListTile extends StatelessWidget {
                 
           },
         ),
-        // ProfileSettings(
-        //   title: "Delete My Account",
-        //   icon: Icons.delete_forever,
-        //   onTap: () {},
-        // ),
+        ProfileSettings(
+         title: "Delete My Account",
+          icon: Icons.delete_forever,
+          onTap: () {},
+        ),
       ],
     );
   }

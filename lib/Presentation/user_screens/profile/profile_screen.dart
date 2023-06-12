@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../model/profile/settings.dart';
-import '../../model/profile/tile.dart';
-import '../../utils/global_colors.dart';
-import '../../utils/global_values.dart';
-import '../../utils/textstyles.dart';
+import '../../../model/profile/settings.dart';
+import '../../../model/profile/tile.dart';
+import '../../../utils/global_colors.dart';
+import '../../../utils/global_values.dart';
+import '../../../utils/textstyles.dart';
 
 class UserProfileView extends StatelessWidget {
   const UserProfileView({super.key});

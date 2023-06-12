@@ -1,9 +1,11 @@
-import 'package:carcareuser/Presentation/Vehicle_Details/vehicle_details.dart';
-import 'package:carcareuser/Presentation/home_screen/home.dart';
-import 'package:carcareuser/Presentation/packages/packages.dart';
-import 'package:carcareuser/Presentation/profile/profile_screen.dart';
-import 'package:carcareuser/Presentation/service_center/service_center.dart';
+
 import 'package:flutter/material.dart';
+
+import '../Presentation/user_screens/Vehicle_Details/vehicle_details.dart';
+import '../Presentation/user_screens/home_screen/home.dart';
+import '../Presentation/user_screens/packages/packages.dart';
+import '../Presentation/user_screens/profile/profile_screen.dart';
+import '../Presentation/user_screens/service_center/service_center.dart';
 
 class NavbarProvider with ChangeNotifier {
   List<NavbarItem> items = [

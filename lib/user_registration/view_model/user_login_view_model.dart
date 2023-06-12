@@ -1,8 +1,6 @@
-import 'package:carcareuser/user_registration/view_model/firebase_auth_view_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carcareuser/user_registration/components/snackbar.dart';
-import 'package:carcareuser/user_registration/model/error_response_model.dart';
 import 'package:carcareuser/user_registration/model/user_login_model.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';

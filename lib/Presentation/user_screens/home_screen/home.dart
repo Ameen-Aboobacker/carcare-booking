@@ -4,9 +4,9 @@ import 'package:carcareuser/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/constants.dart';
-import '../../services/bottom_nav_provider.dart';
-import '../widgets/main_title_card.dart';
+import '../../../services/bottom_nav_provider.dart';
+import '../../../utils/global_values.dart';
+import '../../widgets/main_title_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -35,14 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
         extendBodyBehindAppBar: true,
         body: ListView(
           children:   [
-            kHeight20,
+            AppSizes.kHeight20,
             const Text(
               'Welcome,AMEEN',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            kHeight20,
+            AppSizes.kHeight20,
           const Location(),
-            kHeight20,
+            AppSizes.kHeight20,
             MainTitleCard(title: 'Top Service centers',postersList: postersList),
             MainTitleCard(title: 'Top Packages',postersList: packagesList,)
           ],

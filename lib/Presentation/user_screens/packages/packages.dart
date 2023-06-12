@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constants.dart';
-import '../widgets/text_field.dart';
+import '../../../utils/global_values.dart';
+
+
 
 class Packages extends StatefulWidget {
   const Packages({Key? key}) : super(key: key);
@@ -58,7 +59,7 @@ class _PackagesState extends State<Packages> {
                     ),
                   );
                 },
-                separatorBuilder: (context, index) => kHeight15,
+                separatorBuilder: (context, index) => AppSizes.kHeight20,
                 itemCount: package.length,
               ),
       ),
@@ -66,43 +67,11 @@ class _PackagesState extends State<Packages> {
           FloatingActionButtonLocation.miniCenterFloat,
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          modalBottomSheet(context);
+          
         },
         label: const Text('add packages'),
       ),
     );
   }
 
-  Future<dynamic> modalBottomSheet(BuildContext context) {
-    return showModalBottomSheet(
-          backgroundColor: Colors.purple,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(35)),
-          context: context,
-          builder: (context) {
-            return ListView(
-              children: [
-                const Text('Create Your Own Package'),
-                TextFieldWidget(
-                  controller: nameCtrl,
-                  labelText: 'Name ',
-                  keyType: TextInputType.name,
-                  icon: Icons.local_offer,
-                ),
-                 DropdownButtonFormField(
-              borderRadius: BorderRadius.circular(20),
-              hint: const Text('Blood group'),
-              items: services
-                  .map(
-                    (e) => DropdownMenuItem(value: e, child: Text(e)),
-                  )
-                  .toList(),
-              onChanged: (value) {
-               // selgroup=value as String?;
-              }),
-              ],
-            );
-          },
-        );
-  }
 }

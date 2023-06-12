@@ -1,4 +1,4 @@
-import 'package:carcareuser/core/constants.dart';
+import 'package:carcareuser/.core/constants.dart';
 import 'package:flutter/material.dart';
 
 import 'main_card.dart';

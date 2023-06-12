@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../Presentation/home_screen/home.dart';
 import '../../Presentation/main_page/screen_main_page.dart';
 import '../../Presentation/splash.dart';
+import '../../Presentation/user_screens/home_screen/home.dart';
 import '../../user_registration/view/change_pass_view.dart';
 import '../../user_registration/view/forget_password_view.dart';
 import '../../user_registration/view/login_view.dart';
