@@ -1,8 +1,9 @@
 import 'package:carcareuser/Presentation/widgets/submit_button.dart';
 import 'package:carcareuser/Presentation/widgets/text_field.dart';
-import 'package:carcareuser/.core/constants.dart';
-import 'package:carcareuser/model/vehicle_model.dart';
+
 import 'package:flutter/material.dart';
+
+import '../../../utils/global_values.dart';
 
 class VehicleDetails extends StatefulWidget {
   const VehicleDetails({Key? key}) : super(key: key);
@@ -63,7 +64,7 @@ class _VehicleDetailsState extends State<VehicleDetails> {
                     ],
                   ),
                 );},
-                separatorBuilder: (context, index) => kHeight15,
+                separatorBuilder: (context, index) => AppSizes.kHeight10,
                 itemCount: vehicle.length,
               ),
       ),
@@ -79,43 +80,40 @@ class _VehicleDetailsState extends State<VehicleDetails> {
             builder: (ctx) {
               return Column(
                 children: [
-                  kHeight20,
+                  AppSizes.kHeight20,
                   const Text('Add Vehicle Details'),
-                  kHeight20,
+                  AppSizes.kHeight20,
                   TextFieldWidget(
                     controller: brandCtrl,
                     labelText: 'Brand',
                     keyType: TextInputType.name,
                     icon: Icons.car_rental,
                   ),
-                  kHeight15,
+                  AppSizes.kHeight10,
                   TextFieldWidget(
                     controller: modelCtrl,
                     labelText: 'Model',
                     keyType: TextInputType.name,
                     icon: Icons.car_rental,
                   ),
-                  kHeight15,
+                  AppSizes.kHeight10,
                   TextFieldWidget(
                     controller: numberCtrl,
                     labelText: 'Vehicle Number',
                     keyType: TextInputType.number,
                     icon: Icons.car_rental,
                   ),
-                  kHeight15,
+                  AppSizes.kHeight10,
                   TextFieldWidget(
                     controller: yearCtrl,
                     labelText: 'year',
                     keyType: TextInputType.number,
                     icon: Icons.car_rental,
                   ),
-                  kHeight15,
+                  AppSizes.kHeight10,
                  SubmitButton(onPressed: (){
-                  VehicleModel car=VehicleModel(brand: brandCtrl.text, model: modelCtrl.text, number: numberCtrl.text, year: yearCtrl.text,);
-                  setState(() {
-                    vehicle.add(car.toMap());
-                    print(vehicle);
-                  });
+                  //VehicleModel car=VehicleModel(brand: brandCtrl.text, model: modelCtrl.text, number: numberCtrl.text, year: yearCtrl.text,);
+                 
                  }, name: 'ADD',color: Colors.white,textColor:Colors.purple)
                 ],
               );

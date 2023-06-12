@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-
-import '../../.core/constants.dart';
+import '../../utils/global_values.dart';
 
 
 
@@ -19,7 +18,7 @@ class MainCard extends StatelessWidget {
         height: 250,
         width: 120,
         decoration: BoxDecoration(
-          borderRadius: kradius,
+          borderRadius: AppSizes.kradius,
           image:  DecorationImage(
             fit: BoxFit.cover,
             image: NetworkImage(

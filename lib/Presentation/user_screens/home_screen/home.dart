@@ -1,6 +1,3 @@
-
-
-import 'package:carcareuser/services/authentication.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,39 +12,42 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
- final List<String> postersList = [
-    'https://t3.ftcdn.net/jpg/03/97/46/30/240_F_397463002_6EYeghuJQzUwbxITLg7s3DtL8uKhovZk.jpg',
-    'https://t3.ftcdn.net/jpg/02/00/40/58/240_F_200405847_pi6eDOs934Eb8uObtkGUJnzC6DkLcbXI.jpg',
-    'https://img.freepik.com/free-vector/gradient-car-service-logo-design_23-2149700427.jpg'
-  ];
-   final List<String> packagesList = [
-    'https://quickfitautos.com/wp-content/uploads/2021/02/quickfitautos-car-repair-offers-oil-change.jpg',
-    'https://img.pikbest.com/origin/06/43/58/11npIkbEsTvgj.jpg!f305cw',
-      'https://t3.ftcdn.net/jpg/02/00/40/58/240_F_200405847_pi6eDOs934Eb8uObtkGUJnzC6DkLcbXI.jpg',
-    'https://img.freepik.com/free-vector/gradient-car-service-logo-design_23-2149700427.jpg'
-  ];
+final List<String> postersList = [
+  'https://t3.ftcdn.net/jpg/03/97/46/30/240_F_397463002_6EYeghuJQzUwbxITLg7s3DtL8uKhovZk.jpg',
+  'https://t3.ftcdn.net/jpg/02/00/40/58/240_F_200405847_pi6eDOs934Eb8uObtkGUJnzC6DkLcbXI.jpg',
+  'https://img.freepik.com/free-vector/gradient-car-service-logo-design_23-2149700427.jpg'
+];
+final List<String> packagesList = [
+  'https://quickfitautos.com/wp-content/uploads/2021/02/quickfitautos-car-repair-offers-oil-change.jpg',
+  'https://img.pikbest.com/origin/06/43/58/11npIkbEsTvgj.jpg!f305cw',
+  'https://t3.ftcdn.net/jpg/02/00/40/58/240_F_200405847_pi6eDOs934Eb8uObtkGUJnzC6DkLcbXI.jpg',
+  'https://img.freepik.com/free-vector/gradient-car-service-logo-design_23-2149700427.jpg'
+];
+
 class _HomeScreenState extends State<HomeScreen> {
-  final AuthService auth = AuthService();
   bool a = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        body: ListView(
-          children:   [
-            AppSizes.kHeight20,
-            const Text(
-              'Welcome,AMEEN',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            AppSizes.kHeight20,
+      extendBodyBehindAppBar: true,
+      body: ListView(
+        children: [
+          AppSizes.kHeight20,
+          const Text(
+            'Welcome,AMEEN',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          AppSizes.kHeight20,
           const Location(),
-            AppSizes.kHeight20,
-            MainTitleCard(title: 'Top Service centers',postersList: postersList),
-            MainTitleCard(title: 'Top Packages',postersList: packagesList,)
-          ],
-        ),
-        );
+          AppSizes.kHeight20,
+          MainTitleCard(title: 'Top Service centers', postersList: postersList),
+          MainTitleCard(
+            title: 'Top Packages',
+            postersList: packagesList,
+          )
+        ],
+      ),
+    );
   }
 }
 
@@ -95,12 +95,12 @@ class Location extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                   onPressed: () {
-                   Provider.of<NavbarProvider>(context,listen:false).selectedIndex=3;
-                  
-                  }, child: const Text('Book your Slot')),
+                    Provider.of<NavbarProvider>(context, listen: false)
+                        .selectedIndex = 3;
+                  },
+                  child: const Text('Book your Slot')),
             )
           ],
         ));
   }
-  
 }

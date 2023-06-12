@@ -1,5 +1,5 @@
-import 'package:carcareuser/services/authentication.dart';
 import 'package:carcareuser/utils/routes/navigations.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -24,7 +24,7 @@ class SignUpViewModel with ChangeNotifier {
   bool get isShowConfPassword => _isShowConfPassword;
   bool get isLoading => _isLoading;
   UserSignupModel get userData => _userData!;
-FirebaseAuthException get signUpError => _signUpError!;
+  FirebaseAuthException get signUpError => _signUpError!;
 
   setshowPassword() {
     _isShowPassword = !_isShowPassword;
@@ -52,7 +52,7 @@ FirebaseAuthException get signUpError => _signUpError!;
     notifyListeners();
   }
 
-  UserSignupModel? setUserData(UserSignupModel userData)  {
+  UserSignupModel? setUserData(UserSignupModel userData) {
     _userData = userData;
     return _userData;
   }
@@ -62,18 +62,21 @@ FirebaseAuthException get signUpError => _signUpError!;
     return errorResonses(_signUpError!, context);
   }
 
-  getSignUpStatus(BuildContext context,String id) async {
+  getSignUpStatus(BuildContext context, String id) async {
     final navigator = Navigator.of(context);
     setLoading(true);
-  try {
-    userDatabody().accessToken=id;
-    await AuthService().db.collection('user').doc(id).set(userDatabody().toJson());
-    await setSignupStatus(id);
-    navigator.pushNamed(NavigatorClass.mainScreen);
-  }on FirebaseAuthException catch (e) {
-    setLoginError(e, context);
-  }
-    
+    try {
+      userDatabody().accessToken = id;
+      await FirebaseFirestore.instance
+          .collection('user')
+          .doc(id)
+          .set(userDatabody().toJson());
+      await setSignupStatus(id);
+      navigator.pushNamed(NavigatorClass.mainScreen);
+    } on FirebaseAuthException catch (e) {
+      setLoginError(e, context);
+    }
+
     setLoading(false);
   }
 

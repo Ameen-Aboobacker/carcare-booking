@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       providers: ProviderClass.provider,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'CarcareUser',
         theme: ThemeData(
           scaffoldBackgroundColor: AppColors.scaffoldColor,
           elevatedButtonTheme: const ElevatedButtonThemeData(

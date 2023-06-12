@@ -1,13 +1,14 @@
-import 'package:carcareuser/.core/constants.dart';
 import 'package:flutter/material.dart';
 
+import '../../utils/global_values.dart';
 import 'main_card.dart';
 import 'main_title.dart';
 
 class MainTitleCard extends StatelessWidget {
   const MainTitleCard({
     super.key,
-    required this.title, required this.postersList,
+    required this.title,
+    required this.postersList,
   });
   final String title;
   final List<String> postersList;
@@ -17,7 +18,7 @@ class MainTitleCard extends StatelessWidget {
       MainTitle(
         title: title,
       ),
-      kHeight,
+      AppSizes.kHeight10,
       LimitedBox(
         maxHeight: 200,
         child: ListView(
