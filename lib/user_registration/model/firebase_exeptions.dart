@@ -10,8 +10,8 @@ class FirebaseExceptions {
         SnackBarWidget.snackBar(context, "Invalid email");
         break;
 
-      case "invalid-verification-code":
-        SnackBarWidget.snackBar(context, "invalid verification code");
+      case "user-not-found":
+        SnackBarWidget.snackBar(context, "invalid user not found");
         break;
 
       case "network-request-failed":

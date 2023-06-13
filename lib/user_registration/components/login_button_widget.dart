@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:carcareuser/user_registration/view_model/user_login_view_model.dart';
 import 'package:carcareuser/utils/global_colors.dart';
 
 import '../view_model/sign_up_view_model.dart';

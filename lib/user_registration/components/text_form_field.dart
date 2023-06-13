@@ -18,9 +18,9 @@ class TextFormWidget extends StatelessWidget {
   final bool isForgetPass;
   final bool isConfPass;
   final bool isLoginPass;
-  final bool isLoginPhone;
   final bool isPhone;
   final bool isUser;
+  final bool ismail;
 
   const TextFormWidget({
     super.key,
@@ -32,9 +32,10 @@ class TextFormWidget extends StatelessWidget {
     this.isForgetPass = false,
     this.isConfPass = false,
     this.isLoginPass = false,
-    this.isLoginPhone = false,
+  
     this.isPhone = false,
-    this.isUser = false,
+    this.isUser = false, 
+    this.ismail=false,
   });
 
   @override
@@ -55,9 +56,9 @@ class TextFormWidget extends StatelessWidget {
         minLines: 1,
         inputFormatters: [
           FilteringTextInputFormatter.deny(RegExp(r'\s')),
-          isPhone || isLoginPhone
+          isPhone 
               ? LengthLimitingTextInputFormatter(10)
-              : LengthLimitingTextInputFormatter(20),
+              : LengthLimitingTextInputFormatter(40),
         ],
         controller: controller,
         obscureText: isPassword
@@ -73,11 +74,11 @@ class TextFormWidget extends StatelessWidget {
             value: value,
             isUser: isUser,
             isPhone: isPhone,
-            isLoginPhone: isLoginPhone,
             isPassword: isPassword,
             isConfPass: isConfPass,
             isLoginPass: isLoginPass,
             passController: passController.text,
+            isemail: ismail,
           );
         },
         decoration: InputDecoration(
@@ -90,19 +91,7 @@ class TextFormWidget extends StatelessWidget {
           ),
           prefixIconColor: AppColors.black,
           prefixIcon:
-              //  isPhone
-              //     ? Padding(
-              //         padding: const EdgeInsets.only(bottom: 2.3),
-              //         child: Row(
-              //           mainAxisSize: MainAxisSize.min,
-              //           children: [
-              //             Image.asset("assets/india_flag.png",
-              //                 width: 50, height: 20),
-              //             Text("+91", style: loginTextStyle)
-              //           ],
-              //         ),
-              //       )
-              //     :
+              
               Icon(textFieldIcon, size: 25),
           suffixIconColor: AppColors.black,
           suffixIcon: isPassword && passController.text.isNotEmpty

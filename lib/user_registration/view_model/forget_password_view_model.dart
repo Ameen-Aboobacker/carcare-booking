@@ -1,43 +1,35 @@
-
+import 'package:carcareuser/user_registration/model/firebase_exeptions.dart';
+import 'package:carcareuser/utils/routes/navigations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-
-
-
 import '../components/snackbar.dart';
 
-
 class ForgetPassViewModel with ChangeNotifier {
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController newpasswordController = TextEditingController();
-  final TextEditingController newConfpasswordController =
-      TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
-  bool _isLoadingOtp = false;
   bool _isLoading = false;
-  bool get isLoadingotp => _isLoadingOtp;
   bool get isLoading => _isLoading;
 
-  getForgetPassStatus(BuildContext context) async {
-   
+  getForgetPassStatus(BuildContext context, String email) async {
+    NavigatorState navigator = Navigator.of(context);
+    setLoading(true);
+    try {
+      await FirebaseAuth.instance
+          .sendPasswordResetEmail(email: email)
+          .then((value) {
+        return navMethod(navigator, context, email);
+      });
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
+      FirebaseExceptions.cases(e, context);
+    }
+    setLoading(false);
   }
 
-  setNewPassword(context) async {
-   
-  }
-
-  Map<String, dynamic> newPassBody() {
-    Map<String, dynamic> body = {
-      "mobile": phoneController.text.trim(),
-      "pwd": newpasswordController.text.trim(),
-    };
-
-    return body;
-  }
-
-  setLoadingOtp(bool loading) {
-    _isLoadingOtp = loading;
-    notifyListeners();
+  void navMethod(NavigatorState navigator, BuildContext context, String email) {
+    clearTextField();
+    SnackBarWidget.snackBar(context, 'password reset link sent to $email');
+    navigator.pushReplacementNamed(NavigatorClass.loginScreen);
   }
 
   setLoading(bool loading) {
@@ -46,16 +38,6 @@ class ForgetPassViewModel with ChangeNotifier {
   }
 
   clearTextField() {
-    newpasswordController.clear();
-    newConfpasswordController.clear();
-    phoneController.clear();
-  }
-
-  errorResonses(int? statusCode, Object? message, BuildContext context) {
-    if (statusCode == 404) {
-      return SnackBarWidget.snackBar(
-          context, "Could not find the mobile number");
-    }
-    return SnackBarWidget.snackBar(context, message.toString());
+    emailController.clear();
   }
 }

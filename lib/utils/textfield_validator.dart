@@ -2,8 +2,8 @@ class Validator {
   static String? textFieldValidator({
     String? value,
     required bool isUser,
+    required bool isemail,
     required bool isPhone,
-    required bool isLoginPhone,
     required bool isPassword,
     required bool isConfPass,
     required bool isLoginPass,
@@ -14,16 +14,14 @@ class Validator {
         return "Username is required";
       }
     }
+     if (isemail) {
+      if (value == null || value.isEmpty) {
+        return "Email is required";
+      }
+    }
     if (isPhone) {
       if (value == null || value.isEmpty) {
         return "Mobile number is required";
-      } else if (value.length != 10) {
-        return "Enter valid mobile number";
-      }
-    }
-    if (isLoginPhone) {
-      if (value == null || value.isEmpty) {
-        return "Enter the mobile number";
       } else if (value.length != 10) {
         return "Enter valid mobile number";
       }

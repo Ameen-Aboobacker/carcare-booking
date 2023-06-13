@@ -88,8 +88,8 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                           textFieldIcon: Icons.person_outline,
                           keyType: TextInputType.text,
                         ),
-                         TextFormWidget(
-                          isUser: true,
+                        TextFormWidget(
+                          ismail:true ,
                           controller: userEmailController,
                           labelText: 'Email',
                           textFieldIcon: Icons.person_outline,
@@ -122,10 +122,10 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                           onPressed: userNameController.text.isEmpty ||
                                   phoneController.text.isEmpty ||
                                   passController.text.isEmpty ||
-                                  confirfPassController.text.isEmpty||
+                                  confirfPassController.text.isEmpty ||
                                   userEmailController.text.isEmpty
                               ? null
-                              :() async {
+                              : () async {
                                   if (_formKey.currentState!.validate()) {
                                     await context
                                         .read<SignUpViewModel>()
@@ -138,7 +138,6 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                           leftText: 'Already have an account? ',
                           rightText: "Login",
                           onTap: () {
-                      
                             Navigator.push(
                               context,
                               NavigatorClass.animatedRoute(

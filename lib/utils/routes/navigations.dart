@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../Presentation/main_page/screen_main_page.dart';
 import '../../user_registration/view/splash.dart';
-import '../../app/home_screen/home.dart';
-import '../../user_registration/view/change_pass_view.dart';
+import '../../app/view/home_screen/home.dart';
 import '../../user_registration/view/forget_password_view.dart';
 import '../../user_registration/view/login_view.dart';
 import '../../user_registration/view/sign_up_view.dart';
@@ -32,7 +31,6 @@ class NavigatorClass {
      "/splashScreen": (context) => const SplashScreen(),
      "/homeScreen": (context) => const HomeScreen(),
       "/forgetPass": (context) => ForgetPasswordScreen(),
-      "/changeforgetPass": (context) => ChangePassView(),
      "/bottomBarView": (context) => const ScreenMainPage(),
       /*  "/bookingSlotScreen": (context) => const BookingSlotView(),
       "/paymentScreen": (context) => const ProceedPayView(),

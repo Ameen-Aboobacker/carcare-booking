@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../components/profile_components/settings.dart';
+import '../../components/profile_components/settings_tile.dart';
 import '../../components/profile_components/user_profile_tile.dart';
 import '../../../utils/global_colors.dart';
 import '../../../utils/global_values.dart';

@@ -64,7 +64,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                       AppSizes.kHeight10,
                     
                            TextFormWidget(
-                        
+                            ismail: true,
                             controller: loginModel.loginEmailCntrllr,
                             labelText: 'Email',
                             textFieldIcon: Icons.email,

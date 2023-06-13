@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:carcareuser/user_registration/model/user_signup_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -74,6 +73,17 @@ class Authentication extends ChangeNotifier {
     } on FirebaseAuthException catch (e) {
       FirebaseExceptions.cases(e, context);
       return null;
+    }
+  }
+
+   resetPassword(String email, BuildContext context) async {
+    try {
+      await auth.sendPasswordResetEmail(email:email );
+      return 'success';
+    } on FirebaseAuthException catch (e) {
+      
+      FirebaseExceptions.cases(e, context);
+      return 'error';
     }
   }
 

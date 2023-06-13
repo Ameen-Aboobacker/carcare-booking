@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../app/Vehicle_Details/vehicle_details.dart';
-import '../app/home_screen/home.dart';
+import '../app/view/home_screen/home.dart';
 import '../app/packages/packages.dart';
 import '../app/view/profile/profile_screen.dart';
 import '../app/service_center/service_center.dart';

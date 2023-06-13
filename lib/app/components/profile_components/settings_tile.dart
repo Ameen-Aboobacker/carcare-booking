@@ -1,5 +1,5 @@
 
-import 'package:carcareuser/profile_components/view.dart';
+import 'package:carcareuser/app/components/profile_components/settings.dart.dart';
 import 'package:carcareuser/user_registration/view_model/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -1,4 +1,5 @@
 import 'package:carcareuser/user_registration/view_model/firebase_auth.dart';
+import 'package:carcareuser/user_registration/view_model/forget_password_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 
@@ -19,6 +20,9 @@ class ProviderClass {
     ),
     ChangeNotifierProvider(
       create: (context) => Authentication(),
+    ),
+     ChangeNotifierProvider(
+      create: (context) => ForgetPassViewModel(),
     ),
   ];
 }
