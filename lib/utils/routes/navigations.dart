@@ -1,5 +1,5 @@
+import 'package:carcareuser/app/view/bottom_navbar.dart';
 import 'package:flutter/material.dart';
-import '../../Presentation/main_page/screen_main_page.dart';
 import '../../user_registration/view/splash.dart';
 import '../../app/view/home_screen/home.dart';
 import '../../user_registration/view/forget_password_view.dart';
@@ -31,7 +31,7 @@ class NavigatorClass {
      "/splashScreen": (context) => const SplashScreen(),
      "/homeScreen": (context) => const HomeScreen(),
       "/forgetPass": (context) => ForgetPasswordScreen(),
-     "/bottomBarView": (context) => const ScreenMainPage(),
+     "/bottomBarView": (context) => BottomBarView(),
       /*  "/bookingSlotScreen": (context) => const BookingSlotView(),
       "/paymentScreen": (context) => const ProceedPayView(),
       "/VenueDetailsScreen": (context) => const VenueDetailsView(),
