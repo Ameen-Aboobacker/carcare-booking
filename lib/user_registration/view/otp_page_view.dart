@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:carcareuser/user_registration/components/otp_textfield.dart';
-import 'package:carcareuser/user_registration/view_model/firebase_auth_view_model.dart';
+
 import 'package:carcareuser/utils/global_colors.dart';
 import 'package:carcareuser/utils/global_values.dart';
 import 'package:carcareuser/utils/textstyles.dart';
@@ -18,16 +18,16 @@ class OtpVerificationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     bool isVisible = true;
     bool isResentOn = true;
-    final otpValue = Provider.of<FirebaseAuthViewModel>(context).otpValue;
+  //  final otpValue = Provider.of<FirebaseAuthViewModel>(context).otpValue;
     final mobileNumber = isForgotPass
         ? Provider.of<SignUpViewModel>(context).phoneController
         : Provider.of<SignUpViewModel>(context).phoneController;
-    final firebaseViewModel = context.watch<FirebaseAuthViewModel>();
-    final splitOtp = otpValue.split('');
+   // final firebaseViewModel = context.watch<FirebaseAuthViewModel>();
+   // final splitOtp = otpValue.split('');
     return Scaffold(
       body: WillPopScope(
         onWillPop: () async {
-          Provider.of<FirebaseAuthViewModel>(context, listen: false).clearOTP();
+         
           return true;
         },
         child: GestureDetector(
@@ -82,9 +82,7 @@ class OtpVerificationPage extends StatelessWidget {
                                 visible: isResentOn,
                                 child: GestureDetector(
                                   onTap: () {
-                                    context
-                                        .read<FirebaseAuthViewModel>()
-                                        .resentOTPtoPhone(context);
+                                    
                                   },
                                   child: const Text(
                                     "Resend ",
@@ -127,24 +125,16 @@ class OtpVerificationPage extends StatelessWidget {
                         width: double.infinity,
                         height: 45,
                         child: ElevatedButton(
-                          onPressed: splitOtp.length != 6
-                              ? null
-                              : () {
+                          onPressed: 
+                              () {
                                
-                                 context
-                                      .read<FirebaseAuthViewModel>()
-                                      .firbaseAuthenticationWithOTP(
-                                          context, isForgotPass);
+                                 
                                 },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                           ),
-                          child: firebaseViewModel.isLoadingOtp
-                              ? const CircularProgressIndicator(
-                                  color: AppColors.white,
-                                  strokeWidth: 2,
-                                )
-                              : const Text(
+                          child:
+                              const Text(
                                   "Verify",
                                   style: TextStyle(fontSize: 16),
                                 ),

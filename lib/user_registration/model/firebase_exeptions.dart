@@ -3,11 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../components/snackbar.dart';
 
-class FirebaseExpeptions {
+class FirebaseExceptions {
   static void cases(FirebaseAuthException error, BuildContext context) {
     switch (error.code) {
-      case "invalid-phone-number":
-        SnackBarWidget.snackBar(context, "Invalid Mobile Number");
+      case "invalid-email":
+        SnackBarWidget.snackBar(context, "Invalid email");
         break;
 
       case "invalid-verification-code":

@@ -3,7 +3,7 @@ import 'package:carcareuser/Presentation/widgets/text_field.dart';
 
 import 'package:flutter/material.dart';
 
-import '../../../utils/global_values.dart';
+import '../../utils/global_values.dart';
 
 class VehicleDetails extends StatefulWidget {
   const VehicleDetails({Key? key}) : super(key: key);

@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carcareuser/user_registration/view/login_view.dart';
 import 'package:carcareuser/utils/keys.dart';
 
-import '../utils/global_colors.dart';
+import '../../utils/global_colors.dart';
 
 
 class SplashScreen extends StatelessWidget {

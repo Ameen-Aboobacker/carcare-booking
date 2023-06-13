@@ -12,7 +12,7 @@ import 'package:carcareuser/utils/routes/navigations.dart';
 import '../../utils/global_colors.dart';
 import '../../utils/global_values.dart';
 import '../../utils/textstyles.dart';
-import '../view_model/firebase_auth_view_model.dart';
+
 
 class UserLoginScreen extends StatefulWidget {
   const UserLoginScreen({super.key});
@@ -31,7 +31,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseAuthViewModel = context.read<FirebaseAuthViewModel>();
+   
     final loginModel = context.read<UserLoginViewModel>();
 
     return Scaffold(
@@ -62,27 +62,23 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                         ),
                       ),
                       AppSizes.kHeight10,
-                      Consumer<UserLoginViewModel>(
-                        builder: (context, userLoginViewModel, child) {
-                          return TextFormWidget(
-                            isLoginPhone: true,
-                            controller: userLoginViewModel.loginPhoneCntrllr,
-                            labelText: 'Phone',
-                            textFieldIcon: Icons.phone_iphone,
-                            keyType: TextInputType.number,
-                          );
-                        },
-                      ),
-                      Consumer<UserLoginViewModel>(
-                          builder: (context, userLoginViewModel, child) {
-                        return TextFormWidget(
+                    
+                           TextFormWidget(
+                        
+                            controller: loginModel.loginEmailCntrllr,
+                            labelText: 'Email',
+                            textFieldIcon: Icons.email,
+                            keyType: TextInputType.emailAddress,
+                          ),
+                     
+                    
+                        TextFormWidget(
                           isLoginPass: true,
-                          controller: userLoginViewModel.loginPasswordCntrllr,
+                          controller: loginModel.loginPasswordCntrllr,
                           labelText: 'Password',
                           textFieldIcon: Icons.lock_outline,
                           keyType: TextInputType.text,
-                        );
-                      }),
+                      ),
                       AppSizes.kHeight10,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -114,7 +110,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                         isLogin: true,
                         onPressed:()async {
                           
-                            await context
+                           await context
                                 .read<UserLoginViewModel>()
                                 .getLoginStatus(context);
                     
@@ -139,7 +135,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                       AppSizes.kHeight10,
                       InkWell(
                         onTap: () async {
-                          await firebaseAuthViewModel.firebaseGoogleAuth(context);
+                          //await firebaseAuthViewModel.firebaseGoogleAuth(context);
                         },
                         child: Container(
                           width: double.infinity,

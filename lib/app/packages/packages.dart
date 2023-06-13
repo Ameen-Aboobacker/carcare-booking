@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../utils/global_values.dart';
+import '../../utils/global_values.dart';
 
 
 

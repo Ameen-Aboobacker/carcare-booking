@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 //import 'package:sporter_turf_booking/home/model/user_profile_data_modle.dart';
 
-import '../../../utils/global_colors.dart';
-import '../../../utils/global_values.dart';
+import '../../../../utils/global_colors.dart';
+import '../../../../utils/global_values.dart';
 
 class UserProfileContainer extends StatelessWidget {
   //final UserProfileDataModle userData;

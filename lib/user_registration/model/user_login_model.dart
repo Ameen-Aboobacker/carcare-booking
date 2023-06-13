@@ -9,22 +9,22 @@ class UserLoginModel {
   UserLoginModel({
     this.name,
     this.accessToken,
-    this.mobile,
+    this.email,
     this.password,
   });
   String? name;
   String? accessToken;
-  String? mobile;
+  String? email;
   String? password;
 
   factory UserLoginModel.fromJson(Map<String, dynamic> json) => UserLoginModel(
         name: json["name"],
         accessToken: json["accessToken"],
-        mobile: json["mobile"],
+        email: json["mobile"],
       );
 
   Map<String, dynamic> toJson() => {
-        "mobile": mobile,
+        "mail": email,
         "password": password,
       };
 }

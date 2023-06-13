@@ -1,8 +1,8 @@
 
-import 'package:carcareuser/model/profile/view.dart';
+import 'package:carcareuser/profile_components/view.dart';
+import 'package:carcareuser/user_registration/view_model/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../user_registration/view_model/firebase_auth_view_model.dart';
 
 
 class SettingsListTile extends StatelessWidget {
@@ -54,16 +54,11 @@ class SettingsListTile extends StatelessWidget {
           onTap: () {
           
                   context
-                      .read<FirebaseAuthViewModel>()
+                      .read<Authentication>()
                       .userLoginStatus(context);
                  
                 
           },
-        ),
-        ProfileSettings(
-         title: "Delete My Account",
-          icon: Icons.delete_forever,
-          onTap: () {},
         ),
       ],
     );

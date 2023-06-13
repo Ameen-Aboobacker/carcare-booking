@@ -10,13 +10,17 @@ class UserSignupModel {
   UserSignupModel({
     this.name,
     this.mobile,
+    this.email,
     this.password,
     this.accessToken,
+    this.id,
   });
 
   String? name;
   String? mobile;
+  String? email;
   String? password;
+  String? id;
   String? accessToken;
 
 fromJson(Map<String, dynamic> json) =>
@@ -31,6 +35,6 @@ fromJson(Map<String, dynamic> json) =>
         "name": name,
         "mobile": mobile,
         "password": password,
-        "id":accessToken,
+        "id":id,
       };
 }

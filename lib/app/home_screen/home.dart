@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../services/bottom_nav_provider.dart';
-import '../../../utils/global_values.dart';
-import '../../widgets/main_title_card.dart';
+import '../../services/bottom_nav_provider.dart';
+import '../../utils/global_values.dart';
+import '../../Presentation/widgets/main_title_card.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

@@ -11,7 +11,6 @@ import '../components/curved_background.dart';
 import '../components/login_button_widget.dart';
 import '../components/registering_text_widget.dart';
 import '../components/text_form_field.dart';
-import '../view_model/firebase_auth_view_model.dart';
 
 class UserSignUpScreen extends StatefulWidget {
   const UserSignUpScreen({super.key});
@@ -39,6 +38,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
     TextEditingController userNameController =
         signUpProvider.userNameController;
     TextEditingController phoneController = signUpProvider.phoneController;
+    TextEditingController userEmailController = signUpProvider.emailController;
     TextEditingController passController = signUpProvider.passController;
     TextEditingController confirfPassController =
         signUpProvider.confirfPassController;
@@ -88,6 +88,13 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                           textFieldIcon: Icons.person_outline,
                           keyType: TextInputType.text,
                         ),
+                         TextFormWidget(
+                          isUser: true,
+                          controller: userEmailController,
+                          labelText: 'Email',
+                          textFieldIcon: Icons.person_outline,
+                          keyType: TextInputType.text,
+                        ),
                         TextFormWidget(
                           isPhone: true,
                           controller: phoneController,
@@ -115,17 +122,16 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                           onPressed: userNameController.text.isEmpty ||
                                   phoneController.text.isEmpty ||
                                   passController.text.isEmpty ||
-                                  confirfPassController.text.isEmpty
+                                  confirfPassController.text.isEmpty||
+                                  userEmailController.text.isEmpty
                               ? null
                               :() async {
                                   if (_formKey.currentState!.validate()) {
                                     await context
-                                        .read<FirebaseAuthViewModel>()
-                                        .fireBasePhoneAuth(
-                                            context,
-                                            signUpProvider.phoneController.text,
-                                            false);
-                                  }},
+                                        .read<SignUpViewModel>()
+                                        .getSignUpStatus(context);
+                                  }
+                                },
                         ),
                         AppSizes.kHeight30,
                         RegisteringText(

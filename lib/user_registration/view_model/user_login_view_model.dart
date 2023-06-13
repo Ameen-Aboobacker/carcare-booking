@@ -1,3 +1,4 @@
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carcareuser/user_registration/components/snackbar.dart';
@@ -8,9 +9,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:carcareuser/utils/keys.dart';
 
 import '../../utils/routes/navigations.dart';
+import 'firebase_auth.dart';
 
 class UserLoginViewModel with ChangeNotifier {
-  TextEditingController loginPhoneCntrllr = TextEditingController();
+  TextEditingController loginEmailCntrllr = TextEditingController();
   TextEditingController loginPasswordCntrllr = TextEditingController();
 
   bool _isShowPassword = true;
@@ -45,36 +47,21 @@ class UserLoginViewModel with ChangeNotifier {
 
   getLoginStatus(BuildContext context) async {
     final navigator = Navigator.of(context);
-   /* setLoading(true);
-    final response = await ApiServices.postMethod(
-        url: Urls.kUSERSIGNIN,
-        body: userDataBody(),
-        jsonDecode: userLoginModelFromJson);
-
-    if (response is Success) {
-      final data = await setUserData(response.response as UserLoginModel);
-      final accessToken = data!.accessToken;
-      log(accessToken.toString());
+    setLoading(true);
+   
+    final response=await Authentication().userLogin(userDataBody(),context);
+    if(response!=null){
+      print(response);
+      setLoginStatus(response);
       clearController();
-      await setLoginStatus(accessToken!);
       navigator.pushReplacementNamed(NavigatorClass.mainScreen);
     }
-
-    if (response is Failure) {
-      setLoading(false);
-      clearPassword();
-      FirebaseAuthException loginError = FirebaseAuthException(
-        code: response.code,
-        message: response.errorResponse,
-      );
-      setLoginError(loginError, context);
-    }
-    setLoading(false);*/
-    navigator.pushReplacementNamed(NavigatorClass.mainScreen);
+    
+    setLoading(false);
   }
 
   clearController() {
-    loginPhoneCntrllr.clear();
+    loginEmailCntrllr.clear();
     loginPasswordCntrllr.clear();
   }
 
@@ -88,13 +75,13 @@ class UserLoginViewModel with ChangeNotifier {
     status.setString(GlobalKeys.accesToken, accessToken);
   }
 
-  Map<String, dynamic> userDataBody() {
+ userDataBody() {
     final body = UserLoginModel(
-      mobile: loginPhoneCntrllr.text,
+      email: loginEmailCntrllr.text,
       password: loginPasswordCntrllr.text,
     );
 
-    return body.toJson();
+    return body;
   }
 
   errorResonses(FirebaseAuthException loginError, BuildContext context) {
