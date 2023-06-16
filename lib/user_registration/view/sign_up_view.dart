@@ -129,7 +129,7 @@ class _UserSignUpScreenState extends State<UserSignUpScreen> {
                                   if (_formKey.currentState!.validate()) {
                                     await context
                                         .read<SignUpViewModel>()
-                                        .getSignUpStatus(context);
+                                        .signUp(context);
                                   }
                                 },
                         ),

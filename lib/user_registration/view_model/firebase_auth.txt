@@ -50,13 +50,14 @@ class Authentication extends ChangeNotifier {
     notifyListeners();
   }
 
+ 
+
   Future userSingnUp(UserSignupModel userData, BuildContext context) async {
     try {
       final credential = await auth.createUserWithEmailAndPassword(
           email: userData.email!, password: userData.password!);
       final id = credential.user!.uid;
       userData.id = id;
-      print(userData.toJson());
       db.collection('user').doc(id).set(userData.toJson());
       return id;
     } on FirebaseAuthException catch (e) {
@@ -64,7 +65,8 @@ class Authentication extends ChangeNotifier {
       return null;
     }
   }
-   Future userLogin(UserLoginModel userLoginData, BuildContext context) async {
+
+  Future userLogin(UserLoginModel userLoginData, BuildContext context) async {
     try {
       final credential = await auth.signInWithEmailAndPassword(
           email: userLoginData.email!, password: userLoginData.password!);
@@ -76,12 +78,11 @@ class Authentication extends ChangeNotifier {
     }
   }
 
-   resetPassword(String email, BuildContext context) async {
+  resetPassword(String email, BuildContext context) async {
     try {
-      await auth.sendPasswordResetEmail(email:email );
+      await auth.sendPasswordResetEmail(email: email);
       return 'success';
     } on FirebaseAuthException catch (e) {
-      
       FirebaseExceptions.cases(e, context);
       return 'error';
     }
@@ -89,28 +90,12 @@ class Authentication extends ChangeNotifier {
 
   userLoginStatus(context) async {
     final navigator = Navigator.of(context);
-    final sharedPrefer = await SharedPreferences.getInstance();
-    final googleSigup = sharedPrefer.getBool(GlobalKeys.userLoggedWithGoogle);
-    final userLoggedin = sharedPrefer.getBool(GlobalKeys.userLoggedIN);
-    final userSignedUp = sharedPrefer.getBool(GlobalKeys.userSignedUp);
-    if (googleSigup == true) {
-      sharedPrefer.remove(GlobalKeys.userLoggedWithGoogle);
-      await firebaseGoogleLogout();
-      navigator.pushNamedAndRemoveUntil(
-          NavigatorClass.loginScreen, (route) => false);
-    } else if (userLoggedin == true) {
-      auth.signOut();
-      sharedPrefer.remove(GlobalKeys.userLoggedIN);
-      sharedPrefer.remove(GlobalKeys.accesToken);
-      navigator.pushNamedAndRemoveUntil(
-          NavigatorClass.loginScreen, (route) => false);
-    } else if (userSignedUp == true) {
-      auth.signOut();
-      sharedPrefer.remove(GlobalKeys.userSignedUp);
-      sharedPrefer.remove(GlobalKeys.accesToken);
-      navigator.pushNamedAndRemoveUntil(
-          NavigatorClass.loginScreen, (route) => false);
+    await auth.signOut();
+    if(auth.currentUser!=null){
+     auth.currentUser!.delete();
     }
+    navigator.pushNamedAndRemoveUntil(
+        NavigatorClass.loginScreen, (route) => false);
   }
 
   firebaseGoogleLogout() async {

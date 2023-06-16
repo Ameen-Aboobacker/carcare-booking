@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:carcareuser/user_registration/components/text_form_field.dart';
 
-import 'package:carcareuser/user_registration/view_model/sign_up_view_model.dart';
 
 import '../../utils/global_colors.dart';
 import '../../utils/global_values.dart';

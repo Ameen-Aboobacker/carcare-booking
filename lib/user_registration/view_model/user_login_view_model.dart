@@ -1,25 +1,30 @@
+import 'dart:developer';
 
+import 'package:carcareuser/utils/session_controller.dart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carcareuser/user_registration/components/snackbar.dart';
 import 'package:carcareuser/user_registration/model/user_login_model.dart';
+import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:carcareuser/utils/keys.dart';
 
 import '../../utils/routes/navigations.dart';
-import 'firebase_auth.dart';
+import '../model/firebase_exeptions.dart';
 
 class UserLoginViewModel with ChangeNotifier {
   TextEditingController loginEmailCntrllr = TextEditingController();
   TextEditingController loginPasswordCntrllr = TextEditingController();
-
+  FirebaseAuth auth = FirebaseAuth.instance;
   bool _isShowPassword = true;
   bool _isLoading = false;
   UserLoginModel? _userData;
   FirebaseAuthException? _loginError;
-
+ final googleSigin = GoogleSignIn();
+  GoogleSignInAccount? _user;
   bool get isShowPassword => _isShowPassword;
   bool get isLoading => _isLoading;
   UserLoginModel? get userData => _userData;
@@ -45,19 +50,59 @@ class UserLoginViewModel with ChangeNotifier {
     return errorResonses(_loginError!, context);
   }
 
-  getLoginStatus(BuildContext context) async {
+  login(BuildContext context) async {
     final navigator = Navigator.of(context);
     setLoading(true);
-   
-    final response=await Authentication().userLogin(userDataBody(),context);
-    if(response!=null){
-      print(response);
-      setLoginStatus(response);
-      clearController();
-      navigator.pushReplacementNamed(NavigatorClass.mainScreen);
+    final userData = userLoginData();
+    try {
+      auth.signInWithEmailAndPassword(
+        email: userData.email!,
+        password: userData.password!,
+      ).then((value) {
+        setLoginStatus(value.user!.uid,value.user!);
+        setLoading(false);
+        navigator.pushNamedAndRemoveUntil(
+            NavigatorClass.mainScreen, (route) => false);
+            notifyListeners();
+      }).onError((error, stackTrace) {
+        SnackBarWidget.snackBar(context,error.toString());
+
+        setLoading(false);
+      });
+    }on FirebaseAuthException catch (e) {
+      setLoading(false);
+        SnackBarWidget.snackBar(context,e.code);
     }
-    
-    setLoading(false);
+  }
+
+   GoogleSignInAccount get user => _user!;
+
+  Future firebaseGoogleAuth(context) async {
+    final navigator = Navigator.of(context);
+    try {
+      final googleUser = await googleSigin.signIn();
+
+      if (googleUser == null) {
+        return;
+      }
+      _user = googleUser;
+
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      navigator.pushReplacementNamed(NavigatorClass.mainScreen);
+      final sharedPref = await SharedPreferences.getInstance();
+      sharedPref.setBool(GlobalKeys.userLoggedWithGoogle, true);
+    } on PlatformException catch (e) {
+      log(e.code);
+      SnackBarWidget.snackBar(context, e.code);
+    } on FirebaseAuthException catch (e) {
+      FirebaseExceptions.cases(e, context);
+    }
+    notifyListeners();
   }
 
   clearController() {
@@ -69,19 +114,20 @@ class UserLoginViewModel with ChangeNotifier {
     loginPasswordCntrllr.clear();
   }
 
-  setLoginStatus(String accessToken) async {
+  setLoginStatus(String accessToken,User user) async {
     final status = await SharedPreferences.getInstance();
     status.setBool(GlobalKeys.userLoggedIN, true);
     status.setString(GlobalKeys.accesToken, accessToken);
+    status.setString(GlobalKeys.currentUser,user.toString() );
   }
 
- userDataBody() {
-    final body = UserLoginModel(
+  UserLoginModel userLoginData() {
+    final logindata = UserLoginModel(
       email: loginEmailCntrllr.text,
       password: loginPasswordCntrllr.text,
     );
 
-    return body;
+    return logindata;
   }
 
   errorResonses(FirebaseAuthException loginError, BuildContext context) {

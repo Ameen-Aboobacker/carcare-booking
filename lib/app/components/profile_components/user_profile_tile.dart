@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+
 //import 'package:sporter_turf_booking/home/model/user_profile_data_modle.dart';
 
 import '../../../../utils/global_colors.dart';
 import '../../../../utils/global_values.dart';
-
 class UserProfileContainer extends StatelessWidget {
-  //final UserProfileDataModle userData;
-  const UserProfileContainer({
-    super.key,
-    //required this.userData,
+  final Map userProfile;
+  const  UserProfileContainer({
+    super.key, required this.userProfile,
+    
   });
-
+  
+  
   @override
   Widget build(BuildContext context) {
-    return Container(
+  
+    return  Container(
       height: 70,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -32,17 +34,17 @@ class UserProfileContainer extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
+            children:    [
+               const Text(
                'ameen',
-                style: TextStyle(
+                style:  TextStyle(
                     color: AppColors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16),
               ),
               Text(
-                "+91-8606044404",
-                style:  TextStyle(
+                userProfile['email'],
+                style:  const TextStyle(
                     color: AppColors.white,
                     fontWeight: FontWeight.w600,
                     fontSize: 15),

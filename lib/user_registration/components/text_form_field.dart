@@ -21,7 +21,7 @@ class TextFormWidget extends StatelessWidget {
   final bool isPhone;
   final bool isUser;
   final bool ismail;
-
+  final bool isbottom;
   const TextFormWidget({
     super.key,
     required this.controller,
@@ -32,23 +32,22 @@ class TextFormWidget extends StatelessWidget {
     this.isForgetPass = false,
     this.isConfPass = false,
     this.isLoginPass = false,
-  
     this.isPhone = false,
-    this.isUser = false, 
-    this.ismail=false,
+    this.isUser = false,
+    this.ismail = false,
+     this.isbottom = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final watchSignUpprovider = context.watch<SignUpViewModel>();
     final isShowPassword = watchSignUpprovider.isShowPassword;
-    final passController = 
-         watchSignUpprovider.passController;
+    final passController = watchSignUpprovider.passController;
     final confpassController = watchSignUpprovider.confirfPassController;
     final isShowConfPassword = watchSignUpprovider.isShowConfPassword;
     final userLoginViewModel = context.watch<UserLoginViewModel>();
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.only(top: 5, bottom: 5, left: 10, right: 15),
       child: TextFormField(
         onChanged: (value) {
           context.read<SignUpViewModel>().checkTextFieldisEmpty();
@@ -56,7 +55,7 @@ class TextFormWidget extends StatelessWidget {
         minLines: 1,
         inputFormatters: [
           FilteringTextInputFormatter.deny(RegExp(r'\s')),
-          isPhone 
+          isPhone
               ? LengthLimitingTextInputFormatter(10)
               : LengthLimitingTextInputFormatter(40),
         ],
@@ -83,16 +82,14 @@ class TextFormWidget extends StatelessWidget {
         },
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: AppColors.appColor),
+            borderSide:  BorderSide(color:isbottom?AppColors.white : AppColors.appColor),
             borderRadius: BorderRadius.circular(5.0),
           ),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(5),
           ),
-          prefixIconColor: AppColors.black,
-          prefixIcon:
-              
-              Icon(textFieldIcon, size: 25),
+          prefixIconColor:isbottom?AppColors.white : AppColors.black,
+          prefixIcon: Icon(textFieldIcon, size: 25),
           suffixIconColor: AppColors.black,
           suffixIcon: isPassword && passController.text.isNotEmpty
               ? Consumer<SignUpViewModel>(
@@ -128,8 +125,8 @@ class TextFormWidget extends StatelessWidget {
                         })
                       : AppSizes.kHeight10,
           labelText: labelText,
-          labelStyle: const TextStyle(
-            color: AppColors.black,
+          labelStyle:  TextStyle(
+            color:isbottom?AppColors.white : AppColors.black,
           ),
         ),
       ),

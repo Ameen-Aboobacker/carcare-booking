@@ -20,7 +20,6 @@ class ForgetPassViewModel with ChangeNotifier {
         return navMethod(navigator, context, email);
       });
     } on FirebaseAuthException catch (e) {
-      print(e.code);
       FirebaseExceptions.cases(e, context);
     }
     setLoading(false);

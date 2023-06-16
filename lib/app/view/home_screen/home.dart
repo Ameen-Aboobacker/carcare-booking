@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../services/bottom_nav_provider.dart';
+
 import '../../../utils/global_values.dart';
 import '../../../Presentation/widgets/main_title_card.dart';
 
@@ -95,8 +95,7 @@ class Location extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: ElevatedButton(
                   onPressed: () {
-                    Provider.of<NavbarProvider>(context, listen: false)
-                        .selectedIndex = 3;
+                    
                   },
                   child: const Text('Book your Slot')),
             )

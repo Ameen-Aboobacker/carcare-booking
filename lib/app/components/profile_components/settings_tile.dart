@@ -1,9 +1,12 @@
-
 import 'package:carcareuser/app/components/profile_components/settings.dart.dart';
-import 'package:carcareuser/user_registration/view_model/firebase_auth.dart';
+import 'package:carcareuser/app/view_model/bottom_nav_view_model.dart';
+import 'package:carcareuser/app/view_model/user_profile_view_model.dart';
+import 'package:carcareuser/utils/session_controller.dart.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/routes/navigations.dart';
 
 class SettingsListTile extends StatelessWidget {
   const SettingsListTile({
@@ -19,7 +22,7 @@ class SettingsListTile extends StatelessWidget {
           subtitle: "View all your bookings",
           icon: Icons.calendar_month,
           onTap: () {
-           // Navigator.pushNamed(context, NavigatorClass.myBookingsView);
+            // Navigator.pushNamed(context, NavigatorClass.myBookingsView);
           },
         ),
         ProfileSettings(
@@ -52,19 +55,16 @@ class SettingsListTile extends StatelessWidget {
           title: "Logout",
           icon: Icons.logout,
           onTap: () {
-          
-                  context
-                      .read<Authentication>()
-                      .userLoginStatus(context);
-                 
-                
+           Provider.of<UserProfileViewModel>(context,listen:false).signOut(context);
           },
         ),
       ],
     );
   }
 
- /* void openWhatsappChat(String phoneNumber) async {
+
+
+  /* void openWhatsappChat(String phoneNumber) async {
     String whatsappUrl = 'https://wa.me/$phoneNumber';
     try {
       if (await canLaunchUrl(Uri.parse(whatsappUrl))) {

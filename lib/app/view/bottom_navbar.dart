@@ -1,5 +1,5 @@
-import 'package:carcareuser/app/Vehicle_Details/vehicle_details.dart';
-import 'package:carcareuser/app/service_center/service_center.dart';
+import 'package:carcareuser/app/view/Vehicle_Details/vehicle_details.dart';
+import 'package:carcareuser/app/view/service_center/service_center.dart';
 import 'package:carcareuser/app/view/profile/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,16 +7,15 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:carcareuser/app/view_model/bottom_nav_view_model.dart';
 import 'package:carcareuser/utils/global_colors.dart';
-
-import 'home_screen/home.dart';
+import 'home_screen/home_view.dart';
 
 class BottomBarView extends StatelessWidget {
   BottomBarView({super.key});
 
   final List views = [
-    const HomeScreen(),
+    const HomeScreenView(),
     const VehicleDetails(),
-    const ServiceCenter(),
+    const ServiceCenterScreenView(),
     const UserProfileView(),
   ];
 
@@ -24,21 +23,21 @@ class BottomBarView extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    final bottomBarVieModel = Provider.of<BottomNavViewModel>(context);
+    final bottomBarVieModel = Provider.of<BottomBarViewModel>(context);
     return Scaffold(
-      body: views[bottomBarVieModel.bottomBarIndex],
+      body: views[bottomBarVieModel.newIndex],
       backgroundColor: AppColors.white,
       bottomNavigationBar: BottomNavigationBar(
         onTap: bottomBarVieModel.bottomOnChanged,
-        currentIndex: bottomBarVieModel.bottomBarIndex,
+        currentIndex: bottomBarVieModel.newIndex,
         iconSize: 24,
-        showSelectedLabels: false,
+        showSelectedLabels: true,
         type: BottomNavigationBarType.fixed,
-        showUnselectedLabels: false,
+        showUnselectedLabels: true,
         backgroundColor: AppColors.appColor,
         elevation: 5,
         selectedItemColor: AppColors.white,
-        unselectedItemColor: AppColors.grey,
+        unselectedItemColor: AppColors.yellow,
         items: const [
           BottomNavigationBarItem(
             label: "Home",
@@ -49,13 +48,13 @@ class BottomBarView extends StatelessWidget {
           BottomNavigationBarItem(
             label: "Vehicle",
             icon: Icon(
-              CupertinoIcons.sportscourt,
+              CupertinoIcons.car_detailed,
             ),
           ),
           BottomNavigationBarItem(
             label: "Centers",
             icon: Icon(
-              Icons.car_repair_sharp,
+            Icons.build_outlined,
             ),
           ),
           BottomNavigationBarItem(

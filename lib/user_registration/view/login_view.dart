@@ -13,7 +13,6 @@ import '../../utils/global_colors.dart';
 import '../../utils/global_values.dart';
 import '../../utils/textstyles.dart';
 
-
 class UserLoginScreen extends StatefulWidget {
   const UserLoginScreen({super.key});
 
@@ -31,7 +30,6 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
     final loginModel = context.read<UserLoginViewModel>();
 
     return Scaffold(
@@ -62,22 +60,19 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                         ),
                       ),
                       AppSizes.kHeight10,
-                    
-                           TextFormWidget(
-                            ismail: true,
-                            controller: loginModel.loginEmailCntrllr,
-                            labelText: 'Email',
-                            textFieldIcon: Icons.email,
-                            keyType: TextInputType.emailAddress,
-                          ),
-                     
-                    
-                        TextFormWidget(
-                          isLoginPass: true,
-                          controller: loginModel.loginPasswordCntrllr,
-                          labelText: 'Password',
-                          textFieldIcon: Icons.lock_outline,
-                          keyType: TextInputType.text,
+                      TextFormWidget(
+                        ismail: true,
+                        controller: loginModel.loginEmailCntrllr,
+                        labelText: 'Email',
+                        textFieldIcon: Icons.email,
+                        keyType: TextInputType.emailAddress,
+                      ),
+                      TextFormWidget(
+                        isLoginPass: true,
+                        controller: loginModel.loginPasswordCntrllr,
+                        labelText: 'Password',
+                        textFieldIcon: Icons.lock_outline,
+                        keyType: TextInputType.text,
                       ),
                       AppSizes.kHeight10,
                       Row(
@@ -86,12 +81,14 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                           GestureDetector(
                             onTap: () {
                               Navigator.push(
-                            context,
-                            NavigatorClass.animatedRoute(
-                              route:  ForgetPasswordScreen(),
-                            ),
-                          );
-                          context.read<UserLoginViewModel>().clearController();
+                                context,
+                                NavigatorClass.animatedRoute(
+                                  route: ForgetPasswordScreen(),
+                                ),
+                              );
+                              context
+                                  .read<UserLoginViewModel>()
+                                  .clearController();
                             },
                             child: const Text(
                               "Forgot Password?",
@@ -108,12 +105,10 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                       AppSizes.kHeight30,
                       LoginButtonWidget(
                         isLogin: true,
-                        onPressed:()async {
-                          
-                           await context
-                                .read<UserLoginViewModel>()
-                                .getLoginStatus(context);
-                    
+                        onPressed: () async {
+                          await context
+                              .read<UserLoginViewModel>()
+                              .login(context);
                         },
                         title: "LOGIN",
                       ),
@@ -135,7 +130,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                       AppSizes.kHeight10,
                       InkWell(
                         onTap: () async {
-                          //await firebaseAuthViewModel.firebaseGoogleAuth(context);
+                          loginModel.firebaseGoogleAuth(context);
                         },
                         child: Container(
                           width: double.infinity,

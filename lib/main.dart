@@ -19,9 +19,11 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: ProviderClass.provider,
       child: MaterialApp(
+        
         debugShowCheckedModeBanner: false,
         title: 'CarcareUser',
         theme: ThemeData(
+          primaryColor:PrimaryColor.appColor,
           scaffoldBackgroundColor: AppColors.scaffoldColor,
           elevatedButtonTheme: const ElevatedButtonThemeData(
             style: ButtonStyle(

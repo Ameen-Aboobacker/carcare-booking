@@ -1,4 +1,6 @@
+import 'package:carcareuser/app/view_model/user_profile_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../components/profile_components/settings_tile.dart';
 import '../../components/profile_components/user_profile_tile.dart';
 import '../../../utils/global_colors.dart';
@@ -10,23 +12,27 @@ class UserProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  final userDataModel = context.watch<UserProfileViewModel>();
+    print(userDataModel.userProfileData);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.white,
         automaticallyImplyLeading: false,
         title: Text("Profile", style: AppTextStyles.appbarTitle),
       ),
-      body: Padding(
+      body:userDataModel.userProfileData==null?
+      const Center(child:CircularProgressIndicator()) 
+      :Padding(
         padding: const EdgeInsets.all(15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                UserProfileContainer(),
+              children: [
+                UserProfileContainer(userProfile: userDataModel.userProfileData!),
                 AppSizes.kHeight20,
-                SettingsListTile()
+                const SettingsListTile()
               ],
             ),
             const Text(

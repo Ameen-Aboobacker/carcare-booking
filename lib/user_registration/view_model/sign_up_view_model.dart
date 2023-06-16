@@ -1,5 +1,5 @@
 
-import 'package:carcareuser/user_registration/view_model/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,6 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/keys.dart';
 import '../../utils/routes/navigations.dart';
 
+import '../../utils/session_controller.dart.dart';
+import '../components/snackbar.dart';
 import '../model/error_response_model.dart';
 import '../model/user_signup_model.dart';
 
@@ -17,18 +19,17 @@ class SignUpViewModel with ChangeNotifier {
   final TextEditingController phoneController = TextEditingController();
   final TextEditingController passController = TextEditingController();
   final TextEditingController confirfPassController = TextEditingController();
+  FirebaseAuth auth=FirebaseAuth.instance;
 
   bool _isShowPassword = true;
   bool _isShowConfPassword = true;
   bool _isLoading = false;
-  ErrorResponseModel? _signUpError;
   UserSignupModel? _userData;
 
   bool get isShowPassword => _isShowPassword;
   bool get isShowConfPassword => _isShowConfPassword;
   bool get isLoading => _isLoading;
   UserSignupModel get userData => _userData!;
-  ErrorResponseModel get signUpError => _signUpError!;
 
   setshowPassword() {
     _isShowPassword = !_isShowPassword;
@@ -61,22 +62,32 @@ class SignUpViewModel with ChangeNotifier {
     return _userData;
   }
 
-  getSignUpStatus(BuildContext context) async {
+ signUp(BuildContext context) async {
     final navigator = Navigator.of(context);
     setLoading(true);
-   final  userData=userDatabody();
-    final response=await Authentication().userSingnUp(userData,context);
-    if(response!=null){
-      print(response);
-      setSignupStatus(response);
-      clearTextField();
-      navigator.pushReplacementNamed(NavigatorClass.mainScreen);
+    final userData = userSignupData();
+    try {
+      auth.createUserWithEmailAndPassword(
+        email: userData.email!,
+        password: userData.password!,
+      ).then((value) {
+        setSignupStatus(value.user!.uid);
+        setLoading(false);
+        notifyListeners();
+        SnackBarWidget.snackBar(context, 'User created Successfully!!');
+        navigator.pushNamedAndRemoveUntil(
+            NavigatorClass.mainScreen, (route) => false);
+      }).onError((error, stackTrace) {
+        SnackBarWidget.snackBar(context,error.toString());
+        setLoading(false);
+      });
+    }on FirebaseAuthException catch (e) {
+      setLoading(false);
+        SnackBarWidget.snackBar(context,e.code);
     }
-    
-    setLoading(false);
   }
 
-  setSignupStatus(accessToken) async {
+  setSignupStatus(String accessToken) async {
     final status = await SharedPreferences.getInstance();
     await status.setBool(GlobalKeys.userSignedUp, true);
     await status.setString(GlobalKeys.accesToken, accessToken);
@@ -87,7 +98,7 @@ class SignUpViewModel with ChangeNotifier {
     confirfPassController.clear();
   }
 
-   userDatabody() {
+   userSignupData() {
     final body = UserSignupModel(
       name: userNameController.text,
       email:emailController.text,

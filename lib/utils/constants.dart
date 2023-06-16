@@ -8,13 +8,12 @@ class AccessToken {
     final sharedPref = await SharedPreferences.getInstance();
     final accessToken = sharedPref.getString(GlobalKeys.accesToken);
     return accessToken;
+
   }
+
+  static  clearAccessToken() async {
+    final status = await SharedPreferences.getInstance();
+   status.clear();
+}
 }
 
-class InvalidRespons {
-  static const kUSERINVALIDRESPONSE = 100;
-  static const kNOINTERNET = 101;
-  static const kINVALIDFORMAT = 102;
-  static const kUNKNOWNERROR = 103;
-  static const kTIMEOUT = 104;
-}

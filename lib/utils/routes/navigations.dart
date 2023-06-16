@@ -1,43 +1,31 @@
 import 'package:carcareuser/app/view/bottom_navbar.dart';
+import 'package:carcareuser/app/view/home_screen/home_view.dart';
 import 'package:flutter/material.dart';
+import '../../app/view/service_center/center_details_view.dart';
 import '../../user_registration/view/splash.dart';
-import '../../app/view/home_screen/home.dart';
 import '../../user_registration/view/forget_password_view.dart';
 import '../../user_registration/view/login_view.dart';
 import '../../user_registration/view/sign_up_view.dart';
-
 
 class NavigatorClass {
   static const homeScreen = "/homeScreen";
   static const loginScreen = "/userLogin";
   static const forgetPassScreen = "/forgetPass";
-  static const changeforgetPass = "/changeforgetPass";
   static const signUpScreen = "/userSignUp";
-  static const otpScreen = "/otpRegister";
   static const splashScreen = "/splashScreen";
   static const mainScreen = "/bottomBarView";
-  static const bookingSlotScreen = "/bookingSlotScreen";
-  static const paymentScreen = "/paymentScreen";
   static const venueDetailsScreen = "/VenueDetailsScreen";
   static const myBookingsView = "/MyBookingView";
-  static const paymentSuccessView = "/PaymentSuccessView";
-  static const searchVenueView = "/searchVenueView";
 
   static Map<String, Widget Function(BuildContext)> routes() {
     Map<String, Widget Function(BuildContext)> routes = {
-      
       "/userSignUp": (context) => const UserSignUpScreen(),
       "/userLogin": (context) => const UserLoginScreen(),
-     "/splashScreen": (context) => const SplashScreen(),
-     "/homeScreen": (context) => const HomeScreen(),
+      "/splashScreen": (context) => const SplashScreen(),
+      "/homeScreen": (context) => const HomeScreenView(),
       "/forgetPass": (context) => ForgetPasswordScreen(),
-     "/bottomBarView": (context) => BottomBarView(),
-      /*  "/bookingSlotScreen": (context) => const BookingSlotView(),
-      "/paymentScreen": (context) => const ProceedPayView(),
-      "/VenueDetailsScreen": (context) => const VenueDetailsView(),
-      "/MyBookingView": (context) => const MyBookingsView(),
-      "/PaymentSuccessView": (context) => const PaymentSuccessView(),
-      "/searchVenueView": (context) => const SearchVenueView(),*/
+      "/bottomBarView": (context) => BottomBarView(),
+      "/VenueDetailsScreen": (context) => const CenterDetailsView(),
     };
 
     return routes;
