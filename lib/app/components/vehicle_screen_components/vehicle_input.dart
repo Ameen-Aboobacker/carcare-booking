@@ -1,25 +1,31 @@
+import 'package:carcareuser/app/model/vehicle_model.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../../user_registration/components/login_button_widget.dart';
 import '../../../user_registration/components/text_form_field.dart';
 import '../../../utils/global_values.dart';
 import '../../view_model/vehicle_screen.dart';
 
 class VehicleInput extends StatelessWidget {
+  final Vehicle? car;
   const VehicleInput({
     super.key,
-    required this.vehicleScreenModel,
+    this.car,
   });
-
-  final VehicleScreenModel vehicleScreenModel;
 
   @override
   Widget build(BuildContext context) {
+    final vehicleScreenModel = context.read<VehicleScreenModel>();
+    vehicleScreenModel.brandCtrl.text = car?.brand ?? '';
+    vehicleScreenModel.modelCtrl.text = car?.model ?? '';
+    vehicleScreenModel.yearCtrl.text = car?.year ?? '';
+    vehicleScreenModel.numberCtrl.text = car?.number ?? '';
     return SimpleDialog(
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
-      title: const Text(
-        'ADD DETAILS',
-        style: TextStyle(color: Colors.black),
+      title: Text(
+        car==null?'ADD DETAILS':'EDIT DETAILS',
+        style:  const TextStyle(color: Colors.black),
         textAlign: TextAlign.center,
       ),
       children: [
@@ -28,7 +34,6 @@ class VehicleInput extends StatelessWidget {
             children: [
               TextFormWidget(
                 controller: vehicleScreenModel.brandCtrl,
-                labelText: 'Brand',
                 keyType: TextInputType.name,
                 textFieldIcon: Icons.car_rental,
               ),
@@ -56,16 +61,10 @@ class VehicleInput extends StatelessWidget {
               AppSizes.kHeight10,
               LoginButtonWidget(
                 isDialog: true,
-                onPressed:vehicleScreenModel.brandCtrl.text.isEmpty ||
-                                 vehicleScreenModel.modelCtrl.text.isEmpty ||
-                                  vehicleScreenModel.numberCtrl.text.isEmpty ||
-                                  vehicleScreenModel.yearCtrl.text.isEmpty
-                                  
-                              ? null 
-                :() {
-                 vehicleScreenModel.addVehicle(context);
+                onPressed:() {
+                  vehicleScreenModel.addVehicle(context);
                 },
-                title: 'SAVE VEHICLE',
+                title:car==null?'SAVE VEHICLE':'UPDATE',
               ),
             ],
           ),

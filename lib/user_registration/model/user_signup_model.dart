@@ -33,6 +33,7 @@ fromJson(Map<String, dynamic> json) =>
 
   Map<String, dynamic> toJson() => {
         "name": name,
+        "email":email,
         "mobile": mobile,
         "password": password,
         "id":id,

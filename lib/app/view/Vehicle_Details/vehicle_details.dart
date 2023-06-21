@@ -1,25 +1,21 @@
-
+import 'package:carcareuser/app/model/vehicle_model.dart';
 import 'package:carcareuser/app/view_model/vehicle_screen.dart';
 import 'package:carcareuser/utils/global_colors.dart';
+import 'package:carcareuser/utils/textstyles.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/global_values.dart';
+import '../../components/vehicle_screen_components/car_details_dialog.dart';
 import '../../components/vehicle_screen_components/vehicle_input.dart';
 
-class VehicleDetails extends StatefulWidget {
+class VehicleDetails extends StatelessWidget {
   const VehicleDetails({Key? key}) : super(key: key);
 
   @override
-  State<VehicleDetails> createState() => _VehicleDetailsState();
-}
-
-class _VehicleDetailsState extends State<VehicleDetails> {
-  @override
   Widget build(BuildContext context) {
-    final vehicleScreenModel = context.watch<VehicleScreenModel>();
-
+    final vehicleScreenModel=context.read<VehicleScreenModel>();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -32,46 +28,69 @@ class _VehicleDetailsState extends State<VehicleDetails> {
         centerTitle: true,
       ),
       body: SafeArea(
-          child: vehicleScreenModel.car.isEmpty
-              ? const Center(
-                  child: Text('nodata'),
-                )
-              : ListView.separated(
-                  itemBuilder: (context, index) {
-                    Map car = vehicleScreenModel.car[index].toMap();
-                    return ListTile(
-                      leading: const CircleAvatar(),
-                      title: Text(car['Model']),
-                      subtitle: Text(car['Brand']),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.edit),
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              vehicleScreenModel.car.clear();
+        child: Consumer<VehicleScreenModel>(
+          builder: (context, value, child) {
+            value.getVehicleData();
+            final vehicleList = value.vehicleData;
+            return vehicleList == null
+                ? const Center(child: CircularProgressIndicator())
+                : vehicleList.isEmpty
+                    ? Center(
+                        child: Text('ADD YOUR VEHICLE DETAILS',
+                            style: AppTextStyles.loginText))
+                    : ListView.separated(
+                        itemBuilder: (context, index) {
+                          Vehicle car = vehicleList[index];
+                          return ListTile(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return CarDetailsDialog(car: car);
+                                },
+                              );
                             },
-                            icon: const Icon(Icons.delete),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) => AppSizes.kHeight10,
-                  itemCount: vehicleScreenModel.car.length,
-                )),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.centerFloat,
+                            leading: const CircleAvatar(),
+                            title: Text(car.brand ?? "NO"),
+                            subtitle: Text(car.brand ?? 'no'),
+                            trailing: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  onPressed: () {
+                                    showDialog(
+                                        context: context,
+                                        builder: (cntxt) {
+                                          return  VehicleInput(car:car);
+                                        });
+                                  },
+                                  icon: const Icon(Icons.edit),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    vehicleScreenModel.deleteCar(car.id!);
+                                  },
+                                  icon: const Icon(Icons.delete),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) =>
+                            AppSizes.kHeight10,
+                        itemCount: vehicleList.length,
+                      );
+          },
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: AppColors.appColor,
         onPressed: () {
           showDialog(
               context: context,
               builder: (cntxt) {
-                return VehicleInput(vehicleScreenModel: vehicleScreenModel);
+                return const VehicleInput();
               });
         },
         label: const Text('Add Vehicles'),
@@ -80,5 +99,3 @@ class _VehicleDetailsState extends State<VehicleDetails> {
     );
   }
 }
-
-

@@ -1,3 +1,4 @@
+import 'package:carcareuser/app/model/user_profile_data_modle.dart';
 import 'package:flutter/material.dart';
 
 //import 'package:sporter_turf_booking/home/model/user_profile_data_modle.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../../utils/global_colors.dart';
 import '../../../../utils/global_values.dart';
 class UserProfileContainer extends StatelessWidget {
-  final Map userProfile;
+  final UserProfileDataModel userProfile;
   const  UserProfileContainer({
     super.key, required this.userProfile,
     
@@ -35,15 +36,15 @@ class UserProfileContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children:    [
-               const Text(
-               'ameen',
-                style:  TextStyle(
+                Text(
+                userProfile.name??'name',
+                style:  const TextStyle(
                     color: AppColors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16),
               ),
               Text(
-                userProfile['email'],
+                userProfile.mobile??'12356',
                 style:  const TextStyle(
                     color: AppColors.white,
                     fontWeight: FontWeight.w600,

@@ -2,48 +2,40 @@
 //
 //     final userProfileDataModle = userProfileDataModleFromJson(jsonString);
 
-import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-UserProfileDataModle userProfileDataModleFromJson(String str) => UserProfileDataModle.fromJson(json.decode(str));
+class UserProfileDataModel {
+  UserProfileDataModel({
+    this.id,
+    this.name,
+    this.mobile,
+    this.password,
+    this.vehicle,
+  });
 
-String userProfileDataModleToJson(UserProfileDataModle data) => json.encode(data.toJson());
+  String? id;
+  String? name;
+  String? mobile;
+  String? password;
+  List? vehicle;
 
-class UserProfileDataModle {
-    UserProfileDataModle({
-        this.id,
-        this.name,
-        this.mobile,
-        this.password,
-        this.wallet,
-        this.blockStatus,
-        this.v,
-    });
-
-    String? id;
-    String? name;
-    String? mobile;
-    String? password;
-    int? wallet;
-    bool? blockStatus;
-    int? v;
-
-    factory UserProfileDataModle.fromJson(Map<String, dynamic> json) => UserProfileDataModle(
-        id: json["_id"],
-        name: json["name"],
-        mobile: json["mobile"],
-        password: json["password"],
-        wallet: json["wallet"],
-        blockStatus: json["blockStatus"],
-        v: json["__v"],
+  factory UserProfileDataModel.fromSnapshot(
+      DocumentSnapshot<Map<String, dynamic>> snapshot) {
+    final data = snapshot.data()!;
+    return UserProfileDataModel(
+      id: data["id"],
+      mobile: data['mobile'],
+      name: data["name"],
+      password: data['password'],
+      vehicle: data["vehicle"],
     );
+  }
 
-    Map<String, dynamic> toJson() => {
+  Map<String, dynamic> toJson() => {
         "_id": id,
         "name": name,
         "mobile": mobile,
         "password": password,
-        "wallet": wallet,
-        "blockStatus": blockStatus,
-        "__v": v,
-    };
+        "vehicle": vehicle,
+      };
 }

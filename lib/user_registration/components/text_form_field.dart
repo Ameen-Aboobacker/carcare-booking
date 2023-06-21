@@ -11,7 +11,7 @@ import '../../utils/textfield_validator.dart';
 
 class TextFormWidget extends StatelessWidget {
   final TextEditingController controller;
-  final String labelText;
+  final String? labelText;
   final IconData textFieldIcon;
   final TextInputType keyType;
   final bool isPassword;
@@ -25,7 +25,7 @@ class TextFormWidget extends StatelessWidget {
   const TextFormWidget({
     super.key,
     required this.controller,
-    required this.labelText,
+     this.labelText,
     required this.textFieldIcon,
     required this.keyType,
     this.isPassword = false,

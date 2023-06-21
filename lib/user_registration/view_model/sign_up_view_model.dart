@@ -1,4 +1,6 @@
 
+import 'package:carcareuser/user_registration/model/firebase_exeptions.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -20,7 +22,7 @@ class SignUpViewModel with ChangeNotifier {
   final TextEditingController passController = TextEditingController();
   final TextEditingController confirfPassController = TextEditingController();
   FirebaseAuth auth=FirebaseAuth.instance;
-
+  FirebaseFirestore db=FirebaseFirestore.instance; 
   bool _isShowPassword = true;
   bool _isShowConfPassword = true;
   bool _isLoading = false;
@@ -65,20 +67,23 @@ class SignUpViewModel with ChangeNotifier {
  signUp(BuildContext context) async {
     final navigator = Navigator.of(context);
     setLoading(true);
-    final userData = userSignupData();
+    UserSignupModel userData = userSignupData();
     try {
       auth.createUserWithEmailAndPassword(
         email: userData.email!,
         password: userData.password!,
       ).then((value) {
+        userData.id=value.user!.uid;
+
+        db.collection('user').doc(value.user!.uid).set(userData.toJson());
         setSignupStatus(value.user!.uid);
         setLoading(false);
         notifyListeners();
         SnackBarWidget.snackBar(context, 'User created Successfully!!');
         navigator.pushNamedAndRemoveUntil(
             NavigatorClass.mainScreen, (route) => false);
-      }).onError((error, stackTrace) {
-        SnackBarWidget.snackBar(context,error.toString());
+      }).onError<FirebaseAuthException>((error, stackTrace) {
+       FirebaseExceptions.cases(error,context);
         setLoading(false);
       });
     }on FirebaseAuthException catch (e) {

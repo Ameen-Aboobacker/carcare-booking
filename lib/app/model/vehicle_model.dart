@@ -1,16 +1,37 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Vehicle {
+   String? id;
   final String? brand;
   final String? model;
   final String? number;
- final  String? year;
+  final String? year;
 
-  Vehicle({required this.brand, required this.model, required this.number, required this.year});
-  toMap(){
+  Vehicle(
+      { this.id, 
+        required this.brand,
+      required this.model,
+      required this.number,
+      required this.year});
+  toMap() {
     return {
-      'Brand':brand,
-      'Model':model,
-      'Number':model,
-      'Year':year,
+      'id':id,
+      'Brand': brand,
+      'Model': model,
+      'Number': number,
+      'Year': year,
     };
   }
+
+  factory Vehicle.fromSnapshot(DocumentSnapshot<Map<String,dynamic>> document) {
+    final data = document.data()!;
+    return Vehicle(
+      id:data['id'],
+      brand: data["Brand"],
+      model: data['Model'],
+      number: data['Number'],
+      year: data["Year"],
+    );
+  }
+   
 }

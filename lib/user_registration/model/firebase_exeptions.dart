@@ -11,16 +11,26 @@ class FirebaseExceptions {
         break;
 
       case "user-not-found":
-        SnackBarWidget.snackBar(context, "invalid user not found");
+        SnackBarWidget.snackBar(context, "invalid user");
         break;
 
       case "network-request-failed":
         SnackBarWidget.snackBar(context, "No internet connection");
         break;
 
+       case "wrong-password":
+        SnackBarWidget.snackBar(context, "Incorrect password.");
+        break;
+
+       case "too-many-requests":
+        SnackBarWidget.snackBar(context, "chances exceeded.try again later");
+        break;
+        case "email-already-in-use":
+        SnackBarWidget.snackBar(context, "email already registered");
+        break;
       default:
         log(error.code);
-        SnackBarWidget.snackBar(context, "Something went wrong");
+        SnackBarWidget.snackBar(context, error.message!);
     }
   }
 }

@@ -12,6 +12,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:carcareuser/utils/keys.dart';
 
+import '../../utils/constants.dart';
 import '../../utils/routes/navigations.dart';
 import '../model/firebase_exeptions.dart';
 
@@ -34,7 +35,10 @@ class UserLoginViewModel with ChangeNotifier {
     _isShowPassword = !_isShowPassword;
     notifyListeners();
   }
-
+  acess()async{
+    final a=await AccessToken.getAccessToken();
+    print('token a :$a');
+  }
   setLoading(bool loading) async {
     _isLoading = loading;
     notifyListeners();
@@ -64,8 +68,8 @@ class UserLoginViewModel with ChangeNotifier {
         navigator.pushNamedAndRemoveUntil(
             NavigatorClass.mainScreen, (route) => false);
             notifyListeners();
-      }).onError((error, stackTrace) {
-        SnackBarWidget.snackBar(context,error.toString());
+      }).onError<FirebaseAuthException>((error, stackTrace) {
+        FirebaseExceptions.cases(error, context);
 
         setLoading(false);
       });
@@ -92,10 +96,14 @@ class UserLoginViewModel with ChangeNotifier {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      navigator.pushReplacementNamed(NavigatorClass.mainScreen);
+      await FirebaseAuth.instance.signInWithCredential(credential).then((value)async{
+         navigator.pushReplacementNamed(NavigatorClass.mainScreen);
       final sharedPref = await SharedPreferences.getInstance();
       sharedPref.setBool(GlobalKeys.userLoggedWithGoogle, true);
+      sharedPref.setString(GlobalKeys.accesToken,value.user!.uid);
+      notifyListeners();
+      });
+     
     } on PlatformException catch (e) {
       log(e.code);
       SnackBarWidget.snackBar(context, e.code);

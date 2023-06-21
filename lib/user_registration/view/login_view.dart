@@ -1,6 +1,9 @@
 // ignore_for_file: unused_local_variable
 
+import 'dart:developer';
+
 import 'package:carcareuser/user_registration/view/forget_password_view.dart';
+import 'package:carcareuser/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:carcareuser/user_registration/components/login_button_widget.dart';
@@ -31,7 +34,8 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
   @override
   Widget build(BuildContext context) {
     final loginModel = context.read<UserLoginViewModel>();
-
+    
+    loginModel.acess();
     return Scaffold(
       body: GestureDetector(
         onTap: () {

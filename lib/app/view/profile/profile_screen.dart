@@ -1,3 +1,5 @@
+
+
 import 'package:carcareuser/app/view_model/user_profile_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,7 +15,9 @@ class UserProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
   final userDataModel = context.watch<UserProfileViewModel>();
-    print(userDataModel.userProfileData);
+  
+ 
+  
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.white,

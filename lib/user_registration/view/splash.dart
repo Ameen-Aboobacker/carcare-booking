@@ -1,6 +1,8 @@
+import 'dart:developer';
+
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:carcareuser/utils/global_values.dart';
-import 'package:carcareuser/utils/session_controller.dart.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,11 +60,14 @@ Future<Widget> loginStatus() async {
   final status = await SharedPreferences.getInstance();
   final id=status.getString(GlobalKeys.accesToken);    
       final user=auth.currentUser;
+     
   if (user!=null) {
+     log('splash user id:${user.uid}');
+      log('splash id:$id');
     status.setString(GlobalKeys.accesToken,user.uid);
     return  BottomBarView();
   } else if(id!=null) {
-    print(id);
+    log('log id:$id');
     return  BottomBarView();
 }
 else{
