@@ -15,7 +15,8 @@ class VehicleDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vehicleScreenModel=context.read<VehicleScreenModel>();
+    final vehicleScreenModel=context.watch<VehicleScreenModel>();
+    final vehicleList=vehicleScreenModel.vehicleData;
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -28,11 +29,7 @@ class VehicleDetails extends StatelessWidget {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Consumer<VehicleScreenModel>(
-          builder: (context, value, child) {
-            value.getVehicleData();
-            final vehicleList = value.vehicleData;
-            return vehicleList == null
+        child: vehicleList == null
                 ? const Center(child: CircularProgressIndicator())
                 : vehicleList.isEmpty
                     ? Center(
@@ -69,6 +66,7 @@ class VehicleDetails extends StatelessWidget {
                                 IconButton(
                                   onPressed: () {
                                     vehicleScreenModel.deleteCar(car.id!);
+                                    vehicleScreenModel.getVehicleData();
                                   },
                                   icon: const Icon(Icons.delete),
                                 ),
@@ -79,9 +77,7 @@ class VehicleDetails extends StatelessWidget {
                         separatorBuilder: (context, index) =>
                             AppSizes.kHeight10,
                         itemCount: vehicleList.length,
-                      );
-          },
-        ),
+                      )
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(

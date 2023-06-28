@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:carcareuser/app/view_model/user_profile_view_model.dart';
 import 'package:carcareuser/utils/session_controller.dart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,7 @@ import 'package:carcareuser/user_registration/components/snackbar.dart';
 import 'package:carcareuser/user_registration/model/user_login_model.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -30,6 +32,7 @@ class UserLoginViewModel with ChangeNotifier {
   bool get isLoading => _isLoading;
   UserLoginModel? get userData => _userData;
   FirebaseAuthException? get loginError => _loginError;
+ 
 
   setShowPassword() {
     _isShowPassword = !_isShowPassword;
@@ -37,6 +40,8 @@ class UserLoginViewModel with ChangeNotifier {
   }
   acess()async{
     final a=await AccessToken.getAccessToken();
+    final s=await SharedPreferences.getInstance();
+    log(s.getString(GlobalKeys.currentUser).toString());
     print('token a :$a');
   }
   setLoading(bool loading) async {
@@ -64,9 +69,11 @@ class UserLoginViewModel with ChangeNotifier {
         password: userData.password!,
       ).then((value) {
         setLoginStatus(value.user!.uid,value.user!);
-        setLoading(false);
+         context.read<UserProfileViewModel>().getUserProfileData();
+       
         navigator.pushNamedAndRemoveUntil(
             NavigatorClass.mainScreen, (route) => false);
+             setLoading(false);
             notifyListeners();
       }).onError<FirebaseAuthException>((error, stackTrace) {
         FirebaseExceptions.cases(error, context);

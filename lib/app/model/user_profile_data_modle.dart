@@ -9,15 +9,16 @@ class UserProfileDataModel {
     this.id,
     this.name,
     this.mobile,
+    this.email,
     this.password,
-    this.vehicle,
   });
 
   String? id;
   String? name;
   String? mobile;
+   String? email;
   String? password;
-  List? vehicle;
+
 
   factory UserProfileDataModel.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
@@ -26,16 +27,24 @@ class UserProfileDataModel {
       id: data["id"],
       mobile: data['mobile'],
       name: data["name"],
+       email: data["email"],
       password: data['password'],
-      vehicle: data["vehicle"],
+     
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "_id": id,
+        "id": id,
         "name": name,
         "mobile": mobile,
-        "password": password,
-        "vehicle": vehicle,
+        "email": email,
+        
       };
+
+      bool isEmpty(){
+        if(id==null||name==null||mobile==null){
+          return true;
+        }
+        return false;
+      }
 }

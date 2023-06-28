@@ -5,9 +5,10 @@ import '../../../utils/global_values.dart';
 
 
 class DescriptionText extends StatelessWidget {
+ final  String? description;
   const DescriptionText({
     super.key,
-    
+    required this.description,
   });
 
 
@@ -16,8 +17,8 @@ class DescriptionText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children:const  [
-        Text(
+      children: [
+       const  Text(
           "Description",
           style: TextStyle(
             fontWeight: FontWeight.w600,
@@ -26,7 +27,7 @@ class DescriptionText extends StatelessWidget {
           ),
         ),
         AppSizes.kHeight10,
-        Text('your perfect option')
+        Text(description==null?'No description available':description!)
       ],
     );
   }

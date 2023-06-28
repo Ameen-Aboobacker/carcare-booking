@@ -1,10 +1,15 @@
-import 'package:carcareuser/utils/global_colors.dart';
 import 'package:flutter/material.dart';
-class GetLocationWidget extends StatelessWidget {
+import 'package:provider/provider.dart';
 
+
+import '../../model/service_center_model.dart';
+import '../../view_model/get_location_view_model.dart';
+
+class GetLocationWidget extends StatelessWidget {
+  final ServiceCenter serviceCenter;
   const GetLocationWidget({
     super.key,
-  
+    required this.serviceCenter,
   });
 
   @override
@@ -14,16 +19,17 @@ class GetLocationWidget extends StatelessWidget {
       height: 50,
       child: OutlinedButton.icon(
         onPressed: () {
-        
+          context
+              .read<GetLocationViewModel>()
+              .openMap(11.2487, 76.0229);
         },
         icon: const Icon(
           Icons.location_on,
           size: 28,
-          color: AppColors.appColor,
         ),
         label: const Text(
           "Get location",
-          style: TextStyle(fontSize: 19,color: AppColors.appColor),
+          style: TextStyle(fontSize: 19),
         ),
       ),
     );

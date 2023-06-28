@@ -14,7 +14,6 @@ class LoginButtonWidget extends StatelessWidget {
     required this.title,
     this.isLogin = false,
     this.isDialog = false,
-
   });
 
   final VoidCallback? onPressed;
@@ -27,7 +26,7 @@ class LoginButtonWidget extends StatelessWidget {
     final userSignupViewModel = context.watch<SignUpViewModel>();
     final userLoginViewModel = context.watch<UserLoginViewModel>();
     final userForgetPassViewModel = context.watch<ForgetPassViewModel>();
-     final vehicleScreenModel = context.watch<VehicleScreenModel>();
+    final vehicleScreenModel = context.watch<VehicleScreenModel>();
 
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -36,38 +35,50 @@ class LoginButtonWidget extends StatelessWidget {
         backgroundColor: AppColors.kButtonColor,
       ),
       onPressed: onPressed,
-      child: isDialog?
-          vehicleScreenModel.isLoading? const CircularProgressIndicator(
-              strokeWidth: 3,
-              color: AppColors.white,
-            )
-          :Text(
-              title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
+      child: isDialog
+          ? dialogueMethod(vehicleScreenModel)
+          : SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: Center(
+                child: userSignupViewModel.isLoading ||
+                        userLoginViewModel.isLoading ||
+                        userForgetPassViewModel.isLoading
+                    ? const CircularProgressIndicator(
+                        strokeWidth: 3,
+                        color: AppColors.white,
+                      )
+                    : Text(
+                        title,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 15,
+                        ),
+                      ),
               ),
-            ):
-      SizedBox(
-        width: double.infinity,
-        height: 50,
-        child: Center(
-          child: userSignupViewModel.isLoading ||
-                  userLoginViewModel.isLoading ||
-                  userForgetPassViewModel.isLoading
-              ? const CircularProgressIndicator(
+            ),
+    );
+  }
+
+  Widget dialogueMethod(VehicleScreenModel vehicleScreenModel) {
+    return   SizedBox(
+              height: 50,
+          
+              child :Center(
+                child: vehicleScreenModel.isLoading
+            ? const CircularProgressIndicator(
                   strokeWidth: 3,
                   color: AppColors.white,
                 )
-              : Text(
-                  title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 15,
-                  ),
+            
+            : Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 15,
                 ),
-        ),
-      ),
+              ),
+              )
     );
   }
 }

@@ -6,14 +6,16 @@ import '../../utils/global_values.dart';
 class VenueCardWidget extends StatelessWidget {
   final String name;
   final bool isPackage;
+  final String? image;
   const VenueCardWidget({
     required this.name,
     super.key,
-    this.isPackage=false,
+    this.isPackage=false, this.image,
   });
 
   @override
   Widget build(BuildContext context) {
+    
     return InkWell(
       onTap: () async {},
       child: SizedBox(
@@ -59,8 +61,11 @@ class VenueCardWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
         color: AppColors.lightGrey,
-        image: const DecorationImage(
-          image: AssetImage('assets/newlogo.png'),
+        image: image!=null? DecorationImage(
+          image:NetworkImage(image!),
+          fit: BoxFit.cover,
+        ):const DecorationImage(
+          image:AssetImage('assets/newlogo.png'),
           fit: BoxFit.cover,
         ),
       ),

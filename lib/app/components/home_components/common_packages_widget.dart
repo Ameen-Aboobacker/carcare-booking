@@ -39,8 +39,7 @@ class CommonPackagesWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return  const Padding(
                     padding: EdgeInsets.only(left: 15),
-                    child: VenueCardWidget( name: 'statndard',isPackage: true,
-                    ),
+                    child: VenueCardWidget( name: 'statndard',isPackage: true,),
                   );
                 },
               ),

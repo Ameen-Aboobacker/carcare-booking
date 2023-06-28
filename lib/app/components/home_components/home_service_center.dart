@@ -1,3 +1,5 @@
+import 'package:carcareuser/app/model/service_center_model.dart';
+import 'package:carcareuser/app/view_model/service_center_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:carcareuser/app/view_model/bottom_nav_view_model.dart';
@@ -12,6 +14,7 @@ class HomeCenterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final List<ServiceCenter>? userData= context.watch<ServiceCenterViewModel>().serviceCenterList;
     final size = MediaQuery.of(context).size;
     return Column(children: [
       HomeComponents.viewAllText(
@@ -27,15 +30,17 @@ class HomeCenterWidget extends StatelessWidget {
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: 7 > 5 ? 5 : 4,
+                itemCount: userData!.length > 5 ? 5 : userData.length,
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return const Padding(
-                    padding: EdgeInsets.only(left: 15),
+                  ServiceCenter center=userData[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(left: 15),
                     child: VenueCardWidget(
-                      name: 'autogarage',
+                      image:center.image,
+                      name: center.name!,
                     ),
                   );
                 },

@@ -75,7 +75,7 @@ class GetLocationViewModel with ChangeNotifier {
       Placemark place = placemarks[0];
       setCurrentAdress(place);
     }).catchError((e) {
-      debugPrint(e);
+      debugPrint(e.toString());
     });
   }
 

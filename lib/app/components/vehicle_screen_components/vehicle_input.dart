@@ -24,8 +24,8 @@ class VehicleInput extends StatelessWidget {
       shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))),
       title: Text(
-        car==null?'ADD DETAILS':'EDIT DETAILS',
-        style:  const TextStyle(color: Colors.black),
+        car == null ? 'ADD DETAILS' : 'EDIT DETAILS',
+        style: const TextStyle(color: Colors.black),
         textAlign: TextAlign.center,
       ),
       children: [
@@ -36,6 +36,7 @@ class VehicleInput extends StatelessWidget {
                 controller: vehicleScreenModel.brandCtrl,
                 keyType: TextInputType.name,
                 textFieldIcon: Icons.car_rental,
+                labelText: 'Brand',
               ),
               AppSizes.kHeight10,
               TextFormWidget(
@@ -59,12 +60,19 @@ class VehicleInput extends StatelessWidget {
                 textFieldIcon: Icons.car_rental,
               ),
               AppSizes.kHeight10,
-              LoginButtonWidget(
-                isDialog: true,
-                onPressed:() {
-                  vehicleScreenModel.addVehicle(context);
-                },
-                title:car==null?'SAVE VEHICLE':'UPDATE',
+              Padding(
+                padding: const EdgeInsets.only(left:40,right: 40),
+                child: LoginButtonWidget(
+                  isDialog: true,
+                  onPressed:  car == null
+                          ? () {
+                              vehicleScreenModel.addVehicle(context);
+                            }
+                          : () {
+                              vehicleScreenModel.update(context, car!.id!);
+                            },
+                  title: car == null ? 'SAVE VEHICLE' : 'UPDATE',
+                ),
               ),
             ],
           ),

@@ -1,7 +1,9 @@
+
 import 'package:carcareuser/app/view/bottom_navbar.dart';
 import 'package:carcareuser/app/view/home_screen/home_view.dart';
+import 'package:carcareuser/app/view/service_center/center_details_view.dart';
 import 'package:flutter/material.dart';
-import '../../app/view/service_center/center_details_view.dart';
+
 import '../../user_registration/view/splash.dart';
 import '../../user_registration/view/forget_password_view.dart';
 import '../../user_registration/view/login_view.dart';
@@ -14,8 +16,9 @@ class NavigatorClass {
   static const signUpScreen = "/userSignUp";
   static const splashScreen = "/splashScreen";
   static const mainScreen = "/bottomBarView";
-  static const venueDetailsScreen = "/VenueDetailsScreen";
+  static const packagesScreen = "/PackagesScreen";
   static const myBookingsView = "/MyBookingView";
+   static const centerDetailsView = "/centerDetailsView";
 
   static Map<String, Widget Function(BuildContext)> routes() {
     Map<String, Widget Function(BuildContext)> routes = {
@@ -25,7 +28,8 @@ class NavigatorClass {
       "/homeScreen": (context) => const HomeScreenView(),
       "/forgetPass": (context) => ForgetPasswordScreen(),
       "/bottomBarView": (context) => BottomBarView(),
-      "/VenueDetailsScreen": (context) => const CenterDetailsView(),
+       "/centerDetailsView": (context) => const CenterDetailsView(),
+     
     };
 
     return routes;

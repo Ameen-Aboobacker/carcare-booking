@@ -1,35 +1,42 @@
+import 'dart:developer';
+
+import 'package:carcareuser/app/model/user_profile_data_modle.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 import '../../../utils/global_colors.dart';
 import '../../../utils/global_values.dart';
+import '../../view_model/user_profile_view_model.dart';
 
 class HomeHeaderSection extends StatelessWidget {
+
   const HomeHeaderSection({
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-   
-    return Column(
+  final UserProfileDataModel? userData= context.watch<UserProfileViewModel>().userProfileData;
+    log(userData.toString());
+    return userData==null?const SizedBox():Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children:  const [
+            children:  [
               AppSizes.kHeight20,
               Text(
-                "Hello ameen",
-                style:  TextStyle(
+               userData.name!=null?"Hello ${userData.name}":"Hello User",
+                style:  const TextStyle(
                     color: AppColors.black,
                     fontSize: 15,
                     fontWeight: FontWeight.w500),
               ),
               AppSizes.kHeight10,
-               Text(
+              const  Text(
                 "Choose your service ",
                 style: TextStyle(
                   color: AppColors.black,

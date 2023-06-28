@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../../utils/global_colors.dart';
 import '../../../../utils/global_values.dart';
 class UserProfileContainer extends StatelessWidget {
-  final UserProfileDataModel userProfile;
+  final UserProfileDataModel? userProfile;
   const  UserProfileContainer({
     super.key, required this.userProfile,
     
@@ -37,14 +37,14 @@ class UserProfileContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children:    [
                 Text(
-                userProfile.name??'name',
+                userProfile!.name??'name',
                 style:  const TextStyle(
                     color: AppColors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16),
               ),
               Text(
-                userProfile.mobile??'12356',
+               userProfile!.email??'12356',
                 style:  const TextStyle(
                     color: AppColors.white,
                     fontWeight: FontWeight.w600,

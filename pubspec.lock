@@ -36,6 +36,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.0"
+  change_notifier:
+    dependency: "direct main"
+    description:
+      name: change_notifier
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.24.0"
   characters:
     dependency: transitive
     description:
@@ -99,6 +106,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.0.5"
+  dart_internal:
+    dependency: transitive
+    description:
+      name: dart_internal
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.8"
   desktop_webview_auth:
     dependency: transitive
     description:

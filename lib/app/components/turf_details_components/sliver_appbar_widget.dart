@@ -1,11 +1,19 @@
+import 'package:carcareuser/app/model/service_center_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/global_colors.dart';
+import '../../view_model/center_list_view_model.dart';
+
 
 class SliverAppBarWidget extends StatelessWidget {
   const SliverAppBarWidget({
     super.key,
+    required this.centerViewModel,
+    required this.centerData,
   });
+
+  final CenterDetailsViewModel centerViewModel;
+  final ServiceCenter centerData;
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +37,30 @@ class SliverAppBarWidget extends StatelessWidget {
         ),
       ),
       flexibleSpace: FlexibleSpaceBar(
-        background: Container(
-          color: AppColors.lightGrey,
-          child: Image.asset(
-            'assets/service_logo.jpg',
-            width: double.maxFinite,
-            fit: BoxFit.cover,
-          ),
-        ),
+        background: centerViewModel.isLoading
+            ? const CircularProgressIndicator()
+            : Container(
+                color: AppColors.lightGrey,
+                child: centerData.image==null? Image.asset(
+                  'assets/setting-transformed.png',
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Center(
+                      child: Text("Could not load image"),
+                    );
+                  },
+                  width: double.maxFinite,
+                  fit: BoxFit.cover,
+                ):Image.network(
+                  centerData.image!,
+                  errorBuilder: (context, error, stackTrace) {
+                    return const Center(
+                      child: Text("Could not load image"),
+                    );
+                  },
+                  width: double.maxFinite,
+                  fit: BoxFit.cover,
+                )
+              ),
       ),
       bottom: PreferredSize(
         preferredSize: const Size.fromHeight(0),

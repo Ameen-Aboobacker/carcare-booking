@@ -1,15 +1,20 @@
 
+import 'package:carcareuser/app/model/user_profile_data_modle.dart';
+import 'package:carcareuser/app/view_model/user_profile_view_model.dart';
 import 'package:carcareuser/user_registration/model/firebase_exeptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
+import '../../app/view_model/center_list_view_model.dart';
 import '../../utils/keys.dart';
 import '../../utils/routes/navigations.dart';
 
+import '../../utils/routes/paths.dart';
 import '../../utils/session_controller.dart.dart';
 import '../components/snackbar.dart';
 import '../model/error_response_model.dart';
@@ -22,7 +27,9 @@ class SignUpViewModel with ChangeNotifier {
   final TextEditingController passController = TextEditingController();
   final TextEditingController confirfPassController = TextEditingController();
   FirebaseAuth auth=FirebaseAuth.instance;
-  FirebaseFirestore db=FirebaseFirestore.instance; 
+
+  FirebaseFirestore db=FirebaseFirestore.instance;
+
   bool _isShowPassword = true;
   bool _isShowConfPassword = true;
   bool _isLoading = false;
@@ -65,33 +72,40 @@ class SignUpViewModel with ChangeNotifier {
   }
 
  signUp(BuildContext context) async {
+    
     final navigator = Navigator.of(context);
     setLoading(true);
     UserSignupModel userData = userSignupData();
-    try {
-      auth.createUserWithEmailAndPassword(
-        email: userData.email!,
-        password: userData.password!,
-      ).then((value) {
-        userData.id=value.user!.uid;
-
-        db.collection('user').doc(value.user!.uid).set(userData.toJson());
-        setSignupStatus(value.user!.uid);
-        setLoading(false);
-        notifyListeners();
-        SnackBarWidget.snackBar(context, 'User created Successfully!!');
-        navigator.pushNamedAndRemoveUntil(
-            NavigatorClass.mainScreen, (route) => false);
-      }).onError<FirebaseAuthException>((error, stackTrace) {
-       FirebaseExceptions.cases(error,context);
-        setLoading(false);
-      });
-    }on FirebaseAuthException catch (e) {
-      setLoading(false);
-        SnackBarWidget.snackBar(context,e.code);
-    }
+    signup(userData, context, navigator);
   }
 
+ void signup(UserSignupModel userData, BuildContext context, NavigatorState navigator) {
+  final userProfile=context.read<UserProfileViewModel>();
+   try {
+     auth.createUserWithEmailAndPassword(
+       email: userData.email!,
+       password: userData.password!,
+     ).then((value) async{
+       userData.id=value.user!.uid;
+      DocumentReference userDB=FirebasePaths.userpath(value.user!.uid);
+       await userDB.set(userData.toJson());
+       setSignupStatus(value.user!.uid);
+       setLoading(false);
+     
+        userProfile.getUserProfileData();
+        navigator.pushNamedAndRemoveUntil(NavigatorClass.mainScreen, (route) => false);
+          notifyListeners();
+      // SnackBarWidget.snackBar(context, 'User created Successfully!!');
+     }).onError<FirebaseAuthException>((error, stackTrace) {
+      FirebaseExceptions.cases(error,context);
+       setLoading(false);
+     });
+   }on FirebaseAuthException catch (e) {
+     setLoading(false);
+       SnackBarWidget.snackBar(context,e.code);
+   }
+ }
+ 
   setSignupStatus(String accessToken) async {
     final status = await SharedPreferences.getInstance();
     await status.setBool(GlobalKeys.userSignedUp, true);

@@ -3,8 +3,10 @@ import '../../../utils/global_colors.dart';
 
 
 class CenterContactInfo extends StatelessWidget {
+
+  final String? contact;
   const CenterContactInfo({
-    super.key,
+    super.key, required this.contact,
   });
 
   @override
@@ -15,8 +17,8 @@ class CenterContactInfo extends StatelessWidget {
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const[
-             Text(
+          children: [
+             const Text(
               "Contact us",
               style: TextStyle(
                 fontWeight: FontWeight.w600,
@@ -25,8 +27,8 @@ class CenterContactInfo extends StatelessWidget {
               ),
             ),
             Text(
-              "+91-860604404",
-              style:  TextStyle(
+              contact??'',
+              style: const TextStyle(
                 fontWeight: FontWeight.w600,
                 fontSize: 15,
                 color: Color.fromARGB(255, 90, 89, 89),
