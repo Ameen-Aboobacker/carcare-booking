@@ -1,32 +1,29 @@
-
+import 'package:carcareuser/app/view_model/service_center_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../utils/global_colors.dart';
 import '../../../utils/global_values.dart';
 import '../../../utils/textstyles.dart';
-import '../../view_model/center_list_view_model.dart';
 
 class CenterDetailsHeader extends StatelessWidget {
-  
-  
   const CenterDetailsHeader({
     super.key,
-
   });
 
   @override
   Widget build(BuildContext context) {
-  final center = context.watch<CenterDetailsViewModel>().serviceCenter;
+    final center = context.watch<ServiceCenterProvider>().serviceCenter;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(center.name??'', style: AppTextStyles.textH1),
+            Text(center.name ?? '', style: AppTextStyles.textH1),
             AppSizes.kHeight5,
-            Text("${center.place}, ${center.district}, kerala", style: AppTextStyles.textH5light),
+            Text("${center.place}, ${center.district}, kerala",
+                style: AppTextStyles.textH5light),
             AppSizes.kHeight10,
             // const RatingStarWidget(value: 3)
           ],

@@ -20,14 +20,8 @@ class SettingsListTile extends StatelessWidget {
           subtitle: "View all your bookings",
           icon: Icons.calendar_month,
           onTap: () {
-            // Navigator.pushNamed(context, NavigatorClass.myBookingsView);
+            
           },
-        ),
-        ProfileSettings(
-          title: "My Wallet",
-          subtitle: "Wallet balance: ",
-          icon: Icons.account_balance_wallet,
-          onTap: () {},
         ),
         ProfileSettings(
           title: "Help & Support",
@@ -74,3 +68,4 @@ class SettingsListTile extends StatelessWidget {
     }
   }*/
 }
+// Navigator.pushNamed(context, NavigatorClass.myBookingsView);

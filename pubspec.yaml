@@ -54,6 +54,7 @@ dependencies:
   geolocator: ^9.0.2
   url_launcher: ^6.1.11
   change_notifier: ^0.24.0
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

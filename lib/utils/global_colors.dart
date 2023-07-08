@@ -5,7 +5,7 @@ class AppColors {
   static const scaffoldColor = Colors.white;
   static const kButtonColor = Color.fromARGB(255, 75, 0, 181);
   static const appColor = Color.fromARGB(255, 75, 0, 181);
-  static const appColorlight =Color.fromARGB(255, 75, 0, 181);
+  static const appColorlight = Color.fromARGB(255, 171, 158, 189);
   static const white = Colors.white;
   static const black = Colors.black;
   static const lightBlack = Colors.black54;

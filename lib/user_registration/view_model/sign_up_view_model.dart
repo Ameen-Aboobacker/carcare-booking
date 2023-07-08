@@ -1,5 +1,4 @@
 
-import 'package:carcareuser/app/model/user_profile_data_modle.dart';
 import 'package:carcareuser/app/view_model/user_profile_view_model.dart';
 import 'package:carcareuser/user_registration/model/firebase_exeptions.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,14 +9,12 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
-import '../../app/view_model/center_list_view_model.dart';
+
 import '../../utils/keys.dart';
 import '../../utils/routes/navigations.dart';
 
 import '../../utils/routes/paths.dart';
-import '../../utils/session_controller.dart.dart';
 import '../components/snackbar.dart';
-import '../model/error_response_model.dart';
 import '../model/user_signup_model.dart';
 
 class SignUpViewModel with ChangeNotifier {

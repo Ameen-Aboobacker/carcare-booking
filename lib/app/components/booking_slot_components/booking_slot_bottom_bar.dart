@@ -1,9 +1,12 @@
+
+
 import 'package:flutter/material.dart';
 
 
 
 import '../../../utils/global_colors.dart';
 import '../../../utils/global_values.dart';
+import '../../view/payment_proceed_view.dart';
 
 
 class BookingSlotBottomBar extends StatelessWidget {
@@ -37,7 +40,7 @@ class BookingSlotBottomBar extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: 
                     () {
-                       
+                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProceedPayView(),));
                       }
                   ,
                 style: ElevatedButton.styleFrom(

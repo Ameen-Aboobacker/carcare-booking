@@ -14,7 +14,7 @@ class ServiceCenterScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final size = MediaQuery.of(context).size;
-  final venueDataList=context.watch<ServiceCenterViewModel>().serviceCenterList;
+  final venueDataList=context.watch<ServiceCenterProvider>().serviceCenterList;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.white,
@@ -26,7 +26,7 @@ class ServiceCenterScreenView extends StatelessWidget {
         ),
         body: RefreshIndicator(
           onRefresh: () async{
-            await Provider.of<ServiceCenterViewModel>(context,listen: false).getServiceCenterList();
+            await Provider.of<ServiceCenterProvider>(context,listen: false).getServiceCenterList();
           },
           child:  Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 15),

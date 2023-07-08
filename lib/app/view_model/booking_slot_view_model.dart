@@ -2,35 +2,26 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:sporter_turf_booking/home/view_model/venue_details_view_model.dart';
-import '../../repo/api_services.dart';
-import '../../repo/api_status.dart';
-import '../../utils/constants.dart';
-import '../model/slot_availability_model.dart';
-import '../model/venue_data_model.dart';
+//import 'package:sporter_turf_booking/home/view_model/venue_details_view_model.dart';
+
+
 
 class BookingSlotViewModel with ChangeNotifier {
-  BookingSlotViewModel() {
-    DateTime now = DateTime.now();
-    for (int i = 0; i < 5; i++) {
-      _dates.add(now.add(Duration(days: i)));
-    }
-    _selectedDate = now;
-  }
+ 
 
-  List<SlotAvailabilityModel> _slotAvailability = [];
-  int _selectedSport = -1;
+ // List<SlotAvailabilityModel> _slotAvailability = [];
+ int _selectedSport = -1;
   String _selectedSportName = "";
-  DateTime? _selectedDate = DateTime.now();
+  DateTime? _selectedDate;
   final List<DateTime> _dates = [];
   String _selectedRadioButton = "";
   String _facility = "";
   String _selectedTime = "HH:MM";
-  List<Slots> venueDataSlot = [];
+ // List<Slots> venueDataSlot = [];
   int fromTimeSlotIndex = -1;
   String timeSlotText = "";
 
-  List<SlotAvailabilityModel> get slotAvailability => _slotAvailability;
+  //List<SlotAvailabilityModel> get slotAvailability => _slotAvailability;
   int get selectedSport => _selectedSport;
   String get selectedSportName => _selectedSportName;
   DateTime? get selectedDate => _selectedDate;
@@ -41,7 +32,7 @@ class BookingSlotViewModel with ChangeNotifier {
 
   // GET THE SLOTS AVAILABILITY
 
-  getSlotAvailability({
+  /*getSlotAvailability({
     required String venueId,
   }) async {
     final date = DateFormat('d,MMM,y').format(
@@ -72,8 +63,7 @@ class BookingSlotViewModel with ChangeNotifier {
   setSlotAvailability(List<SlotAvailabilityModel> slotAvailability) async {
     _slotAvailability = slotAvailability;
     notifyListeners();
-  }
-
+  }*/
   // Selected sport controller ---------
 
   setSelectedSport(
@@ -103,18 +93,17 @@ class BookingSlotViewModel with ChangeNotifier {
 
   setSelectedDate(DateTime? selectedDate, String venueId) {
     _selectedDate = selectedDate;
-    getSlotAvailability(venueId: venueId);
+    //getSlotAvailability(venueId: venueId);
     clearSelectedTime();
     notifyListeners();
   }
 
-  setDate(DateTime selectedDate, venueId) {
+  setDate(DateTime selectedDate) {
     _selectedDate = selectedDate;
     _dates.clear();
     for (int i = 0; i < 5; i++) {
       _dates.add(selectedDate.add(Duration(days: i)));
     }
-    getSlotAvailability(venueId: venueId);
     clearSelectedTime();
     notifyListeners();
   }
@@ -164,7 +153,7 @@ class BookingSlotViewModel with ChangeNotifier {
     return time12;
   }
 
-  bool canSelectTimeSlot(
+  /*bool canSelectTimeSlot(
       {required bool isFromSlot,
       required int slotIndex,
       required BuildContext context}) {
@@ -207,5 +196,5 @@ class BookingSlotViewModel with ChangeNotifier {
     } else {
       return false;
     }
-  }
+  }*/
 }

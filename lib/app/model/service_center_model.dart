@@ -12,7 +12,7 @@ class ServiceCenter {
   String? district;
   String? id;
   String? description;
-   String? image;
+  String? image;
   final List<Option>? services;
 
   ServiceCenter({
@@ -29,40 +29,40 @@ class ServiceCenter {
   toMap() {
     return {
       'id': id,
-      'Email': email,
-      'Name': name,
-      'Contact': contact,
-      'Place': place,
-      'District': district,
-      'Description': description,   
+      'email': email,
+      'name': name,
+      'contact': contact,
+      'place': place,
+      'district': district,
+      'description': description,
     };
   }
 
   factory ServiceCenter.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
-     List? servicesData = data['Services'];
-  List<Option>? serviceList;
-  log(serviceList.toString());
-  if (servicesData != null) {
-    serviceList = servicesData.map((map) {
-      return Option(
-        map['name'],
-        map['rate'],
-        false,
-      );
-    }).toList();
-  }
+    List? servicesData = data['services'];
+    List<Option>? serviceList;
+    log(serviceList.toString());
+    if (servicesData != null) {
+      serviceList = servicesData.map((map) {
+        return Option(
+          map['name'],
+          map['rate'],
+          false,
+        );
+      }).toList();
+    }
     return ServiceCenter(
       id: data['sid'],
-      name: data["Name"],
-      email: data['Mail'],
-      contact: data['Contact'],
-      district: data["District"],
-      place: data["Place"],
-        description: data["Description"],
-        image:data['ImagePath'],
-        services: serviceList,
+      name: data["name"],
+      email: data['mail'],
+      contact: data['contact'],
+      district: data["district"],
+      place: data["place"],
+      description: data["description"],
+      image: data['imagePath'],
+      services: serviceList,
     );
   }
 }

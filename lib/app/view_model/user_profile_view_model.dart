@@ -78,7 +78,7 @@ getUserProfileData();
       AccessToken.clearAccessToken();
       GoogleSignIn().disconnect();
       Navigator.of(context).popAndPushNamed(NavigatorClass.loginScreen);
-      Provider.of<BottomBarViewModel>(context, listen: false)
+      Provider.of<BottomBarProvider>(context, listen: false)
           .changeBottomNavindex(0);
       notifyListeners();
     });

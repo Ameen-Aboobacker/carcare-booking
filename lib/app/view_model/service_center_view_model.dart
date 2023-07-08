@@ -5,17 +5,18 @@ import 'package:geolocator/geolocator.dart';
 import '../model/package_model.dart';
 import '../model/service_center_model.dart';
 
-
-
-
-class ServiceCenterViewModel  with ChangeNotifier {
-  ServiceCenterViewModel () {
+class ServiceCenterProvider with ChangeNotifier {
+  ServiceCenterProvider() {
     getServiceCenterList();
   }
   List<ServiceCenter> _serviceCenterList = [];
-  FirebaseFirestore db=FirebaseFirestore.instance;
+  FirebaseFirestore db = FirebaseFirestore.instance;
+late ServiceCenter _serviceCenter;
+  bool _isLoading = false;
 
-   PackageModel? selectedPackages;
+  ServiceCenter get serviceCenter => _serviceCenter;
+  bool get isLoading => _isLoading;
+  PackageModel? selectedPackages;
   Position? _currentPosition;
   bool _isVenueListLoading = false;
 
@@ -25,15 +26,12 @@ class ServiceCenterViewModel  with ChangeNotifier {
 
   getServiceCenterList() async {
     setVenueListLoading(true);
-    final snapshot =
-          await db.collection('service center').get();
-      final centerData =
-          snapshot.docs.map((e) => ServiceCenter.fromSnapshot(e)).toList();
-      _serviceCenterList = centerData;
-          notifyListeners();
+    final snapshot = await db.collection('service center').get();
+    final centerData =
+        snapshot.docs.map((e) => ServiceCenter.fromSnapshot(e)).toList();
+    _serviceCenterList = centerData;
+    notifyListeners();
     setVenueListLoading(false);
-      
-  
   }
 
   setVenueListData(List<ServiceCenter> serviceCenterList) async {
@@ -41,8 +39,27 @@ class ServiceCenterViewModel  with ChangeNotifier {
     notifyListeners();
   }
 
+  getSingleCenter(String id) async {
+    setLoading(true);
+    final snapshot =
+        await db.collection('service center').where('sid', isEqualTo: id).get();
+    final centerData =
+        snapshot.docs.map((e) => ServiceCenter.fromSnapshot(e)).single;
+    _serviceCenter = centerData;
+    notifyListeners();
+    setLoading(false);
+  }
+
+  setServiceCenter(ServiceCenter serviceCenter) async {
+    _serviceCenter = serviceCenter;
+    notifyListeners();
+  }
+
+  setLoading(bool loading) {
+    _isLoading = loading;
+  }
+
   setVenueListLoading(bool loading) {
     _isVenueListLoading = loading;
   }
-
 }

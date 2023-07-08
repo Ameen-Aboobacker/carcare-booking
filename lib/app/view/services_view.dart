@@ -1,16 +1,14 @@
-import 'dart:developer';
 
 import 'package:carcareuser/app/model/service_center_model.dart';
 import 'package:carcareuser/user_registration/components/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../view_model/center_list_view_model.dart';
 import '../view_model/services_view_model.dart';
 
 class ServicesView extends StatelessWidget {
-  final String? centerId;
-  const ServicesView({super.key, required this.centerId});
+  final ServiceCenter? center;
+  const ServicesView({super.key, required this.center});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +20,12 @@ class ServicesView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Services'),
       ),
-      body: Consumer<ServicesViewModel>(
+      body: Consumer<ServicesProvider>(
         builder: (context, optionsProvider, _) {
-         optionsProvider.setOptions(context);
+         optionsProvider.setOptions(context,center!.services);
+         if(optionsProvider.options==null){
+          return const Center(child:CircularProgressIndicator());
+         }
           return ListView.builder(
             itemCount: optionsProvider.options!.length,
             itemBuilder: (context, index) {
@@ -45,7 +46,7 @@ class ServicesView extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           final optionsProvider =
-              Provider.of<ServicesViewModel>(context, listen: false);
+              Provider.of<ServicesProvider>(context, listen: false);
           final pnameCtrl = optionsProvider.packageNameCtrl;
           optionsProvider.getSelectedOptions();
           final selectedOptions = optionsProvider.selectedOptions;
@@ -61,7 +62,7 @@ class ServicesView extends StatelessWidget {
                     keyType: TextInputType.name),
                 ElevatedButton(
                     onPressed: () {
-                      optionsProvider.createPackage(context, centerId);
+                      optionsProvider.createPackage(context, center!.id);
                     },
                     child: const Text('create'))
               ],

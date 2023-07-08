@@ -24,4 +24,5 @@ class AppSizes {
 
   static BorderRadius kradius = BorderRadius.circular(15);
   static BorderRadius kradius30 = BorderRadius.circular(30);
+  
 }

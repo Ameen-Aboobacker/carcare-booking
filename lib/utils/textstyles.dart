@@ -32,7 +32,7 @@ class AppTextStyles {
     fontSize: 14,
   );
   static TextStyle textH4Green = const TextStyle(
-    color: Colors.green,
+    color: AppColors.appColor,
     fontWeight: FontWeight.w600,
     fontSize: 14,
   );
@@ -76,4 +76,6 @@ class AppTextStyles {
     fontSize: 13,
     color: AppColors.grey,
   );
+
+    
 }

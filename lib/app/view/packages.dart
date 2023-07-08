@@ -1,20 +1,16 @@
-import 'dart:developer';
-
-import 'package:carcareuser/app/components/turf_details_components/choose_package_widget.dart';
 import 'package:carcareuser/app/model/package_model.dart';
+import 'package:carcareuser/app/model/service_center_model.dart';
 import 'package:carcareuser/app/view/services_view.dart';
-import 'package:carcareuser/app/view_model/packages_view_model.dart';
 import 'package:carcareuser/app/view_model/service_center_view_model.dart';
+import 'package:carcareuser/app/view_model/services_view_model.dart';
 import 'package:carcareuser/utils/global_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../view_model/center_list_view_model.dart';
-
 class Packages extends StatelessWidget {
-  final String? centerID;
-  const Packages({Key? key, required this.centerID}) : super(key: key);
+  final ServiceCenter? center;
+  const Packages({Key? key, required this.center}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,9 +27,9 @@ class Packages extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(13, 25, 13, 0),
-          child: Consumer<PackagesViewModel>(
+          child: Consumer<ServicesProvider>(
             builder: (context, value, _) {
-              value.getPackages(centerID!);
+              value.getPackages(center!.id!);
               return value.packages == null
                   ? const Center(
                       child: CircularProgressIndicator(),
@@ -58,7 +54,7 @@ class Packages extends StatelessWidget {
         child: ElevatedButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => ServicesView(centerId: centerID),
+              builder: (context) => ServicesView(center: center),
             ));
           },
           child: const Text("Create Package"),
@@ -78,23 +74,23 @@ class PackageTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final serviceViewModel = Provider.of<ServiceCenterViewModel>(context);
+    final serviceViewModel = Provider.of<ServiceCenterProvider>(context);
 
     return ExpansionTile(
       leading: TextButton.icon(
         onPressed: () async {
           final navigator = Navigator.of(context);
           serviceViewModel.selectedPackages = package;
-          await context
-              .read<CenterDetailsViewModel>()
-              .getSingleVenue(package.sid!);
+          /*await context
+              .read<ServiceCenterProvider>()
+              .getSingleCenter(package.sid!);*/
           navigator.pop();
         },
         icon: const Icon(CupertinoIcons.check_mark),
         label: const Text('add'),
       ),
       title: Text(package.name ?? ""),
-      subtitle:Text(package.price ?? ""),
+      subtitle: Text(package.price ?? ""),
       children: package.services!.map((e) => Text(e)).toList(),
     );
   }

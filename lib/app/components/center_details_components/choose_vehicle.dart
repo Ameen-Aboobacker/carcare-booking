@@ -1,6 +1,8 @@
 import 'dart:developer';
 
-import 'package:carcareuser/app/components/packages.dart';
+import 'package:carcareuser/app/view/Vehicle_Details/vehicle_details.dart';
+import 'package:carcareuser/app/view/packages.dart';
+import 'package:carcareuser/app/model/service_center_model.dart';
 import 'package:carcareuser/app/view_model/service_center_view_model.dart';
 import 'package:carcareuser/utils/global_colors.dart';
 import 'package:carcareuser/utils/global_values.dart';
@@ -8,19 +10,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../model/package_model.dart';
 
-class ChoosePackageWidget extends StatelessWidget {
-  final String? centerid;
-  const ChoosePackageWidget({
+class ChooseVehicleWidget extends StatelessWidget {
+  final ServiceCenter? center;
+  const ChooseVehicleWidget({
     super.key,
-    required this.centerid,
+    required this.center,
   });
 
   @override
   Widget build(BuildContext context) {
-    final serviceView = context.watch<ServiceCenterViewModel>();
-    return serviceView.selectedPackages!=null&& serviceView.selectedPackages!.sid==centerid
-        ? SelectedPackageSectionWidget(serviceView: serviceView.selectedPackages, centerid: centerid)
-        : SizedBox(
+   // final serviceView = context.watch<ServiceCenterViewModel>();
+    return /*serviceView.selectedPackages!=null&& serviceView.selectedPackages!.sid==center!.id!
+        ? SelectedPackageSectionWidget(serviceView: serviceView.selectedPackages, center: center)
+        : */SizedBox(
             width: double.infinity,
             height: 50,
             child: OutlinedButton.icon(
@@ -28,7 +30,7 @@ class ChoosePackageWidget extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (ctx) => Packages(centerID: centerid)));
+                        builder: (ctx) => const VehicleDetails()));
               },
               icon: const Icon(
                 Icons.add_box,
@@ -36,7 +38,7 @@ class ChoosePackageWidget extends StatelessWidget {
                 color: AppColors.appColor,
               ),
               label: const Text(
-                "Choose Package",
+                "Choose Vehicle",
                 style: TextStyle(fontSize: 19, color: AppColors.appColor),
               ),
             ),
@@ -48,11 +50,11 @@ class SelectedPackageSectionWidget extends StatelessWidget {
   const SelectedPackageSectionWidget({
     super.key,
     required this.serviceView,
-    required this.centerid,
+    required this.center,
   });
 
   final PackageModel? serviceView;
-  final String? centerid;
+  final ServiceCenter? center;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,7 @@ class SelectedPackageSectionWidget extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (ctx) => Packages(centerID: centerid)));
+                        builder: (ctx) => Packages(center: center)));
               },
               icon: const Icon(
                 Icons.add_box,

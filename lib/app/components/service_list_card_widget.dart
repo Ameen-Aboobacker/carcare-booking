@@ -1,9 +1,9 @@
 import 'package:carcareuser/app/model/service_center_model.dart';
+import 'package:carcareuser/app/view_model/service_center_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../utils/global_colors.dart';
 import '../../utils/routes/navigations.dart';
-import '../view_model/center_list_view_model.dart';
 
 class ServiceCenterListCardWidget extends StatelessWidget {
   const ServiceCenterListCardWidget({
@@ -59,7 +59,7 @@ class ServiceCenterListCardWidget extends StatelessWidget {
             style: ElevatedButton.styleFrom(elevation: 0),
             onPressed: () async {
             final navigator = Navigator.of(context);
-        await context.read<CenterDetailsViewModel>().getSingleVenue(center.id!);
+        await context.read<ServiceCenterProvider>().getSingleCenter(center.id!);
         navigator.pushNamed(NavigatorClass.centerDetailsView);
             },
             child: const Text("View"),

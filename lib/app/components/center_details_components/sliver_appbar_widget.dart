@@ -1,8 +1,8 @@
 import 'package:carcareuser/app/model/service_center_model.dart';
+import 'package:carcareuser/app/view_model/service_center_view_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/global_colors.dart';
-import '../../view_model/center_list_view_model.dart';
 
 
 class SliverAppBarWidget extends StatelessWidget {
@@ -12,7 +12,7 @@ class SliverAppBarWidget extends StatelessWidget {
     required this.centerData,
   });
 
-  final CenterDetailsViewModel centerViewModel;
+  final ServiceCenterProvider centerViewModel;
   final ServiceCenter centerData;
 
   @override

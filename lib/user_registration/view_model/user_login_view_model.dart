@@ -26,24 +26,25 @@ class UserLoginViewModel with ChangeNotifier {
   bool _isLoading = false;
   UserLoginModel? _userData;
   FirebaseAuthException? _loginError;
- final googleSigin = GoogleSignIn();
+  final googleSigin = GoogleSignIn();
   GoogleSignInAccount? _user;
   bool get isShowPassword => _isShowPassword;
   bool get isLoading => _isLoading;
   UserLoginModel? get userData => _userData;
   FirebaseAuthException? get loginError => _loginError;
- 
 
   setShowPassword() {
     _isShowPassword = !_isShowPassword;
     notifyListeners();
   }
-  acess()async{
-    final a=await AccessToken.getAccessToken();
-    final s=await SharedPreferences.getInstance();
+
+  acess() async {
+    final a = await AccessToken.getAccessToken();
+    final s = await SharedPreferences.getInstance();
     log(s.getString(GlobalKeys.currentUser).toString());
     print('token a :$a');
   }
+
   setLoading(bool loading) async {
     _isLoading = loading;
     notifyListeners();
@@ -64,29 +65,31 @@ class UserLoginViewModel with ChangeNotifier {
     setLoading(true);
     final userData = userLoginData();
     try {
-      auth.signInWithEmailAndPassword(
+      auth
+          .signInWithEmailAndPassword(
         email: userData.email!,
         password: userData.password!,
-      ).then((value) {
-        setLoginStatus(value.user!.uid,value.user!);
-         context.read<UserProfileViewModel>().getUserProfileData();
-       
+      )
+          .then((value) {
+        setLoginStatus(value.user!.uid, value.user!);
+        context.read<UserProfileViewModel>().getUserProfileData();
+
         navigator.pushNamedAndRemoveUntil(
             NavigatorClass.mainScreen, (route) => false);
-             setLoading(false);
-            notifyListeners();
+        setLoading(false);
+        notifyListeners();
       }).onError<FirebaseAuthException>((error, stackTrace) {
         FirebaseExceptions.cases(error, context);
 
         setLoading(false);
       });
-    }on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) {
       setLoading(false);
-        SnackBarWidget.snackBar(context,e.code);
+      SnackBarWidget.snackBar(context, e.code);
     }
   }
 
-   GoogleSignInAccount get user => _user!;
+  GoogleSignInAccount get user => _user!;
 
   Future firebaseGoogleAuth(context) async {
     final navigator = Navigator.of(context);
@@ -103,14 +106,15 @@ class UserLoginViewModel with ChangeNotifier {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      await FirebaseAuth.instance.signInWithCredential(credential).then((value)async{
-         navigator.pushReplacementNamed(NavigatorClass.mainScreen);
-      final sharedPref = await SharedPreferences.getInstance();
-      sharedPref.setBool(GlobalKeys.userLoggedWithGoogle, true);
-      sharedPref.setString(GlobalKeys.accesToken,value.user!.uid);
-      notifyListeners();
+      await FirebaseAuth.instance
+          .signInWithCredential(credential)
+          .then((value) async {
+        navigator.pushReplacementNamed(NavigatorClass.mainScreen);
+        final sharedPref = await SharedPreferences.getInstance();
+        sharedPref.setBool(GlobalKeys.userLoggedWithGoogle, true);
+        sharedPref.setString(GlobalKeys.accesToken, value.user!.uid);
+        notifyListeners();
       });
-     
     } on PlatformException catch (e) {
       log(e.code);
       SnackBarWidget.snackBar(context, e.code);
@@ -129,11 +133,11 @@ class UserLoginViewModel with ChangeNotifier {
     loginPasswordCntrllr.clear();
   }
 
-  setLoginStatus(String accessToken,User user) async {
+  setLoginStatus(String accessToken, User user) async {
     final status = await SharedPreferences.getInstance();
     status.setBool(GlobalKeys.userLoggedIN, true);
     status.setString(GlobalKeys.accesToken, accessToken);
-    status.setString(GlobalKeys.currentUser,user.toString() );
+    status.setString(GlobalKeys.currentUser, user.toString());
   }
 
   UserLoginModel userLoginData() {

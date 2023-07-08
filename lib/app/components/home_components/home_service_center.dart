@@ -14,13 +14,13 @@ class HomeCenterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final List<ServiceCenter>? userData= context.watch<ServiceCenterViewModel>().serviceCenterList;
+     final List<ServiceCenter> userData= context.watch<ServiceCenterProvider>().serviceCenterList;
     final size = MediaQuery.of(context).size;
     return Column(children: [
       HomeComponents.viewAllText(
         lText: "Centers",
         onPressed: () {
-          context.read<BottomBarViewModel>().changeBottomNavindex(2);
+          context.read<BottomBarProvider>().changeBottomNavindex(2);
         },
       ),
       AppSizes.kHeight20,
@@ -30,7 +30,7 @@ class HomeCenterWidget extends StatelessWidget {
           children: [
             Expanded(
               child: ListView.builder(
-                itemCount: userData!.length > 5 ? 5 : userData.length,
+                itemCount: userData.length > 5 ? 5 : userData.length,
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
                 physics: const ScrollPhysics(),

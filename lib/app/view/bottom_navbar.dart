@@ -23,7 +23,7 @@ class BottomBarView extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
-    final bottomBarVieModel = Provider.of<BottomBarViewModel>(context);
+    final bottomBarVieModel = Provider.of<BottomBarProvider>(context);
     return Scaffold(
       body: views[bottomBarVieModel.newIndex],
       backgroundColor: AppColors.white,

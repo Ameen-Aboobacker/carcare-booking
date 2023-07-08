@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class BottomBarViewModel with ChangeNotifier {
+class BottomBarProvider with ChangeNotifier {
   int _bottomBarIndex = 0;
 
   int get newIndex => _bottomBarIndex;
