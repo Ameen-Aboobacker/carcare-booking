@@ -57,9 +57,9 @@ class AppTextStyles {
     fontWeight: FontWeight.w600,
   );
   static TextStyle textH1 = const TextStyle(
+    color: AppColors.appColor,
     fontWeight: FontWeight.w700,
     fontSize: 20,
-    color: AppColors.black,
   );
   static TextStyle textH1White = const TextStyle(
     fontWeight: FontWeight.w700,
@@ -67,9 +67,9 @@ class AppTextStyles {
     color: AppColors.white,
   );
   static TextStyle textH5light = const TextStyle(
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.bold,
     fontSize: 13,
-    color: Colors.black,
+    color: Colors.blue,
   );
   static TextStyle textH5grey = const TextStyle(
     fontWeight: FontWeight.w400,

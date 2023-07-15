@@ -1,12 +1,14 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 
 
 import '../../../utils/global_colors.dart';
 import '../../../utils/global_values.dart';
-import '../../view/payment_proceed_view.dart';
+import '../../../utils/routes/navigations.dart';
+import '../../view_model/booking_provider.dart';
 
 
 class BookingSlotBottomBar extends StatelessWidget {
@@ -16,7 +18,7 @@ class BookingSlotBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
- 
+    final bookingViewModel = context.watch<BookingProvider>();
     return Container(
       width: double.infinity,
       height: 70,
@@ -33,16 +35,24 @@ class BookingSlotBottomBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-         AppSizes.kHeight10,
+           bookingViewModel.checkPackage()? Text(
+              "Total : ₹${bookingViewModel.selectedPackages?.price}.00",
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: AppColors.appColor,
+                fontSize: 19,
+              ),
+            ):AppSizes.kHeight10,
             SizedBox(
               height: 44,
               width: 100,
               child: ElevatedButton(
-                onPressed: 
-                    () {
-                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => const ProceedPayView(),));
+                onPressed: bookingViewModel.checkBookingSelection()
+                    ? () {
+                        Navigator.pushNamed(
+                            context, NavigatorClass.paymentScreen);
                       }
-                  ,
+                    : null,
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
                   disabledBackgroundColor: AppColors.lightGrey,

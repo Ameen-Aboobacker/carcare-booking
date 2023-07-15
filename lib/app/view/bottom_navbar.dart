@@ -1,12 +1,12 @@
-import 'package:carcareuser/app/view/Vehicle_Details/vehicle_details.dart';
+import 'package:carcareuser/app/view/services/services.dart';
 import 'package:carcareuser/app/view/service_center/service_center.dart';
 import 'package:carcareuser/app/view/profile/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:carcareuser/app/view_model/bottom_nav_view_model.dart';
 import 'package:carcareuser/utils/global_colors.dart';
+import '../view_model/bottom_nav_provider.dart';
 import 'home_screen/home_view.dart';
 
 class BottomBarView extends StatelessWidget {

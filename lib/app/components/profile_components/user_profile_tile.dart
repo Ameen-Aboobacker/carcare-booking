@@ -37,14 +37,14 @@ class UserProfileContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children:    [
                 Text(
-                userProfile!.name??'name',
+                userProfile?.name??'name',
                 style:  const TextStyle(
                     color: AppColors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 16),
               ),
               Text(
-               userProfile!.email??'12356',
+               userProfile?.email??'12356',
                 style:  const TextStyle(
                     color: AppColors.white,
                     fontWeight: FontWeight.w600,

@@ -7,7 +7,8 @@ import 'package:provider/provider.dart';
 
 import '../../../utils/global_colors.dart';
 import '../../../utils/global_values.dart';
-import '../../view_model/user_profile_view_model.dart';
+import '../../view_model/user_profile_provider.dart';
+
 
 class HomeHeaderSection extends StatelessWidget {
 
@@ -17,7 +18,7 @@ class HomeHeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-  final UserProfileDataModel? userData= context.watch<UserProfileViewModel>().userProfileData;
+  final UserProfileDataModel? userData= context.watch<UserProfileProvider>().userProfileData;
     log(userData.toString());
     return userData==null?const SizedBox():Column(
       crossAxisAlignment: CrossAxisAlignment.start,

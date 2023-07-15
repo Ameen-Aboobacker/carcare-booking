@@ -1,15 +1,17 @@
+import '../app/model/vehicle_model.dart';
+
 class Success {
-  int? code;
-  Object? response;
+  List<Vehicle>? data;
+  String? response;
   Success({
-    this.code,
     this.response,
+    this.data,
   });
 }
 
 class Failure {
   int? code;
-  Object? errorResponse;
+  String? errorResponse;
   Failure({
     this.code,
     this.errorResponse,

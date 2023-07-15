@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 
 import '../../model/service_center_model.dart';
-import '../../view_model/get_location_view_model.dart';
+import '../../view_model/get_location_provider.dart';
 
 class GetLocationWidget extends StatelessWidget {
   final ServiceCenter serviceCenter;
@@ -20,7 +20,7 @@ class GetLocationWidget extends StatelessWidget {
       child: OutlinedButton.icon(
         onPressed: () {
           context
-              .read<GetLocationViewModel>()
+              .read<LocationProvider>()
               .openMap(11.2487, 76.0229);
         },
         icon: const Icon(

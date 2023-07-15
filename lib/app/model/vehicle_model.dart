@@ -23,6 +23,16 @@ class Vehicle {
     };
   }
 
+@override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is Vehicle && other.brand == brand && other.model == model && other.number == number && other.year == year;
+  }
+
+  @override
+  int get hashCode => brand.hashCode ^ model.hashCode;
+
   factory Vehicle.fromSnapshot(DocumentSnapshot<Map<String,dynamic>> document) {
     final data = document.data()!;
     return Vehicle(

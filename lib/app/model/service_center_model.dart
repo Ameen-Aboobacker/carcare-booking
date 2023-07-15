@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../view_model/services_view_model.dart';
+import '../view_model/services_provider.dart';
 
 class ServiceCenter {
   String? name;
@@ -13,7 +13,7 @@ class ServiceCenter {
   String? id;
   String? description;
   String? image;
-  final List<Option>? services;
+   List<String>? service;
 
   ServiceCenter({
     this.id,
@@ -23,7 +23,7 @@ class ServiceCenter {
     required this.place,
     required this.district,
     required this.description,
-    this.services,
+    this.service,
     this.image,
   });
   toMap() {
@@ -41,18 +41,8 @@ class ServiceCenter {
   factory ServiceCenter.fromSnapshot(
       DocumentSnapshot<Map<String, dynamic>> document) {
     final data = document.data()!;
-    List? servicesData = data['services'];
-    List<Option>? serviceList;
-    log(serviceList.toString());
-    if (servicesData != null) {
-      serviceList = servicesData.map((map) {
-        return Option(
-          map['name'],
-          map['rate'],
-          false,
-        );
-      }).toList();
-    }
+    List? se=data['service'];
+     final ses=se?.map((e) => e.toString()).toList();
     return ServiceCenter(
       id: data['sid'],
       name: data["name"],
@@ -62,7 +52,7 @@ class ServiceCenter {
       place: data["place"],
       description: data["description"],
       image: data['imagePath'],
-      services: serviceList,
+      service:ses,
     );
   }
 }

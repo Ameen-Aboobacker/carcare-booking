@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../utils/global_colors.dart';
 import '../../utils/global_values.dart';
-import '../view_model/get_location_view_model.dart';
+import '../view_model/get_location_provider.dart';
 
 class AppBarLocation extends StatelessWidget {
   const AppBarLocation({
@@ -11,8 +11,8 @@ class AppBarLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final locationViewModel = context.watch<GetLocationViewModel>();
-    return Consumer<GetLocationViewModel>(
+  
+    return Consumer<LocationProvider>(
       builder: (context, value, child) {
         return Row(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -40,14 +40,14 @@ class AppBarLocation extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            locationViewModel.currentAddress!.locality!,
+                            value.currentAddress!.locality!,
                             style: const TextStyle(
                                 color: AppColors.black,
                                 fontSize: 19,
                                 fontWeight: FontWeight.w500),
                           ),
                           Text(
-                            "${locationViewModel.currentAddress?.administrativeArea}, ${locationViewModel.currentAddress?.country}",
+                            "${value.currentAddress?.administrativeArea}, ${value.currentAddress?.country}",
                             style: const TextStyle(
                               color: AppColors.black,
                               fontSize: 12,

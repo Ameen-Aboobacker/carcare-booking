@@ -1,8 +1,9 @@
 import 'package:carcareuser/app/components/profile_components/settings.dart.dart';
-import 'package:carcareuser/app/view_model/user_profile_view_model.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../view_model/user_profile_provider.dart';
 
 
 
@@ -47,7 +48,7 @@ class SettingsListTile extends StatelessWidget {
           title: "Logout",
           icon: Icons.logout,
           onTap: () {
-           Provider.of<UserProfileViewModel>(context,listen:false).signOut(context);
+           Provider.of<UserProfileProvider>(context,listen:false).signOut(context);
           },
         ),
       ],

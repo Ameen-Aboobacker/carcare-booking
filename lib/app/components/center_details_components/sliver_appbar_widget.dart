@@ -1,5 +1,5 @@
 import 'package:carcareuser/app/model/service_center_model.dart';
-import 'package:carcareuser/app/view_model/service_center_view_model.dart';
+import 'package:carcareuser/app/view_model/service_center_provider.dart';
 import 'package:flutter/material.dart';
 
 import '../../../utils/global_colors.dart';

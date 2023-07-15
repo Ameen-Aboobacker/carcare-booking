@@ -1,15 +1,12 @@
 import 'dart:developer';
-
-import 'package:carcareuser/app/model/service_center_model.dart';
 import 'package:flutter/material.dart';
-
+import 'package:carcareuser/app/model/service_center_model.dart';
 import '../../utils/global_values.dart';
 import '../../utils/textstyles.dart';
 import '../components/booking_slot_components/booking_slot_bottom_bar.dart';
 import '../components/booking_slot_components/date_container.dart';
-import '../components/booking_slot_components/time_manage_widget.dart';
 import '../components/booking_slot_components/choose_package_widget.dart';
-import '../components/center_details_components/choose_vehicle.dart';
+import '../components/booking_slot_components/choose_vehicle.dart';
 
 class BookingSlotView extends StatelessWidget {
   const BookingSlotView({super.key, this.center});
@@ -41,9 +38,7 @@ class BookingSlotView extends StatelessWidget {
               AppSizes.kHeight30,
               Text("Select Vehicle", style: AppTextStyles.textH2),
               AppSizes.kHeight20,
-                
-               ChooseVehicleWidget(center: center),
-              
+              ChooseVehicleWidget(center: center),
             ],
           ),
         ),

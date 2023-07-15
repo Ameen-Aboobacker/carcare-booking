@@ -7,8 +7,8 @@ import 'package:provider/provider.dart';
 import '../../../utils/global_colors.dart';
 import '../../../utils/global_values.dart';
 import '../../../utils/textstyles.dart';
-import '../../view_model/booking_slot_view_model.dart';
-import '../../view_model/service_center_view_model.dart';
+import '../../view_model/booking_provider.dart';
+import '../../view_model/service_center_provider.dart';
 
 
 class BookingDetailsContainer extends StatelessWidget {
@@ -17,15 +17,12 @@ class BookingDetailsContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    final centerData = context.watch<ServiceCenterProvider>().serviceCenter;
-   final center = context.watch<ServiceCenterProvider>();
-    final bookingData = context.watch<BookingSlotViewModel>();
-
-    log(bookingData.selectedTime.toString());
+    final bookingData = context.watch<BookingProvider>();
 
     final bookedDate =
-       bookingData.selectedDate!=null? DateFormat('E, d\'th\' MMMM').format(bookingData.selectedDate!):null;
-
-    
+       bookingData.selectedDate;
+    final package=bookingData.selectedPackages;
+    final car=bookingData.selectedCar;
 
     return Container(
       width: double.infinity,
@@ -43,14 +40,14 @@ class BookingDetailsContainer extends StatelessWidget {
             Text('${centerData.name}', style: AppTextStyles.textH1),
             _turfDetails(
                 icon: Icons.abc,
-                text:'${center.selectedPackages?.name}' ),
-            _turfDetails(icon: Icons.calendar_today_outlined, text: 'date'),
+                text:'${package?.name}' ),
+            _turfDetails(icon: Icons.car_repair, text: car==null?'car':car.brand!),
             _turfDetails(
                 icon: Icons.access_time_rounded,
                 text: bookedDate!),
             _turfDetails(
                 icon: Icons.payments_outlined,
-                text: "₹actualPrice"),
+                text: "₹${package?.price}"),
           ],
         ),
       ),

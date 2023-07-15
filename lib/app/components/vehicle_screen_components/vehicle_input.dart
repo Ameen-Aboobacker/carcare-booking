@@ -1,13 +1,15 @@
 import 'package:carcareuser/app/model/vehicle_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../../user_registration/components/login_button_widget.dart';
-import '../../../user_registration/components/text_form_field.dart';
+import '../../../user_registrations/components/login_button_widget.dart';
+import '../../../user_registrations/components/text_form_field.dart';
 import '../../../utils/global_values.dart';
-import '../../view_model/vehicle_screen.dart';
+import '../../view_model/user_profile_provider.dart';
+import '../../view_model/vehicle_provider.dart';
 
 class VehicleInput extends StatelessWidget {
   final Vehicle? car;
+
   const VehicleInput({
     super.key,
     this.car,
@@ -15,7 +17,8 @@ class VehicleInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vehicleScreenModel = context.read<VehicleScreenModel>();
+    final vehicleScreenModel = context.read<VehicleProvider>();
+        final userprofile = context.read<UserProfileProvider>();
     vehicleScreenModel.brandCtrl.text = car?.brand ?? '';
     vehicleScreenModel.modelCtrl.text = car?.model ?? '';
     vehicleScreenModel.yearCtrl.text = car?.year ?? '';
@@ -66,7 +69,8 @@ class VehicleInput extends StatelessWidget {
                   isDialog: true,
                   onPressed:  car == null
                           ? () {
-                              vehicleScreenModel.addVehicle(context);
+                              vehicleScreenModel.addVehicle(context,userprofile);
+                              userprofile.getUserProfileData();
                             }
                           : () {
                               vehicleScreenModel.update(context, car!.id!);

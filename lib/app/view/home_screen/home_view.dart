@@ -6,7 +6,7 @@ import '../../components/appbar_location.dart';
 import '../../components/home_components/home_header_section.dart';
 import '../../components/home_components/home_service_center.dart';
 import '../../components/home_components/common_packages_widget.dart';
-import '../../view_model/user_profile_view_model.dart';
+import '../../view_model/user_profile_provider.dart';
 
 
 class HomeScreenView extends StatelessWidget {
@@ -14,7 +14,7 @@ class HomeScreenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<UserProfileViewModel>();
+    context.watch<UserProfileProvider>();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +29,7 @@ class HomeScreenView extends StatelessWidget {
             SizedBox(
               width: size.width,
               height: size.height * 0.12,
-              child: const HomeHeaderSection(),
+              child: const  HomeHeaderSection(),
             ),
             
             const HomeCenterWidget(),

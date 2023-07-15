@@ -1,48 +1,53 @@
+import 'dart:developer';
 
 import 'package:carcareuser/app/model/service_center_model.dart';
-import 'package:carcareuser/user_registration/components/text_form_field.dart';
+import 'package:carcareuser/user_registrations/components/text_form_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../view_model/services_view_model.dart';
+import '../view_model/services_provider.dart';
 
 class ServicesView extends StatelessWidget {
-  final ServiceCenter? center;
+  final ServiceCenter center;
   const ServicesView({super.key, required this.center});
 
   @override
   Widget build(BuildContext context) {
-    
+    final sp = context.read<ServicesProvider>();
+    sp.getServices(center.service!);
+    log('length:${center.service!.length.toString()}');
+    log('length:${sp.services!.length}');
+
     // print(centerData.services.toString());
-   
-        
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Services'),
+      
       ),
-      body: Consumer<ServicesProvider>(
-        builder: (context, optionsProvider, _) {
-         optionsProvider.setOptions(context,center!.services);
-         if(optionsProvider.options==null){
-          return const Center(child:CircularProgressIndicator());
-         }
-          return ListView.builder(
-            itemCount: optionsProvider.options!.length,
-            itemBuilder: (context, index) {
-              final option = optionsProvider.options![index];
-
-              return CheckboxListTile(
-                title: Text(option.name),
-                subtitle: Text(option.rate),
-                value: option.isSelected,
-                onChanged: (value) {
-                  optionsProvider.toggleOption(index);
-                },
-              );
-            },
-          );
-        },
-      ),
+      body: sp.services == null
+          ? const Center(child: CircularProgressIndicator())
+          : Consumer<ServicesProvider>(
+            builder: (context,service,_) {
+              return ListView.builder(
+                  itemCount: sp.services!.length,
+                  itemBuilder: (context, index) {
+                    log(sp.services!.length.toString());
+                    final option = sp.services![index];
+                    return ListTile(
+                      title: Text(option.name??''),
+                      subtitle: Text(option.rate!),
+                      trailing: Checkbox(
+                        value: option.isSelected,
+                        onChanged: (value) {
+                          sp.toggleOption(option);
+                        },
+                      ),
+                    );
+                  },
+                );
+            }
+          ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           final optionsProvider =
@@ -57,12 +62,13 @@ class ServicesView extends StatelessWidget {
               title: const Text("Package Name"),
               children: [
                 TextFormWidget(
+                    labelText: 'package name',
                     controller: pnameCtrl,
                     textFieldIcon: Icons.title,
                     keyType: TextInputType.name),
                 ElevatedButton(
                     onPressed: () {
-                      optionsProvider.createPackage(context, center!.id);
+                      optionsProvider.createPackage(context, center.id);
                     },
                     child: const Text('create'))
               ],
