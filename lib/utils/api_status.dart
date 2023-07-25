@@ -1,11 +1,13 @@
+//import '../app/model/vehicle_model.dart';
+
 import '../app/model/vehicle_model.dart';
 
 class Success {
-  List<Vehicle>? data;
+  List<Vehicle> data;
   String? response;
   Success({
     this.response,
-    this.data,
+   this.data=const [],
   });
 }
 

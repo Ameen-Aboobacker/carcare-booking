@@ -1,4 +1,5 @@
 import 'package:carcareuser/utils/providers/provider_classes.dart';
+
 import 'package:carcareuser/utils/routes/navigations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'utils/global_colors.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  Provider.debugCheckInvalidValueType = null;
   runApp(const MyApp());
 }
 
@@ -48,3 +50,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+

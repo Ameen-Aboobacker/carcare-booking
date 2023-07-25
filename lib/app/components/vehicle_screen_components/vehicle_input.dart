@@ -17,6 +17,7 @@ class VehicleInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> inputkey= GlobalKey<FormState>();
     final vehicleScreenModel = context.read<VehicleProvider>();
         final userprofile = context.read<UserProfileProvider>();
     vehicleScreenModel.brandCtrl.text = car?.brand ?? '';
@@ -33,9 +34,11 @@ class VehicleInput extends StatelessWidget {
       ),
       children: [
         Form(
+          key: inputkey,
           child: Column(
             children: [
               TextFormWidget(
+                isvehicle: true,
                 controller: vehicleScreenModel.brandCtrl,
                 keyType: TextInputType.name,
                 textFieldIcon: Icons.car_rental,
@@ -43,6 +46,7 @@ class VehicleInput extends StatelessWidget {
               ),
               AppSizes.kHeight10,
               TextFormWidget(
+                isvehicle: true,
                 controller: vehicleScreenModel.modelCtrl,
                 labelText: 'Model',
                 keyType: TextInputType.name,
@@ -50,13 +54,17 @@ class VehicleInput extends StatelessWidget {
               ),
               AppSizes.kHeight10,
               TextFormWidget(
+                isvehicle: true,
+                isvehiclenumber: true,
                 controller: vehicleScreenModel.numberCtrl,
                 labelText: 'Vehicle Number',
-                keyType: TextInputType.number,
+                keyType: TextInputType.text,
                 textFieldIcon: Icons.car_rental,
               ),
               AppSizes.kHeight10,
               TextFormWidget(
+                isvehicle: true,
+                isyear:true,
                 controller: vehicleScreenModel.yearCtrl,
                 labelText: 'year',
                 keyType: TextInputType.number,
@@ -67,14 +75,20 @@ class VehicleInput extends StatelessWidget {
                 padding: const EdgeInsets.only(left:40,right: 40),
                 child: LoginButtonWidget(
                   isDialog: true,
-                  onPressed:  car == null
-                          ? () {
+                  onPressed: (){
+                    if(inputkey.currentState!.validate()){
+                       if(car == null)
+                           {
                               vehicleScreenModel.addVehicle(context,userprofile);
-                              userprofile.getUserProfileData();
+                              userprofile.getUserData();
                             }
-                          : () {
-                              vehicleScreenModel.update(context, car!.id!);
-                            },
+                            else
+                            {
+                              vehicleScreenModel.update(context, car!.id!,userprofile);
+                              userprofile.getUserData();
+                            }
+                    }
+                  },
                   title: car == null ? 'SAVE VEHICLE' : 'UPDATE',
                 ),
               ),

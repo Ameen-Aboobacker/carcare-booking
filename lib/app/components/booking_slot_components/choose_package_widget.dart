@@ -1,5 +1,4 @@
 
-import 'package:carcareuser/app/view/packages.dart';
 import 'package:carcareuser/app/model/service_center_model.dart';
 import 'package:carcareuser/app/view_model/booking_provider.dart';
 import 'package:carcareuser/utils/global_colors.dart';
@@ -7,6 +6,7 @@ import 'package:carcareuser/utils/global_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/textstyles.dart';
+import '../../view/packages.dart';
 
 
 class ChoosePackageWidget extends StatelessWidget {

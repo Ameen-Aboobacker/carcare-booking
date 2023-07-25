@@ -6,7 +6,7 @@ import 'keys.dart';
 class AccessToken {
   static Future<String?> getAccessToken() async {
     final sharedPref = await SharedPreferences.getInstance();
-    final accessToken = sharedPref.getString(GlobalKeys.accesToken);
+    final accessToken = sharedPref.getString('id');
     return accessToken;
 
   }

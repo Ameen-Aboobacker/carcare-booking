@@ -4,18 +4,18 @@ import '../../utils/global_colors.dart';
 import '../../utils/global_values.dart';
 
 class VenueCardWidget extends StatelessWidget {
-  final String name;
+  final String? name;
   final bool isPackage;
   final String? image;
   const VenueCardWidget({
-    required this.name,
+    this.name,
     super.key,
-    this.isPackage=false, this.image,
+    this.isPackage = false,
+    this.image,
   });
 
   @override
   Widget build(BuildContext context) {
-    
     return InkWell(
       onTap: () async {},
       child: SizedBox(
@@ -23,11 +23,7 @@ class VenueCardWidget extends StatelessWidget {
         child: Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _imageContainer(),
-              AppSizes.kHeight10,
-              _venueDetails()
-            ],
+            children: [_imageContainer(), AppSizes.kHeight10, _venueDetails()],
           ),
         ),
       ),
@@ -39,7 +35,7 @@ class VenueCardWidget extends StatelessWidget {
       children: [
         Center(
           child: Text(
-            name,
+            name??'',
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
             style: const TextStyle(
@@ -49,7 +45,7 @@ class VenueCardWidget extends StatelessWidget {
           ),
         ),
         AppSizes.kHeight20,
-        isPackage? const Text(''): const Text('palazhi , calicut'),
+        isPackage ? const Text('') : const Text('palazhi , calicut'),
       ],
     );
   }
@@ -61,13 +57,15 @@ class VenueCardWidget extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(6),
         color: AppColors.lightGrey,
-        image: image!=null? DecorationImage(
-          image:NetworkImage(image!),
-          fit: BoxFit.cover,
-        ):const DecorationImage(
-          image:AssetImage('assets/newlogo.png'),
-          fit: BoxFit.cover,
-        ),
+        image: image != null
+            ? DecorationImage(
+                image: NetworkImage(image!),
+                fit: BoxFit.cover,
+              )
+            : const DecorationImage(
+                image: AssetImage('assets/newlogo.png'),
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }

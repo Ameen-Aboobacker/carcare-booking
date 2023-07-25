@@ -1,12 +1,7 @@
-import 'dart:developer';
-import 'package:carcareuser/app/model/booking_model.dart';
 import 'package:carcareuser/app/view_model/booking_provider.dart';
 import 'package:flutter/material.dart';
-
 import 'package:carcareuser/utils/global_values.dart';
-import 'package:carcareuser/utils/textstyles.dart';
 import 'package:provider/provider.dart';
-import '../../utils/global_colors.dart';
 import '../components/payment_page_component/booking_details_container.dart';
 import '../components/payment_page_component/booking_policy.dart';
 import '../components/payment_page_component/payment_details_container.dart';
@@ -46,7 +41,12 @@ class ProceedPayView extends StatelessWidget {
         margin: const EdgeInsets.all(20),
         child: ElevatedButton(
           onPressed: () {
-            context.read<BookingProvider>().addBooking(context);
+            showDialog(context: context, builder: (context) {
+              return const Dialog(
+                  child: Center(child: CircularProgressIndicator(),),
+              );
+            },);
+            context.read<BookingProvider>().createRazorpayOrder();
            
           },
           child: const Text("Proceed to pay"),

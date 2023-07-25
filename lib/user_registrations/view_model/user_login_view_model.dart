@@ -44,7 +44,8 @@ class UserLoginViewModel with ChangeNotifier {
   }
 setStatus(String id)async {
   SharedPreferences status=await SharedPreferences.getInstance();
-  status.setString(GlobalKeys.accesToken, id);
+  status.setString('id', id);
+  status.setBool('isLogin', true);
 }
   login(BuildContext context) async {
     final c = FirebaseExceptions(context);

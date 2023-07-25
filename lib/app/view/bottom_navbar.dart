@@ -1,6 +1,8 @@
-import 'package:carcareuser/app/view/services/services.dart';
-import 'package:carcareuser/app/view/service_center/service_center.dart';
+
+import 'package:carcareuser/app/view/Vehicle_Details/vehicle_details.dart';
+import 'package:carcareuser/app/view/bookings_view.dart';
 import 'package:carcareuser/app/view/profile/profile_screen.dart';
+import 'package:carcareuser/app/view/service_center/service_center.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +18,9 @@ class BottomBarView extends StatelessWidget {
     const HomeScreenView(),
     const VehicleDetails(),
     const ServiceCenterScreenView(),
+    const BookingsView(),
     const UserProfileView(),
+ 
   ];
 
   @override
@@ -45,6 +49,7 @@ class BottomBarView extends StatelessWidget {
               Icons.home_outlined,
             ),
           ),
+        
           BottomNavigationBarItem(
             label: "Vehicle",
             icon: Icon(
@@ -55,6 +60,12 @@ class BottomBarView extends StatelessWidget {
             label: "Centers",
             icon: Icon(
             Icons.build_outlined,
+            ),
+          ),
+            BottomNavigationBarItem(
+            label: "Bookings",
+            icon: Icon(
+            Icons.list_alt,
             ),
           ),
           BottomNavigationBarItem(

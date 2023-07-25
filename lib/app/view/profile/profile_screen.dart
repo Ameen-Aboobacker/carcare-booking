@@ -22,7 +22,7 @@ class UserProfileView extends StatelessWidget {
         automaticallyImplyLeading: false,
         title: Text("Profile", style: AppTextStyles.appbarTitle),
       ),
-      body:/*userProfileData == null 
+      body:userProfileData == null 
           ? const Center(child: CircularProgressIndicator()):
           userProfileData.isEmpty()
          ? Center(
@@ -35,7 +35,7 @@ class UserProfileView extends StatelessWidget {
                             });
                       },
                       child: const Text('UPDATE YOUR PROFILE')))
-              :  */Padding(
+              :  Padding(
                   padding: const EdgeInsets.all(15),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

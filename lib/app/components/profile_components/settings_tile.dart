@@ -1,11 +1,8 @@
 import 'package:carcareuser/app/components/profile_components/settings.dart.dart';
-
+import 'package:carcareuser/app/view_model/bottom_nav_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../view_model/user_profile_provider.dart';
-
-
 
 class SettingsListTile extends StatelessWidget {
   const SettingsListTile({
@@ -21,7 +18,7 @@ class SettingsListTile extends StatelessWidget {
           subtitle: "View all your bookings",
           icon: Icons.calendar_month,
           onTap: () {
-            
+            context.read<BottomBarProvider>().bottomOnChanged(3);
           },
         ),
         ProfileSettings(
@@ -48,14 +45,12 @@ class SettingsListTile extends StatelessWidget {
           title: "Logout",
           icon: Icons.logout,
           onTap: () {
-           Provider.of<UserProfileProvider>(context,listen:false).signOut(context);
+            context.read<UserProfileProvider>().signOut(context);
           },
         ),
       ],
     );
   }
-
-
 
   /* void openWhatsappChat(String phoneNumber) async {
     String whatsappUrl = 'https://wa.me/$phoneNumber';

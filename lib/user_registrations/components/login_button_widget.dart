@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:carcareuser/utils/global_colors.dart';
 
+//import '../../app/view_model/vehicle_provider.dart';
 import '../../app/view_model/vehicle_provider.dart';
 import '../view_model/sign_up_view_model.dart';
 import '../view_model/user_login_view_model.dart';
@@ -38,10 +39,12 @@ class LoginButtonWidget extends StatelessWidget {
       ),
       onPressed: onPressed,
       child: isDialog?
-          vehicleScreenModel.isLoading? const CircularProgressIndicator(
-              strokeWidth: 3,
-              color: AppColors.white,
-            )
+          vehicleScreenModel.isLoading? const Center(
+            child: CircularProgressIndicator(
+                strokeWidth: 3,
+                color: AppColors.white,
+              ),
+          )
           :Text(
               title,
               style: const TextStyle(

@@ -29,7 +29,7 @@ class ChooseVehicleWidget extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(left: 30, top: 20),
             child: car == null
-                ? Text('Pick a date', style: AppTextStyles.textH2)
+                ? Text('Pick a vehicle', style: AppTextStyles.textH2)
                 : Text(
                     "${car.brand} - ${car.number}",
                     style: AppTextStyles.textH3,

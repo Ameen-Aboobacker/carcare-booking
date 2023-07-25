@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:carcareuser/utils/routes/auth_service.dart';
@@ -26,7 +27,7 @@ class SignUpViewModel with ChangeNotifier {
   UserSignupModel? _userData;
   File? _image;
 
-  UserProvider? userp;
+  UserProvider? userp=UserProvider();
 
   bool get isShowPassword => _isShowPassword;
   bool get isShowConfPassword => _isShowConfPassword;
@@ -65,11 +66,14 @@ class SignUpViewModel with ChangeNotifier {
     final exception = FirebaseExceptions(context);
     setLoading(true);
     final userData = userSignupData();
-    final response = await userp!.signUp(userData, context);
+    final response = await userp!.signUp(userData);
     setLoading(false);
     if (response is Success) {
+      final user=response.data;
+      log('sign id:${user?.id}');
+      setSignupStatus(user!.id!);
       navigator.pushNamedAndRemoveUntil(
-          NavigatorClass.homeScreen, (route) => false);
+          NavigatorClass.mainScreen, (route) => false);
     }
     if (response is Failure) {
       exception.cases(response.errorResponse!);
@@ -80,8 +84,8 @@ class SignUpViewModel with ChangeNotifier {
 
   setSignupStatus(String accessToken) async {
     final status = await SharedPreferences.getInstance();
-    await status.setBool(GlobalKeys.userSignedUp, true);
-    await status.setString(GlobalKeys.accesToken, accessToken);
+    await status.setBool('signedUp', true);
+    await status.setString('id', accessToken);
   }
 
   clearPassword() {

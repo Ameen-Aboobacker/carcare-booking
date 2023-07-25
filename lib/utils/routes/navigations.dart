@@ -1,17 +1,13 @@
-
 import 'package:carcareuser/app/view/bottom_navbar.dart';
 import 'package:carcareuser/app/view/home_screen/home_view.dart';
 import 'package:carcareuser/app/view/payment_proceed_view.dart';
+import 'package:carcareuser/app/view/payment_success_view.dart';
 import 'package:carcareuser/app/view/service_center/center_details_view.dart';
 import 'package:flutter/material.dart';
-
-
 import '../../user_registrations/view/forget_password_view.dart';
 import '../../user_registrations/view/login_view.dart';
 import '../../user_registrations/view/sign_up_view.dart';
 import '../../user_registrations/view/splash.dart';
-
-
 
 class NavigatorClass {
   static const homeScreen = "/homeScreen";
@@ -22,8 +18,9 @@ class NavigatorClass {
   static const mainScreen = "/bottomBarView";
   static const packagesScreen = "/PackagesScreen";
   static const myBookingsView = "/MyBookingView";
-   static const centerDetailsView = "/centerDetailsView";
-   static const paymentScreen = "/paymentScreen";
+  static const centerDetailsView = "/centerDetailsView";
+  static const paymentScreen = "/paymentScreen";
+   static const paymentSuccessView = "/paymentSuccess";
 
   static Map<String, Widget Function(BuildContext)> routes() {
     Map<String, Widget Function(BuildContext)> routes = {
@@ -33,9 +30,9 @@ class NavigatorClass {
       "/homeScreen": (context) => const HomeScreenView(),
       "/forgetPass": (context) => ForgetPasswordScreen(),
       "/bottomBarView": (context) => BottomBarView(),
-       "/centerDetailsView": (context) => const CenterDetailsView(),
-       "/paymentScreen": (context) => const ProceedPayView(),
-     
+      "/centerDetailsView": (context) => const CenterDetailsView(),
+      "/paymentScreen": (context) => const ProceedPayView(),
+      "/paymentSuccess": (context) => const PaymentSuccessView(),
     };
 
     return routes;

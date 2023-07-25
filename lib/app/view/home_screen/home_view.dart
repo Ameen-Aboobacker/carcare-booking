@@ -1,3 +1,4 @@
+import 'package:carcareuser/app/view_model/user_profile_provider.dart';
 import 'package:carcareuser/utils/global_values.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +7,8 @@ import '../../components/appbar_location.dart';
 import '../../components/home_components/home_header_section.dart';
 import '../../components/home_components/home_service_center.dart';
 import '../../components/home_components/common_packages_widget.dart';
-import '../../view_model/user_profile_provider.dart';
+import '../../view_model/bottom_nav_provider.dart';
+//import '../../view_model/user_profile_provider.dart';
 
 
 class HomeScreenView extends StatelessWidget {
@@ -14,7 +16,7 @@ class HomeScreenView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<UserProfileProvider>();
+    context.watch<UserProfileProvider>().getUserData();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +33,7 @@ class HomeScreenView extends StatelessWidget {
               height: size.height * 0.12,
               child: const  HomeHeaderSection(),
             ),
-            
+          
             const HomeCenterWidget(),
             AppSizes.kHeight20,
             const CommonPackagesWidget()

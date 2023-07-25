@@ -40,14 +40,15 @@ class VehicleProvider extends ChangeNotifier {
   }
   
    deleteCar(String docid)async {
+    setLoading(true);
     log(docid);
-    final String? id =await AccessToken.getAccessToken();
-       final path=db.collection('user').doc(id).collection('cars');
-       await path.doc(docid).delete();
-       //await getVehicleData();
+      final uid = await AccessToken.getAccessToken();
+      firebase.deletCars(docid,uid);
+
        notifyListeners();
+        setLoading(false);
    }
-    getVehicleData(List<String> carIds) async {
+    getVehicleData(List<String>? carIds) async {
      // final String? id =await AccessToken.getAccessToken();
     final response =await firebase.getCars(carIds);
         if(response is Success){
@@ -64,31 +65,31 @@ class VehicleProvider extends ChangeNotifier {
     final car = setvehicle();
     final response=await firebase.addCars(id!, car);
     navigator.pop();
-    await user.getUserProfileData();
+    await user.getUserData();
     final carids=user.userProfileData!.cars;
     await getVehicleData(carids!);
     setLoading(false);
     clear();
     notifyListeners();
   }
-  update(BuildContext context,String docID)async{
+  update(BuildContext context,String docID,UserProfileProvider userp)async{
+    
      SnackBarWidget snackbar=SnackBarWidget(context);
     setLoading(true);
      final navigator=Navigator.of(context);
-    final String? id =await AccessToken.getAccessToken(); 
     final vehicle = setvehicle();
     vehicle.id=docID;
-    final path=db.collection('user').doc(id).collection('cars');
-    await path.doc(docID).update(vehicle.toMap()).then((value)async{
-      snackbar.snackBar(message:'hello');
-    // await getVehicleData(ca);
+    final path=db.collection('cars');
+   
+    await path.doc(docID).update(vehicle.toMap());
+      final carids=userp.userProfileData!.cars;
+     await getVehicleData(carids!);
+      snackbar.snackBar(message:'vehicle updated');
       navigator.pop();
     setLoading(false);
     
     clear();
     
-   
-    });
     
     notifyListeners();
 

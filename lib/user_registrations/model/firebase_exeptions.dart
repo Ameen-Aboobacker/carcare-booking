@@ -15,7 +15,7 @@ class FirebaseExceptions {
         break;
 
       case "user-not-found":
-        snackbar.snackBar(message:"invalid user");
+        snackbar.snackBar(message:"email not registered");
         break;
 
       case "network-request-failed":

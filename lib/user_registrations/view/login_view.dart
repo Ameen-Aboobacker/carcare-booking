@@ -13,23 +13,11 @@ import '../../utils/global_colors.dart';
 import '../../utils/global_values.dart';
 import '../../utils/textstyles.dart';
 
-class UserLoginScreen extends StatefulWidget {
+class UserLoginScreen extends StatelessWidget {
   const UserLoginScreen({super.key});
-
-  @override
-  State<UserLoginScreen> createState() => _UserLoginScreenState();
-}
-
-class _UserLoginScreenState extends State<UserLoginScreen> {
-  late final GlobalKey<FormState> loginKey;
-  @override
-  void initState() {
-    loginKey = GlobalKey<FormState>();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> loginKey = GlobalKey<FormState>();
     final loginModel = context.read<UserLoginViewModel>();
 
     return Scaffold(
@@ -86,9 +74,9 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                                   route: ForgetPasswordScreen(),
                                 ),
                               );
-                              context
+                              /* context
                                   .read<UserLoginViewModel>()
-                                  .clearController();
+                                  .clearController();*/
                             },
                             child: const Text(
                               "Forgot Password?",
@@ -130,7 +118,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                       AppSizes.kHeight10,
                       InkWell(
                         onTap: () async {
-                          loginModel.firebaseGoogleAuth(context);
+                          //loginModel.firebaseGoogleAuth(context);
                         },
                         child: Container(
                           width: double.infinity,
@@ -144,13 +132,13 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                           ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const[
-                             /* Padding(
+                            children: const [
+                              /* Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.asset("assets/google-logo.png"),
                               ),*/
                               AppSizes.kWidth20,
-                               Text(
+                              Text(
                                 "Continue with google",
                                 style: TextStyle(
                                   color: AppColors.appColor,
@@ -171,7 +159,7 @@ class _UserLoginScreenState extends State<UserLoginScreen> {
                               route: const UserSignUpScreen(),
                             ),
                           );
-                          context.read<UserLoginViewModel>().clearController();
+                          //context.read<UserLoginViewModel>().clearController();
                         },
                         leftText: "Don't have account? ",
                         rightText: "Register",

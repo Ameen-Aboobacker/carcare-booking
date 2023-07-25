@@ -1,6 +1,9 @@
 class Validator {
   static String? textFieldValidator({
     String? value,
+     required bool isvehicle,
+      required bool isyear,
+       required bool isvehiclenum,
     required bool isUser,
     required bool isemail,
     required bool isPhone,
@@ -46,7 +49,17 @@ class Validator {
         return "Should contain atleast one\nspecial character eg.(!@#\$&*~)";
       }
     }
-
+     if(isvehicle&&(value==null||value.isEmpty)){
+        return  'Field is required';
+     }
+      if(isvehiclenum&&!value!.startsWith('KL')){
+        return  'Car number starts with KL';
+     }
+      if(isyear){
+        if(int.parse(value!)>2023){
+return  'Enter a Valid year';
+        }
+     }
     if (isConfPass) {
       if (value == null || value.isEmpty) {
         return "Enter the Confirm password";

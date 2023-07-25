@@ -31,7 +31,6 @@ class UserSignUpScreen extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // SvgPicture.asset("assets/login_top.svg"),
           Container(
             width: size.width,
             height: size.height,
@@ -70,7 +69,7 @@ class SignupFormWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
      final formKey = GlobalKey<FormState>();
-     final signUpProvider = context.watch<SignUpViewModel>();
+     final signUpProvider = Provider.of<SignUpViewModel>(context,listen: false);
     TextEditingController userNameController =
         signUpProvider.userNameController;
     TextEditingController phoneController = signUpProvider.phoneController;
@@ -135,13 +134,8 @@ class SignupFormWidget extends StatelessWidget {
             // AppSizes.kHeight40,
             LoginButtonWidget(
               title: "CREATE ACCOUNT",
-              onPressed: userNameController.text.isEmpty ||
-                      phoneController.text.isEmpty ||
-                      passController.text.isEmpty ||
-                      confirfPassController.text.isEmpty ||
-                      userEmailController.text.isEmpty
-                  ? null
-                  : () async {
+              onPressed: 
+                  () async {
                       if (formKey.currentState!.validate()) {
                         await context
                             .read<SignUpViewModel>()

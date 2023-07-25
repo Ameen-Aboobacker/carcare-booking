@@ -1,9 +1,8 @@
+
 import 'package:carcareuser/utils/routes/navigations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
-
-import '../../utils/routes/auth_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/global_colors.dart';
 import '../../utils/global_values.dart';
 
@@ -14,13 +13,16 @@ class SplashScreenSample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<UserProvider>(context);
 
-    Future.delayed(const Duration(seconds: 2), () {
-      if (provider.status == AuthStatus.authenticated) {
-        Navigator.pushReplacementNamed(context, NavigatorClass.mainScreen);
+    Future.delayed(const Duration(seconds: 2), () async{
+        final nav = Navigator.of(context);
+      final status = await SharedPreferences.getInstance();
+      final bool? sign = status.getBool('isLogin');
+        final bool? up = status.getBool('signedUp');
+      if ((sign != null && sign == true)||(up!=null&&up==true)) {
+        nav.pushReplacementNamed(NavigatorClass.mainScreen);
       } else {
-        Navigator.pushReplacementNamed(context, NavigatorClass.loginScreen);
+        nav.pushReplacementNamed(NavigatorClass.loginScreen);
       }
     });
 

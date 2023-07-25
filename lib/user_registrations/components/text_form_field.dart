@@ -22,6 +22,9 @@ class TextFormWidget extends StatelessWidget {
   final bool isUser;
   final bool ismail;
   final bool isbottom;
+  final bool isvehicle;
+  final bool isvehiclenumber;
+  final bool isyear;
   const TextFormWidget({
     super.key,
     required this.controller,
@@ -36,6 +39,9 @@ class TextFormWidget extends StatelessWidget {
     this.isUser = false,
     this.ismail = false,
      this.isbottom = false,
+     this.isvehicle=false,
+     this.isyear=false,
+     this.isvehiclenumber=false,
   });
 
   @override
@@ -78,6 +84,10 @@ class TextFormWidget extends StatelessWidget {
             isLoginPass: isLoginPass,
             passController: passController.text,
             isemail: ismail,
+            isvehicle:isvehicle,
+            isvehiclenum: isvehiclenumber,
+            isyear: isyear,
+
           );
         },
         decoration: InputDecoration(

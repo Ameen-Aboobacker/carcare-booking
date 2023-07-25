@@ -4,6 +4,10 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+/*import '../../app/model/booking_model.dart';
+import '../../app/model/package_model.dart';
+import '../../app/model/user_profile_data_modle.dart';
+import '../../app/model/vehicle_model.dart';*/
 import '../../app/model/booking_model.dart';
 import '../../app/model/package_model.dart';
 import '../../app/model/user_profile_data_modle.dart';
@@ -67,7 +71,7 @@ class FirebaseServices{
     
   }
 
-  Future getCars(List<String> carIds) async{
+  Future getCars(List<String>? carIds) async{
     try {
          final path=db.collection('cars');
     final snapshot =
@@ -79,7 +83,24 @@ class FirebaseServices{
       return Failure(errorResponse: e.toString());
     }
   }
+
+  Future deletCars(String carId,userid) async{
+    log(userid);
+    final carPath=db.collection('cars');
+    final userPath=db.collection('user');
+    final elements=[carId];
+    log(elements.toString());
+    try {
+         
+        await carPath.doc(carId).delete();
+        await userPath.doc(userid).update({'cars':FieldValue.arrayRemove([carId])});
+        return Success();
+    } catch (e) {
+      return Failure(errorResponse: e.toString());
+    }
+  }
   Future addBooking(Booking booking) async{
+    log('adding to database');
    final userpath = db.collection('user').doc(booking.userId);
     final centerpath= db.collection('service center').doc(booking.sId);
     final path=db.collection('bookings');

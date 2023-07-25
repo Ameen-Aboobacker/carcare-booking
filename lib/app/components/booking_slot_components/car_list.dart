@@ -15,14 +15,15 @@ class CarListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final booking = context.watch<BookingProvider>();
     final userProfile=context.watch<UserProfileProvider>();
-userProfile.getUserProfileData();
+userProfile.getUserData();
 final carData=userProfile.userProfileData!.cars;
     return Consumer<VehicleProvider>(
         builder: (context, vehicleScreenModel, _) {
           vehicleScreenModel.getVehicleData(carData!);
-      return AlertDialog(
+      return SimpleDialog(
         title: const Text('Your Vehicles'),
-        content: Column(
+        children: [
+          Column(
           children: vehicleScreenModel.vehicleData!.map((service) {
             return RadioListTile<Vehicle>(
               title: Text(service.brand!),
@@ -39,11 +40,13 @@ final carData=userProfile.userProfileData!.cars;
             );
           }).toList(),
         ),
-        actions: [
-          ElevatedButton(onPressed: () {
-            booking.setCars(vehicleScreenModel.selectedVehicle!);
-            Navigator.of(context).pop();
-          }, child: const Text('OK')),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 90 ),
+            child: ElevatedButton(onPressed: () {
+              booking.setCars(vehicleScreenModel.selectedVehicle!);
+              Navigator.of(context).pop();
+            }, child: const Text('OK')),
+          ),
         ],
       );
     });
