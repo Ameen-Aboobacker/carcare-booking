@@ -43,7 +43,7 @@ class HomeCenterWidget extends StatelessWidget {
                     padding:  const EdgeInsets.only(left: 15),
                     child: VenueCardWidget(
                       image:center.image,
-                      name: center.name,
+                      center: center,
                     ),
                   );
                 },

@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:carcareuser/app/components/bookings_components/warning_alert_box.dart';
 import 'package:carcareuser/app/view_model/my_booking_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -6,9 +7,10 @@ import '../../../utils/global_colors.dart';
 import '../../../utils/global_values.dart';
 import '../../../utils/textstyles.dart';
 import '../../model/booking_model.dart';
+import '../../view_model/booking_provider.dart';
 
 class BookingCard extends StatelessWidget {
- final Booking bookingData;
+  final Booking bookingData;
   const BookingCard({
     super.key,
     required this.bookingData,
@@ -16,119 +18,144 @@ class BookingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   
-    return Card(
-        
-          elevation: 0,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: double.infinity,
-              height: 150,
-              decoration: BoxDecoration(
-                color: AppColors.white,
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Column(
-                children: [
-                     _cardTopSide(context: context,booking:bookingData),
-                     _cardBottomSide(bookingData),
-                ],
-              )
-              
-            ),
-          ),
-        );
-   
-  }
-
-  Expanded _cardBottomSide(Booking booking) {
-    return Expanded(
-      flex: 2,
+    final size = MediaQuery.of(context).size;
+    return Container(
+      padding: const EdgeInsets.all(10),
+      color: Colors.white,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                children: [
-                  const Icon(
-                    Icons.person,
-                    color: Colors.blueAccent,
-                    size: 20,
-                  ),
-                  Text(
-                    booking.car??'',
-                    style: AppTextStyles.textH4,
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  const Icon(
-                    Icons.add_moderator,
-                    color:AppColors.appColor,
-                    size: 18,
-                  ),
-                  AppSizes.kWidth5,
-                  Text(
-                    booking.package?? '',
-                    style: AppTextStyles.textH5,
-                  ),
-                ],
-              ),
-            ],
+          Row(
+            children: [AppSizes.kWidth10, _turfDetailsContainer(size, context)],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Text(
-                booking.status??'',
-                style: AppTextStyles.textH4grey,
-              ),
-             Text(
-                '${booking.rate}',
-                style:const TextStyle(
-                  color: AppColors.appColor,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 16,
-                ),
-              ),
-            ],
-          )
+          const Spacer(),
+          _cardTrailing(context)
         ],
       ),
     );
   }
 
-  Expanded _cardTopSide({
-    required BuildContext context,
-    required Booking booking,
-  }) {
-    return Expanded(
-      flex: 4,
+  Column _cardTrailing(BuildContext context) {
+    String? orderId;
+    String? refund;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              'serviceDate:${bookingData.bookedDate}',
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 12,
+                color: AppColors.black,
+              ),
+            ),
+            AppSizes.kHeight10,
+            Text(
+              '${ValueAmount.rupees}${bookingData.package.price}',
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                fontSize: 15,
+                color: AppColors.black,
+              ),
+            ),
+          ],
+        ),
+        AppSizes.kHeight10,
+        /* orderId == null
+            ? const Text(
+                "Invalid booking",
+                style: TextStyle(
+                    color: AppColors.grey,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12),
+              )
+            : refund == "processed"
+                ? const Text(
+                    "Refunded",
+                    style: TextStyle(
+                        color: AppColors.red,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 12),
+                  )
+                
+                    : */
+        Padding(
+          padding: const EdgeInsets.only(bottom: 5),
+          child: SizedBox(
+            height: 25,
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                backgroundColor: AppColors.red,
+              ),
+              onPressed: () {
+                AlertBoxWidget.alertBox(
+                    context: context,
+                    blockButton: () {},
+                    blockStatus: true,
+                    title: "Booking",
+                    blockText: "Cancel",
+                    buttonText: "Confirm");
+              },
+              child: const Text("Cancel"),
+            ),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _turfDetailsContainer(Size size, BuildContext context) {
+    final car = '${bookingData.car.model}-${bookingData.car.number}';
+    return SizedBox(
+      height: 90,
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Column(
+          SizedBox(
+            width: size.width * 0.35,
+            child: Text(
+              '${bookingData.sId.name}',
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+            ),
+          ),
+          Row(
             children: [
-             
+              const Icon(
+                Icons.location_on,
+                size: 16,
+                color: AppColors.appColor,
+              ),
               Text(
-                booking.sId??"",
-                style: AppTextStyles.textH4,
+                '${bookingData.sId.place} ${bookingData.sId.district}',
+                style: AppTextStyles.textH5grey,
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              const Icon(
+                Icons.add_moderator,
+                size: 16,
+              ),
+              Text(
+                "${bookingData.package.name}",
+                style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14,),
               ),
             ],
           ),
           Text(
-            booking.date??"",
-            style: AppTextStyles.textH5,
+            car,
+            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
           ),
         ],
       ),
     );
   }
 }
- 

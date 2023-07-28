@@ -30,6 +30,12 @@ class BookingProvider with ChangeNotifier {
   String get selectedRadioButton => _selectedRadioButton;
   PackageModel? get selectedPackages => _selectedPackages;
   Vehicle? get selectedCar => _selectedCar;
+   final _razorpay = Razorpay();
+
+  String? paymentId;
+  String? orderId;
+  String? signature;
+  String? generatedId;
 
   setPackages(PackageModel package) {
     _selectedPackages = package;
@@ -43,12 +49,7 @@ class BookingProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  final _razorpay = Razorpay();
-
-  String? paymentId;
-  String? orderId;
-  String? signature;
-  String? generatedId;
+ 
  
 
   Future<void> createRazorpayOrder() async {

@@ -13,7 +13,7 @@ class PaymentSuccessView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final paymentViewModel = context.watch<ProceedPaymentViewModel>();
+    final paymentViewModel = context.watch<BookingProvider>();
     log("Order id : ${paymentViewModel.orderId}");
     return WillPopScope(
       onWillPop: () async {

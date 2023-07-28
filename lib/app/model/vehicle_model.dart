@@ -34,7 +34,7 @@ class Vehicle {
   int get hashCode => brand.hashCode ^ model.hashCode;
 
   factory Vehicle.fromSnapshot(DocumentSnapshot<Map<String,dynamic>> document) {
-    final data = document.data()!;
+    final data = document.data()??{};
     return Vehicle(
       id:data['id'],
       brand: data["Brand"],

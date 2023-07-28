@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../utils/global_colors.dart';
 import '../../utils/global_values.dart';
+import '../model/service_center_model.dart';
 
 class VenueCardWidget extends StatelessWidget {
-  final String? name;
+  final ServiceCenter? center;
   final bool isPackage;
   final String? image;
   const VenueCardWidget({
-    this.name,
+    this.center,
     super.key,
     this.isPackage = false,
     this.image,
@@ -35,7 +36,7 @@ class VenueCardWidget extends StatelessWidget {
       children: [
         Center(
           child: Text(
-            name??'',
+            center?.name??'',
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
             style: const TextStyle(
@@ -45,7 +46,7 @@ class VenueCardWidget extends StatelessWidget {
           ),
         ),
         AppSizes.kHeight20,
-        isPackage ? const Text('') : const Text('palazhi , calicut'),
+        isPackage ? const Text('') : Text('${center?.place} , ${center?.district}'),
       ],
     );
   }

@@ -1,12 +1,8 @@
-import 'dart:developer';
-
 import 'package:carcareuser/app/model/service_center_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
 import '../model/booking_model.dart';
 import '../model/package_model.dart';
-import '../model/user_profile_data_modle.dart';
 import '../model/vehicle_model.dart';
 
 class MyBookingsViewModel extends ChangeNotifier {
@@ -19,58 +15,35 @@ class MyBookingsViewModel extends ChangeNotifier {
   Future getBookings(List<String> bookingIds) async {
     final bookingsCollection =
         FirebaseFirestore.instance.collection('bookings');
-    final querySnapshot =
-        await bookingsCollection.where('id', whereIn: bookingIds).get();
+    final querySnapshot = await bookingsCollection
+        .where(FieldPath.documentId, whereIn: bookingIds)
+        .where('status', isEqualTo: 'pending')
+        .get();
 
-   final bookings =  querySnapshot.docs.map((doc){
+    final bookings = querySnapshot.docs.map((doc) {
       final booking = Booking.fromSnapshot(doc);
       return booking;
     }).toList();
-    
-     await fetchBookingDetails(bookings);
+
+    await fetchBookingDetails(bookings);
     _booking = bookings;
     notifyListeners();
   }
 
-   Future fetchBookingDetails(List <Booking> bookings) async {
+  fetchBookingDetails(List<Booking> bookings) async {
     final firestore = FirebaseFirestore.instance;
+    final carcollection = firestore.collection('cars');
+    final packagecollection = firestore.collection('packages');
+    final centercollection = firestore.collection('service center');
 
-      // Fetch Car details
-     for (var booking in bookings) {
-        final carSnapshot =
-          await firestore.collection('cars').doc(booking.car).get();
-      if (carSnapshot.exists) {
-        booking.car = Vehicle.fromSnapshot(carSnapshot)
-            .model;
-      }
-
-      // Fetch Center details
-      final centerSnapshot =
-          await firestore.collection('service center').doc(booking.sId).get();
-      if (centerSnapshot.exists) {
-        booking.sId = ServiceCenter.fromSnapshot(centerSnapshot)
-            .name;
-      }
-
-      // Fetch User details
-      final userSnapshot =
-          await firestore.collection('users').doc(booking.userId).get();
-      if (userSnapshot.exists) {
-        booking.userId = UserProfileDataModel.fromSnapshot(userSnapshot)
-            .name;
-      }
-
-      // Fetch Package details
-      final packageSnapshot =
-          await firestore.collection('packages').doc(booking.package).get();
-      if (packageSnapshot.exists) {
-        booking.package =
-            PackageModel.fromDocumentSnapshot(packageSnapshot).name;
-        booking.rate = PackageModel.fromDocumentSnapshot(packageSnapshot)
-            .price;
-      }
-     }
-    notifyListeners();
+    for (var booking in bookings) {
+      final cardoc = await carcollection.doc(booking.car).get();
+      booking.car = Vehicle.fromSnapshot(cardoc);
+      final packdoc = await packagecollection.doc(booking.package).get();
+      booking.package = PackageModel.fromDocumentSnapshot(packdoc);
+      final servicedoc = await centercollection.doc(booking.sId).get();
+      booking.sId = ServiceCenter.fromSnapshot(servicedoc);
+    }
   }
 
   setBookingLoading(bool value) {

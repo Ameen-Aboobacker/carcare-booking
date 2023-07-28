@@ -6,9 +6,6 @@ import '../../../utils/global_colors.dart';
 import '../../components/appbar_location.dart';
 import '../../components/home_components/home_header_section.dart';
 import '../../components/home_components/home_service_center.dart';
-import '../../components/home_components/common_packages_widget.dart';
-import '../../view_model/bottom_nav_provider.dart';
-//import '../../view_model/user_profile_provider.dart';
 
 
 class HomeScreenView extends StatelessWidget {
@@ -36,7 +33,6 @@ class HomeScreenView extends StatelessWidget {
           
             const HomeCenterWidget(),
             AppSizes.kHeight20,
-            const CommonPackagesWidget()
           ],
         ),
       ),

@@ -1,15 +1,16 @@
+import 'package:carcareuser/app/model/package_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Booking {
   dynamic id;
-  String? userId;
-  String? sId;
-  String? package;
-  String? bookedDate;
-  String? date;
-  String? car;
-  String? status;
-  String? rate; 
+  dynamic userId;
+  dynamic sId;
+  dynamic package;
+  dynamic bookedDate;
+  dynamic date;
+  dynamic car;
+  dynamic status;
+  dynamic rate; 
 
   Booking({
     this.id,
@@ -50,4 +51,7 @@ class Booking {
       userId: bookingData['uid'],
     );
   }
+  
 }
+
+

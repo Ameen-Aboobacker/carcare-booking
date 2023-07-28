@@ -42,7 +42,6 @@ class ServicesProvider with ChangeNotifier {
     final servicess =
     
         snapshot.docs.map((e) => ServiceModel.fromSnapshot(e)).toList();
-    log('ser:$serviceIds');
     _services = servicess;
     notifyListeners();
   }

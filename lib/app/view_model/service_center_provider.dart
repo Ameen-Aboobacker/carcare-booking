@@ -7,9 +7,12 @@ import 'package:geolocator/geolocator.dart';
 import '../model/service_center_model.dart';
 
 class ServiceCenterProvider with ChangeNotifier {
+  
   ServiceCenterProvider() {
     getServiceCenterList();
   }
+
+  String _selected='services';
   List<ServiceCenter> _serviceCenterList = [];
   FirebaseFirestore db = FirebaseFirestore.instance;
 late ServiceCenter _serviceCenter;
@@ -17,13 +20,17 @@ late ServiceCenter _serviceCenter;
 
   ServiceCenter get serviceCenter => _serviceCenter;
   bool get isLoading => _isLoading;
- 
+  String get selected=>_selected;
   Position? _currentPosition;
   bool _isVenueListLoading = false;
 
   List<ServiceCenter> get serviceCenterList => _serviceCenterList;
   Position? get currentPosition => _currentPosition;
   bool get isVenueListLoading => _isVenueListLoading;
+  setSelected(String value){
+    _selected=value;
+    notifyListeners();
+  }
 
   getServiceCenterList() async {
     setVenueListLoading(true);

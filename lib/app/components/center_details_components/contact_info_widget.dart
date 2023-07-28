@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../utils/global_colors.dart';
 
 
@@ -38,7 +39,7 @@ class CenterContactInfo extends StatelessWidget {
         ),
         OutlinedButton(
             onPressed: () async{
-             
+             openCaller();
             },
             style: ButtonStyle(
               shape: MaterialStateProperty.all(
@@ -51,5 +52,11 @@ class CenterContactInfo extends StatelessWidget {
             child: const Icon(Icons.call)),
       ],
     );
-  }
+  } // Replace this with the phone number you want to call
+
+void openCaller() {
+  final url = 'tel:$contact';
+
+  launchUrl(Uri.parse(url));
+}
 }

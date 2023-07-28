@@ -13,10 +13,10 @@ class ProceedPaymentViewModel with ChangeNotifier {
   final _razorpay = Razorpay();
   String? amount;
   String? paymentId;
-  String? orderId;
+  String? _orderId;
   String? signature;
   String? generatedId;
-
+  String? get orderId=>_orderId;
   setAmount(BookingProvider booking){
     amount =booking.selectedPackages?.price;
   }
@@ -85,7 +85,7 @@ class ProceedPaymentViewModel with ChangeNotifier {
 
   void _handlePaymentSuccess(PaymentSuccessResponse response) {
     paymentId = response.paymentId;
-    orderId = response.orderId;
+    _orderId = response.orderId;
     signature = response.signature;
     log('orderId: $orderId, signature: $signature');
     getProceedPayment();

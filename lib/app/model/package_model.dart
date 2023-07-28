@@ -31,7 +31,7 @@ class PackageModel {
   int get hashCode => name.hashCode ^ price.hashCode;
   factory PackageModel.fromDocumentSnapshot(
       DocumentSnapshot<Map<String, dynamic>> snapshot) {
-    final data = snapshot.data()!;
+    final data = snapshot.data()??{};
     return PackageModel(true,
       name: data['name'],
       sid: data["sid"],
@@ -41,6 +41,7 @@ class PackageModel {
       userid: data['userId'],
     );
   }
+
 
   Map<String, dynamic> toMap() {
     return {

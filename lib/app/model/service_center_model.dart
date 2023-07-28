@@ -49,7 +49,7 @@ class ServiceCenter {
       email: data['mail'],
       contact: data['contact'],
       district: data["district"],
-      place: data["place"],
+      place: data["Place"],
       description: data["description"],
       image: data['imagePath'],
       service:ses,

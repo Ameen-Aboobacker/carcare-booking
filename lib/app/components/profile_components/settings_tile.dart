@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:carcareuser/app/components/profile_components/settings.dart.dart';
 import 'package:carcareuser/app/view_model/bottom_nav_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../view_model/user_profile_provider.dart';
 
 class SettingsListTile extends StatelessWidget {
@@ -26,7 +29,7 @@ class SettingsListTile extends StatelessWidget {
           subtitle: "Contact us on whatsapp",
           icon: Icons.help,
           onTap: () {
-            //openWhatsappChat(myMobile);
+            openWhatsappChat('8606044404');
           },
         ),
         ProfileSettings(
@@ -52,8 +55,8 @@ class SettingsListTile extends StatelessWidget {
     );
   }
 
-  /* void openWhatsappChat(String phoneNumber) async {
-    String whatsappUrl = 'https://wa.me/$phoneNumber';
+  void openWhatsappChat(String phoneNumber) async {
+    String whatsappUrl = 'https://wa.me/91$phoneNumber';
     try {
       if (await canLaunchUrl(Uri.parse(whatsappUrl))) {
         await launchUrl(Uri.parse(whatsappUrl),
@@ -62,6 +65,5 @@ class SettingsListTile extends StatelessWidget {
     } catch (e) {
       log(e.toString());
     }
-  }*/
+  }
 }
-// Navigator.pushNamed(context, NavigatorClass.myBookingsView);
