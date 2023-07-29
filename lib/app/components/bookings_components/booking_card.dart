@@ -7,7 +7,6 @@ import '../../../utils/global_colors.dart';
 import '../../../utils/global_values.dart';
 import '../../../utils/textstyles.dart';
 import '../../model/booking_model.dart';
-import '../../view_model/booking_provider.dart';
 
 class BookingCard extends StatelessWidget {
   final Booking bookingData;
@@ -35,8 +34,6 @@ class BookingCard extends StatelessWidget {
   }
 
   Column _cardTrailing(BuildContext context) {
-    String? orderId;
-    String? refund;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,22 +83,7 @@ class BookingCard extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 5),
           child: SizedBox(
             height: 25,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                elevation: 0,
-                backgroundColor: AppColors.red,
-              ),
-              onPressed: () {
-                AlertBoxWidget.alertBox(
-                    context: context,
-                    blockButton: () {},
-                    blockStatus: true,
-                    title: "Booking",
-                    blockText: "Cancel",
-                    buttonText: "Confirm");
-              },
-              child: const Text("Cancel"),
-            ),
+            child: Text(bookingData.status,style: const TextStyle(color:Colors.grey,fontWeight: FontWeight.bold),),
           ),
         )
       ],
