@@ -12,10 +12,13 @@ class BookingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userData = context.watch<UserProfileProvider>();
-
+    final bookingData=context.watch<MyBookingsViewModel>();
     final bookings = userData.userProfileData?.bookings;
-    int bookingCount = bookings?.length ?? 0;
-
+   // print('book :$bookings true:${bookings!.isNotEmpty}');
+    if(bookings!.isNotEmpty){
+      bookingData.getBookings(bookings);
+    }
+int bookingCount = bookingData.count;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.appColor,
@@ -44,9 +47,12 @@ class BookingsView extends StatelessWidget {
         ),
         child: SafeArea(
           child:
-              Consumer<MyBookingsViewModel>(
+              /*Consumer<MyBookingsViewModel>(
                   builder: (context, userProvider, _) {
-                    userProvider.getBookings(bookings!);
+                     if (bookings == null){
+                      return const Center(child: Text('No bookings available'));
+                     }
+                    userProvider.getBookings(bookings);
                      if (userProvider.booking == null){
                       return const Center(child: CircularProgressIndicator(),);
                      }
@@ -54,24 +60,27 @@ class BookingsView extends StatelessWidget {
                         userProvider.booking!.isEmpty) {
                       return const Center(child: Text('No bookings available'));
                     }
-                    return Padding(
+                    return */
+                  
+                  bookings.isEmpty? const Center(child: Text('No bookings available')):
+                       Padding( 
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: ListView.separated(
                           shrinkWrap: true,
                           physics: const ScrollPhysics(),
-                          itemCount: userProvider.booking!.length,
+                          itemCount: bookingData.booking.length,
                           separatorBuilder: (context, index) =>
                               AppSizes.kHeight10,
                           itemBuilder: (context, index) {
-                            final booking = userProvider.booking![index];
+                            final booking = bookingData.booking[index];
 
                             return BookingCard(
                               bookingData: booking,
                             );
                           }),
-                    );
-                  },
-                ),
+                    ),
+                 /* },
+                ),*/
         ),
       ),
     );

@@ -28,9 +28,8 @@ class UserSignupModel {
         "contact": mobile,
         "district": district,
         'imagePath': imagePath,
-        'description': description,
-        "Place": place,
         "sid": id,
         'services':services,
+        'email':email,
       };
 }

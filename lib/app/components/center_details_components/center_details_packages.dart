@@ -1,3 +1,4 @@
+import 'package:carcareuser/app/view_model/user_profile_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,15 +13,18 @@ class PackagesWidget extends StatelessWidget {
   final String? centerID;
   @override
   Widget build(BuildContext context) {
+    final packagesIds=context.watch<UserProfileProvider>().userProfileData?.packages;
     final packages = context.watch<ServicesProvider>();
-    packages.getPackages(centerID!);
-    if (packages.packages == null) {
-      return const Center(child: CircularProgressIndicator());
-    } else if (packages.packages!.isEmpty) {
+  
+    if (packagesIds==null||packages.packages.isEmpty) {
       return const Text('You have no packages');
     }
+    else if(packagesIds.isEmpty){
+     return const Center(child: CircularProgressIndicator(),);
+   }
+     packages.getPackages(packagesIds,centerID!);
     return Column(
-        children: packages.packages!
+        children: packages.packages
             .map(
               (packages) =>  Padding(
                 padding: const EdgeInsets.fromLTRB(8,10,8,0),

@@ -46,10 +46,11 @@ class FirebaseServices{
       Failure(errorResponse: e.toString());
     }
   }
-  Future getPackages(String id,String sid)async {
+  Future getPackages(List packageids,center)async {
      final snapshot = await db
         .collection('packages')
-        .where('sid', isEqualTo: sid)
+        .where(FieldPath.documentId, whereIn: packageids)
+        .where('sid',isEqualTo: center)
         .get();
     final packageList =
         snapshot.docs.map((e) => PackageModel.fromDocumentSnapshot(e)).toList();
@@ -73,6 +74,7 @@ class FirebaseServices{
 
   Future getCars(List<String>? carIds) async{
     try {
+      log(carIds.toString());
          final path=db.collection('cars');
     final snapshot =
         await path.where(FieldPath.documentId,whereIn: carIds).get();

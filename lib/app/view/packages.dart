@@ -7,12 +7,15 @@ import 'package:carcareuser/utils/global_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../view_model/user_profile_provider.dart';
+
 class Packages extends StatelessWidget {
   final ServiceCenter? center;
   const Packages({Key? key, required this.center}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final packagesids=context.watch<UserProfileProvider>().userProfileData?.packages;
    final s=Provider.of<ServicesProvider>(context);
      final booking=Provider.of<BookingProvider>(context);
     return Scaffold(
@@ -39,15 +42,16 @@ class Packages extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(13, 25, 13, 0),
           child: Consumer<ServicesProvider>(
             builder: (context, serviceProvider, _) {
-              serviceProvider.getPackages(center!.id!);
-              return serviceProvider.packages == null
-                  ? const Center(
-                      child: CircularProgressIndicator(),
+              
+              return packagesids==null||serviceProvider.packages.isEmpty
+                  ? const Center(child: Text('Create New packages'))
+                   
+                  : packagesids.isEmpty
+                      ? const Center(
+                      child: CircularProgressIndicator()
                     )
-                  : serviceProvider.packages!.isEmpty
-                      ? const Center(child: Text('Create New packages'))
                       : Column(
-                          children: serviceProvider.packages!.map((service) {
+                          children: serviceProvider.packages.map((service) {
                             return RadioListTile<PackageModel>(
                               title: Text(service.name!),
                               subtitle: Text(service.price!),

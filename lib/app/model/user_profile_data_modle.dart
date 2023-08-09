@@ -45,14 +45,12 @@ class UserProfileDataModel {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
-        "mobile": mobile,
+        "contact": mobile,
         "email": email,
       };
 
   bool isEmpty() {
-    if (id == null || name == null || mobile == null) {
-      return true;
-    }
+ 
     return false;
   }
 }

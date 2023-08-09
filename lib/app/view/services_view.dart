@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:carcareuser/app/model/service_center_model.dart';
 import 'package:carcareuser/user_registrations/components/text_form_field.dart';
+import 'package:carcareuser/utils/global_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,7 +41,7 @@ class ServicesView extends StatelessWidget {
                       trailing: Checkbox(
                         value: option.isSelected,
                         onChanged: (value) {
-                          sp.toggleOption(option);
+                          Provider.of<ServicesProvider>(context,listen: false).toggleOption(option);
                         },
                       ),
                     );
@@ -48,7 +49,8 @@ class ServicesView extends StatelessWidget {
                 );
             }
           ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: AppColors.appColor,
         onPressed: () {
           final optionsProvider =
               Provider.of<ServicesProvider>(context, listen: false);
@@ -75,7 +77,7 @@ class ServicesView extends StatelessWidget {
             ),
           );
         },
-        child: const Icon(Icons.done),
+        label:Text('create'),
       ),
     );
   }

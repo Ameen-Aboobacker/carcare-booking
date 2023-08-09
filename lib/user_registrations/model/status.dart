@@ -1,11 +1,10 @@
 
 
 import 'package:carcareuser/app/model/user_profile_data_modle.dart';
-import 'package:carcareuser/user_registrations/model/user_signup_model.dart';
 
 class Success {
     UserProfileDataModel? userdata;
-  UserSignupModel? data;
+  UserProfileDataModel? data;
   String? response;
   Success({
 this.data,

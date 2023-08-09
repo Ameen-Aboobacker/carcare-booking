@@ -32,7 +32,7 @@ final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   AuthStatus get status => _status;
   User? get user => _user;
 
-  Future signUp(UserSignupModel userData) async {
+  Future signUp(UserProfileDataModel userData) async {
     try {
       final userCredential = await _auth.createUserWithEmailAndPassword(
           email: userData.email!, password: userData.password!);

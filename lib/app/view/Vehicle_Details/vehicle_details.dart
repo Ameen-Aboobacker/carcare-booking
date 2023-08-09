@@ -34,6 +34,11 @@ class VehicleDetails extends StatelessWidget {
           final user = context.watch<UserProfileProvider>();
           final userdata = user.userProfileData;
           final carIds = userdata?.cars;
+           if (carIds==null) {
+                return Center(
+                    child: Text('ADD YOUR VEHICLE DETAILS',
+                        style: AppTextStyles.loginText));
+              }
           value.getVehicleData(carIds);
           if(value.isLoading){
             return const Center(child: CircularProgressIndicator());

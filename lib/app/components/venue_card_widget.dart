@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../utils/global_colors.dart';
 import '../../utils/global_values.dart';
+import '../../utils/routes/navigations.dart';
 import '../model/service_center_model.dart';
+import '../view_model/service_center_provider.dart';
 
 class VenueCardWidget extends StatelessWidget {
   final ServiceCenter? center;
@@ -18,7 +21,11 @@ class VenueCardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () async {},
+      onTap: () async {
+                          final navigator = Navigator.of(context);
+        await context.read<ServiceCenterProvider>().getSingleCenter(center!.id!);
+        navigator.pushNamed(NavigatorClass.centerDetailsView);
+                      },
       child: SizedBox(
         width: 150,
         child: Card(

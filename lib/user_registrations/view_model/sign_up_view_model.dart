@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:carcareuser/app/model/user_profile_data_modle.dart';
 import 'package:carcareuser/utils/routes/auth_service.dart';
 import 'package:carcareuser/user_registrations/model/firebase_exeptions.dart';
 import 'package:carcareuser/user_registrations/model/user_signup_model.dart';
@@ -93,8 +94,8 @@ class SignUpViewModel with ChangeNotifier {
     confirfPassController.clear();
   }
 
-  UserSignupModel userSignupData() {
-    final body = UserSignupModel(
+  UserProfileDataModel userSignupData() {
+    final body = UserProfileDataModel(
       name: userNameController.text,
       email: emailController.text,
       mobile: phoneController.text,

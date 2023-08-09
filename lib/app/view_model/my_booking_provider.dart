@@ -7,8 +7,8 @@ import '../model/vehicle_model.dart';
 
 class MyBookingsViewModel extends ChangeNotifier {
   int count = 0;
-  List<Booking>? _booking;
-  List<Booking>? get booking => _booking;
+  List<Booking> _booking=[];
+  List<Booking> get booking => _booking;
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
@@ -24,7 +24,7 @@ class MyBookingsViewModel extends ChangeNotifier {
       final booking = Booking.fromSnapshot(doc);
       return booking;
     }).toList();
-
+    count=bookings.length;
     await fetchBookingDetails(bookings);
     _booking = bookings;
     notifyListeners();

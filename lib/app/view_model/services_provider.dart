@@ -21,8 +21,8 @@ class ServicesProvider with ChangeNotifier {
   List<ServiceModel>? get services => _services;
   Map<String, dynamic> _selectedoptions = {};
   Map<String, dynamic> get selectedOptions => _selectedoptions;
-  List<PackageModel>? _packages;
-  List<PackageModel>? get packages => _packages;
+  List<PackageModel> _packages=[];
+  List<PackageModel> get packages => _packages;
   int l = 0;
 
   PackageModel? selectedPackages;
@@ -53,9 +53,8 @@ class ServicesProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  getPackages(String sid) async {
-    final id = await AccessToken.getAccessToken();
-    final response = await firebase.getPackages(id!, sid);
+  getPackages(List<String> packages,String sid) async {
+    final response = await firebase.getPackages(packages,sid);
     if (response != null) {
       _packages = response;
     }
@@ -94,12 +93,12 @@ class ServicesProvider with ChangeNotifier {
     if (respone is Success) {
       navigator.pop();
       navigator.pop();
-      await getPackages(serviceid);
+      //await getPackages(serviceid);
     }
     if (respone is Failure) {
       navigator.pop();
       //SnackBarWidget.snackBar(context, respone.errorResponse.toString());
-      await getPackages(serviceid);
+      //await getPackages(serviceid);
     }
 
     notifyListeners();

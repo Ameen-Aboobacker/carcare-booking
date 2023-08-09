@@ -24,7 +24,7 @@ class BookingCard extends StatelessWidget {
       child: Row(
         children: [
           Row(
-            children: [AppSizes.kWidth10, _turfDetailsContainer(size, context)],
+            children: [AppSizes.kWidth10, _bookingDetailsContainer(size, context)],
           ),
           const Spacer(),
           _cardTrailing(context)
@@ -90,7 +90,7 @@ class BookingCard extends StatelessWidget {
     );
   }
 
-  Widget _turfDetailsContainer(Size size, BuildContext context) {
+  Widget _bookingDetailsContainer(Size size, BuildContext context) {
     final car = '${bookingData.car.model}-${bookingData.car.number}';
     return SizedBox(
       height: 90,
