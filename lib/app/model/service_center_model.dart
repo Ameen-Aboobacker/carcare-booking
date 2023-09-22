@@ -1,8 +1,6 @@
-import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../view_model/services_provider.dart';
 
 class ServiceCenter {
   String? name;

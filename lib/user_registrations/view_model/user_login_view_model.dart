@@ -96,7 +96,7 @@ setStatus(String id)async {
     } on PlatformException catch (e) {
       log(e.code);
       snackbar.snackBar(message:e.code);
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       // FirebaseExceptions.cases(e, context);
     }
     notifyListeners();

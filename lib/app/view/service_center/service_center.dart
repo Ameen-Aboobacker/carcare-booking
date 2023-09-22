@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../../../utils/global_colors.dart';
 import '../../../utils/global_values.dart';
 import '../../components/appbar_location.dart';
-import '../../model/service_center_model.dart';
 
 
 class ServiceCenterScreenView extends StatelessWidget {

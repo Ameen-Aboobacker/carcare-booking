@@ -4,10 +4,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-/*import '../../app/model/booking_model.dart';
-import '../../app/model/package_model.dart';
-import '../../app/model/user_profile_data_modle.dart';
-import '../../app/model/vehicle_model.dart';*/
+
 import '../../app/model/booking_model.dart';
 import '../../app/model/package_model.dart';
 import '../../app/model/user_profile_data_modle.dart';

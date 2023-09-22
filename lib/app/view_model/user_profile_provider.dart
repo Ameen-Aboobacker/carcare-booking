@@ -11,7 +11,6 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../user_registrations/components/snackbar.dart';
 import '../../utils/routes/navigations.dart';
-import '../model/booking_model.dart';
 
 
 class UserProfileProvider with ChangeNotifier {

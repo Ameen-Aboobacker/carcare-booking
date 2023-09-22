@@ -1,10 +1,8 @@
 //import 'dart:developer';
 
 //import 'package:carcareuser/app/model/user_profile_data_modle.dart';
-import 'dart:developer';
 
 import 'package:carcareuser/user_registrations/model/user_login_model.dart';
-import 'package:carcareuser/user_registrations/model/user_signup_model.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

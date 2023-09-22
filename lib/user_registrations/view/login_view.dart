@@ -101,8 +101,8 @@ class UserLoginScreen extends StatelessWidget {
                         title: "LOGIN",
                       ),
                       AppSizes.kHeight20,
-                      Row(
-                        children: const [
+                      const Row(
+                        children: [
                           Expanded(
                             child: Divider(thickness: 1.5),
                           ),
@@ -130,9 +130,9 @@ class UserLoginScreen extends StatelessWidget {
                               width: 1.0,
                             ),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
+                            children: [
                               /* Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.asset("assets/google-logo.png"),

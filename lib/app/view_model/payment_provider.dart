@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 import '../../utils/razorpay.dart';
-import '../model/payment.dart';
 
 
 class ProceedPaymentViewModel with ChangeNotifier {

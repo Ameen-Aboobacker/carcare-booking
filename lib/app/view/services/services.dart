@@ -1,7 +1,6 @@
 import 'package:carcareuser/app/model/vehicle_model.dart';
 import 'package:carcareuser/app/view_model/vehicle_provider.dart';
 import 'package:carcareuser/utils/global_colors.dart';
-import 'package:carcareuser/utils/textstyles.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -91,7 +90,7 @@ class VehicleDetails extends StatelessWidget {
           showDialog(
               context: context,
               builder: (cntxt) {
-                return VehicleInput();
+                return const VehicleInput();
               });
         },
         label: const Text('Add Vehicles'),

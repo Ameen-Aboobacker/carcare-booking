@@ -1,4 +1,3 @@
-import 'package:carcareuser/app/model/package_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Booking {

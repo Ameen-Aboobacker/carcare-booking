@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:carcareuser/app/model/booking_model.dart';
-import 'package:carcareuser/user_registrations/components/snackbar.dart';
 import 'package:carcareuser/user_registrations/view_model/firebase_services.dart';
-import 'package:carcareuser/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';

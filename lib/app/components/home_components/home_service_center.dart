@@ -1,11 +1,9 @@
 //import 'package:carcareuser/app/model/service_center_model.dart';
 //import 'package:carcareuser/app/view_model/service_center_provider.dart';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../utils/global_values.dart';
-import '../../../utils/routes/navigations.dart';
 import '../../model/service_center_model.dart';
 import '../../view_model/bottom_nav_provider.dart';
 //import '../venue_card_widget.dart';

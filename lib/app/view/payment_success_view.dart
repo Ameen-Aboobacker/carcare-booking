@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import '../../utils/global_colors.dart';
 import '../../utils/routes/navigations.dart';
 import '../view_model/booking_provider.dart';
-import '../view_model/payment_provider.dart';
 
 class PaymentSuccessView extends StatelessWidget {
   const PaymentSuccessView({super.key});

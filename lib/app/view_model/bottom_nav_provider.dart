@@ -1,9 +1,7 @@
-import 'dart:developer';
 
 import 'package:carcareuser/app/model/user_profile_data_modle.dart';
 import 'package:carcareuser/user_registrations/model/status.dart';
 import 'package:carcareuser/utils/routes/auth_service.dart';
-import 'package:carcareuser/utils/routes/navigations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

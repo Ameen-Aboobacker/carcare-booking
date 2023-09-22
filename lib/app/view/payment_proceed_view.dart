@@ -18,11 +18,11 @@ class ProceedPayView extends StatelessWidget {
           "Payment",
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+      body: const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
           child: Column(
-            children: const [
+            children: [
               AppSizes.kHeight20,
               BookingDetailsContainer(),
               AppSizes.kHeight10,

@@ -1,8 +1,4 @@
-import 'dart:developer';
-import 'package:carcareuser/app/components/bookings_components/warning_alert_box.dart';
-import 'package:carcareuser/app/view_model/my_booking_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../../../utils/global_colors.dart';
 import '../../../utils/global_values.dart';
 import '../../../utils/textstyles.dart';
