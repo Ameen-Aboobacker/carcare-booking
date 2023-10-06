@@ -15,7 +15,7 @@ class BookingsView extends StatelessWidget {
     final bookingData=context.watch<MyBookingsViewModel>();
     final bookings = userData.userProfileData?.bookings;
    // print('book :$bookings true:${bookings!.isNotEmpty}');
-    if(bookings!.isNotEmpty){
+    if(bookings!=null&&bookings.isNotEmpty){
       bookingData.getBookings(bookings);
     }
 int bookingCount = bookingData.count;
@@ -62,17 +62,17 @@ int bookingCount = bookingData.count;
                     }
                     return */
                   
-                  bookings.isEmpty? const Center(child: Text('No bookings available')):
+                  bookings==null||bookings.isEmpty? const Center(child: Text('No bookings available')):
                        Padding( 
                       padding: const EdgeInsets.symmetric(horizontal: 12),
                       child: ListView.separated(
                           shrinkWrap: true,
                           physics: const ScrollPhysics(),
-                          itemCount: bookingData.booking.length,
+                          itemCount: bookingData.booking!.length,
                           separatorBuilder: (context, index) =>
                               AppSizes.kHeight10,
                           itemBuilder: (context, index) {
-                            final booking = bookingData.booking[index];
+                            final booking = bookingData.booking![index];
 
                             return BookingCard(
                               bookingData: booking,

@@ -14,8 +14,10 @@ class UserProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final profileviewmodel = Provider.of<UserProfileProvider>(context,listen: false);
-    
+ 
     final userProfileData = profileviewmodel.userProfileData;
+       if (userProfileData!=null) {
+       }
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.white,

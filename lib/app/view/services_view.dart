@@ -24,40 +24,51 @@ class ServicesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Services'),
-      
       ),
       body: sp.services == null
           ? const Center(child: CircularProgressIndicator())
-          : Consumer<ServicesProvider>(
-            builder: (context,service,_) {
-              return ListView.builder(
-                  itemCount: sp.services!.length,
-                  itemBuilder: (context, index) {
-                    log(sp.services!.length.toString());
-                    final option = sp.services![index];
+          : ListView.builder(
+              itemCount: sp.services!.length,
+              itemBuilder: (context, index) {
+                log(sp.services!.length.toString());
+                final option = sp.services![index];
+
+                return Consumer<ServicesProvider>(
+                  builder: (context, service, _) {
                     return ListTile(
-                      title: Text(option.name??''),
+                      title: Text(option.name ?? ''),
                       subtitle: Text(option.rate!),
-                      trailing: Checkbox(
-                        value: option.isSelected,
-                        onChanged: (value) {
-                          Provider.of<ServicesProvider>(context,listen: false).toggleOption(option);
-                        },
-                      ),
+                      trailing: Container(
+                          child: service.selectedservices.contains(option.id)
+                              ? IconButton(
+                                  icon: const Icon(
+                                    Icons.check_box,
+                                    color: Colors.black54,
+                                  ),
+                                  onPressed: () {
+                                    service.removeSelectedServices(option.id!);
+                                  },
+                                )
+                              : IconButton(
+                                  icon: const Icon(
+                                    Icons.check_box_outline_blank,
+                                    color: Colors.black54,
+                                  ),
+                                  onPressed: () {
+                                    service.setSelectedServices(option.id!);
+                                  },
+                                )),
                     );
                   },
                 );
-            }
-          ),
+              }),
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: AppColors.appColor,
         onPressed: () {
           final optionsProvider =
               Provider.of<ServicesProvider>(context, listen: false);
           final pnameCtrl = optionsProvider.packageNameCtrl;
-          optionsProvider.getSelectedOptions();
-          final selectedOptions = optionsProvider.selectedOptions;
-          print(selectedOptions);
+         optionsProvider.getSelectedOptions();
           showDialog(
             context: context,
             builder: (context) => SimpleDialog(
@@ -77,7 +88,7 @@ class ServicesView extends StatelessWidget {
             ),
           );
         },
-        label:const Text('create'),
+        label: const Text('create'),
       ),
     );
   }

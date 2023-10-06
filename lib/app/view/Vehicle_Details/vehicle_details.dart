@@ -1,4 +1,3 @@
-
 import 'package:carcareuser/app/view_model/user_profile_provider.dart';
 
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class VehicleDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<UserProfileProvider>().getUserData();
+  
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -33,51 +32,57 @@ class VehicleDetails extends StatelessWidget {
           final user = context.watch<UserProfileProvider>();
           final userdata = user.userProfileData;
           final carIds = userdata?.cars;
-           if (carIds==null) {
-                return Center(
-                    child: Text('ADD YOUR VEHICLE DETAILS',
-                        style: AppTextStyles.loginText));
-              }
+          if (carIds == null) {
+            return Center(
+                child: Text('ADD YOUR VEHICLE DETAILS',
+                    style: AppTextStyles.loginText));
+          }
           value.getVehicleData(carIds);
-          if(value.isLoading){
+          if (value.isLoading) {
             return const Center(child: CircularProgressIndicator());
           }
-           if (value.vehicleData == null) {
-                return const Center(child: CircularProgressIndicator());
-              } else if (value.vehicleData!.isEmpty) {
-                return Center(
-                    child: Text('ADD YOUR VEHICLE DETAILS',
-                        style: AppTextStyles.loginText));
-              }
+          if (value.vehicleData == null) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (value.vehicleData!.isEmpty) {
+            return Center(
+                child: Text('ADD YOUR VEHICLE DETAILS',
+                    style: AppTextStyles.loginText));
+          }
           return ListView.separated(
             itemBuilder: (context, index) {
-             
-              Vehicle service = value.vehicleData![index];
-              return ListTile(
-                leading: const CircleAvatar(),
-                title: Text(service.brand ?? "NO"),
-                subtitle: Text(service.number ?? 'no'),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (cntxt) {
-                              return VehicleInput(car: service);
-                            });
-                      },
-                      icon: const Icon(Icons.edit),
-                    ),
-                    IconButton(
-                      onPressed: () {
-                        value.deleteCar(service.id!);
-                        user.getUserData();
-                      },
-                      icon: const Icon(Icons.delete),
-                    ),
-                  ],
+              Vehicle car = value.vehicleData![index];
+              return Container(
+                margin: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                    color: AppColors.appColor,
+                    border: Border.all(),
+                    borderRadius: BorderRadius.circular(20)),
+                child: ListTile(
+                  leading: CircleAvatar(child:Text('${index+1}')),
+                  title: Text(car.brand ?? "NO",style: TextStyle(color: Colors.white),),
+                  subtitle: Text(car.number ?? 'no',style: TextStyle(color: Colors.white),),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (cntxt) {
+                                return VehicleInput(car: car);
+                              });
+                        },
+                        icon: const Icon(Icons.edit,color: Colors.white,),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          value.deleteCar(car.id!);
+                          // user.getUserData();
+                        },
+                        icon: const Icon(Icons.delete,color: Colors.white),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },

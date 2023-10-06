@@ -130,15 +130,15 @@ class UserLoginScreen extends StatelessWidget {
                               width: 1.0,
                             ),
                           ),
-                          child: const Row(
+                          child:  Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              /* Padding(
+                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Image.asset("assets/google-logo.png"),
-                              ),*/
+                              ),
                               AppSizes.kWidth20,
-                              Text(
+                             const Text(
                                 "Continue with google",
                                 style: TextStyle(
                                   color: AppColors.appColor,

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carcareuser/app/model/package_model.dart';
 import 'package:carcareuser/app/model/service_center_model.dart';
 import 'package:carcareuser/app/view/services_view.dart';
@@ -15,9 +17,12 @@ class Packages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final packagesids=context.watch<UserProfileProvider>().userProfileData?.packages;
-   final s=Provider.of<ServicesProvider>(context);
-     final booking=Provider.of<BookingProvider>(context);
+   
+        final user=context.read<UserProfileProvider>();
+        user.getUserData();
+         final packagesids =user.userProfileData!.packages;
+    final s = Provider.of<ServicesProvider>(context);
+    final booking = Provider.of<BookingProvider>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -28,13 +33,14 @@ class Packages extends StatelessWidget {
         ),
         centerTitle: true,
         actions: [
-          s.selectedPackages==null?
-          const SizedBox()
-          :IconButton(onPressed: (){
-            booking.setPackages(s.selectedPackages!);
-            Navigator.pop(context);
-
-          }, icon: const Icon(Icons.done_outlined))
+          s.selectedPackages == null
+              ? const SizedBox()
+              : IconButton(
+                  onPressed: () {
+                    booking.setPackages(s.selectedPackages!);
+                    Navigator.pop(context);
+                  },
+                  icon: const Icon(Icons.done_outlined))
         ],
       ),
       body: SafeArea(
@@ -42,31 +48,29 @@ class Packages extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(13, 25, 13, 0),
           child: Consumer<ServicesProvider>(
             builder: (context, serviceProvider, _) {
-              
-              return packagesids==null||serviceProvider.packages.isEmpty
-                  ? const Center(child: Text('Create New packages'))
-                   
-                  : packagesids.isEmpty
-                      ? const Center(
-                      child: CircularProgressIndicator()
-                    )
-                      : Column(
-                          children: serviceProvider.packages.map((service) {
-                            return RadioListTile<PackageModel>(
-                              title: Text(service.name!),
-                              subtitle: Text(service.price!),
-                              value: service,
-                              groupValue: serviceProvider.selectedPackages,
-                              onChanged: (value) {
-                                if (value == serviceProvider.selectedPackages) {
-                                  serviceProvider.setPackages(null);
-                                } else {
-                                  serviceProvider.setPackages(value!);
-                                }
-                              },
-                            );
-                          }).toList(),
+              if (packagesids == null) {
+                return SizedBox();
+              }
+              serviceProvider.getPackages(packagesids, center!.id!);
+              return packagesids.isEmpty
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView (
+                      children: serviceProvider.packages.map((service) {
+                        return RadioListTile<PackageModel>(
+                          title: Text(service.name!),
+                          subtitle: Text(service.price!),
+                          value: service,
+                          groupValue: serviceProvider.selectedPackages,
+                          onChanged: (value) {
+                            if (value == serviceProvider.selectedPackages) {
+                              serviceProvider.setPackages(null);
+                            } else {
+                              serviceProvider.setPackages(value!);
+                            }
+                          },
                         );
+                      }).toList(),
+                    );
             },
           ),
         ),

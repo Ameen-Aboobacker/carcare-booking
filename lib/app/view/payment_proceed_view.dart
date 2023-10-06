@@ -40,13 +40,9 @@ class ProceedPayView extends StatelessWidget {
         width: double.infinity,
         margin: const EdgeInsets.all(20),
         child: ElevatedButton(
-          onPressed: () {
-            showDialog(context: context, builder: (context) {
-              return const Dialog(
-                  child: Center(child: CircularProgressIndicator(),),
-              );
-            },);
-            context.read<BookingProvider>().createRazorpayOrder();
+          onPressed: ()async {
+           
+            await context.read<BookingProvider>().createRazorpayOrder();
            
           },
           child: const Text("Proceed to pay"),

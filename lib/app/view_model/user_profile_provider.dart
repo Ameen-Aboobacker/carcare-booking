@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:carcareuser/app/model/user_profile_data_modle.dart';
 import 'package:carcareuser/app/view_model/bottom_nav_provider.dart';
 import 'package:carcareuser/user_registrations/model/status.dart';
@@ -65,9 +67,12 @@ class UserProfileProvider with ChangeNotifier {
     SharedPreferences status=await SharedPreferences.getInstance();
     final id=status.getString('id');
     final result= await userProvider.getUserData(id);
+
     if(result is Success){
     _userProfileData=result.userdata;
+     
     }
+
      notifyListeners();
   }
   signOut(BuildContext context)async{

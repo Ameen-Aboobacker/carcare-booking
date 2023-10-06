@@ -40,7 +40,7 @@ class FirebaseServices{
     await userpath.update({'package':FieldValue.arrayUnion([docId.id]),});
     return Success();
     } catch (e) {
-      Failure(errorResponse: e.toString());
+     return  Failure(errorResponse: e.toString());
     }
   }
   Future getPackages(List packageids,center)async {

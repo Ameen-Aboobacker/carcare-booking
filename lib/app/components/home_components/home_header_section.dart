@@ -18,6 +18,7 @@ class HomeHeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
  final UserProfileDataModel? userData= context.watch<UserProfileProvider>().userProfileData;
+// print(userData?.packages!.toString());
     return userData==null?const SizedBox():Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

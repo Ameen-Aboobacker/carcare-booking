@@ -26,7 +26,7 @@ class UserProfileDataModel {
     final data = snapshot.data()!;
     List? se = data['cars'];
     final ses = se?.map((e) => e.toString()).toList();
-    List? packageData = data['packages'];
+    List? packageData = data['package'];
     final packages = packageData?.map((e) => e.toString()).toList();
     List? bookData = data['bookings'];
     final bookings = bookData?.map((e) => e.toString()).toList();

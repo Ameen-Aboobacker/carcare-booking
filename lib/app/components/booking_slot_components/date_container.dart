@@ -1,4 +1,6 @@
 
+import 'dart:developer';
+
 import 'package:carcareuser/app/view_model/booking_provider.dart';
 import 'package:carcareuser/utils/textstyles.dart';
 import 'package:flutter/material.dart';
@@ -33,10 +35,17 @@ class DateContainerWidget extends StatelessWidget {
         ),
         IconButton(
           onPressed: () {
+           
             showDatePicker(
+             /* selectableDayPredicate: (day) {
+                if (day.weekday==7) {
+                  return false;
+                }
+                return true;
+              },*/
               context: context,
-              initialDate: DateTime.parse('2023-07-16'),
-              firstDate: DateTime.parse('2023-07-16'),
+              initialDate: DateTime.now().add(const Duration(days:2)),
+              firstDate: DateTime.now().add(const Duration(days:2)),
               lastDate: DateTime.now().add(const Duration(days: 40)),
               builder: (context, child) {
                 return Theme(
@@ -54,12 +63,17 @@ class DateContainerWidget extends StatelessWidget {
                 );
               },
             ).then((selectedDate) {
-              if (selectedDate != null) {
+              if (selectedDate != null&&selectedDate.weekday!=DateTime.sunday) {
+                log(DateTime.sunday.toString());
                 booking.setSelectedDate(
                   selectedDate,
                 );
               }
+                else if (selectedDate != null&&selectedDate.weekday==DateTime.sunday) {
+              log('its Sunday');
+              }
             });
+
           },
           icon: const Icon(Icons.calendar_month_outlined,
               size: 30, color: AppColors.appColor),
